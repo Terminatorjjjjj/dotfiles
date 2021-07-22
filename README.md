@@ -1,6 +1,13 @@
 # My Terminal Setting
 
-[TOC]
+* [My Terminal Setting](#my-terminal-setting)
+   * [Issue](#issue)
+   * [Common Git Command](#common-git-command)
+   * [Create TOC](#create-toc)
+   * [References](#references)
+      * [vim](#vim)
+      * [tmux](#tmux)
+      * [markdown](#markdown)
 
 ## Issue
 - [ ] cannot display vim statusline color in mac
@@ -15,6 +22,11 @@ git commit -m "<commit>"
 git push [-u] origin master
 ```
 
+## Create TOC
+```bash
+./gh-md-toc <markdown>
+```
+
 ## References
 ### vim
 + [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
@@ -25,3 +37,5 @@ git push [-u] origin master
 ### tmux
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)
 
+### markdown
++ [github markdown toc](https://github.com/ekalinin/github-markdown-toc)
