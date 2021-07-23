@@ -5,6 +5,7 @@
    * [Common Git Command](#common-git-command)
    * [Create TOC](#create-toc)
    * [References](#references)
+      * [terminal](#terminal)
       * [vim](#vim)
       * [tmux](#tmux)
       * [markdown](#markdown)
@@ -28,10 +29,13 @@ git push [-u] origin master
 ```
 
 ## References
+### terminal
++ [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
+
 ### vim
 + [vimrv config full guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
 + [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
-+ [monokai colorscheme for vim](https://github.com/sickill/vim-monokai)
++ [vim molokai colorscheme](https://github.com/tomasr/molokai)
 + [statusline tutorial](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [statusline example](https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b)
 
