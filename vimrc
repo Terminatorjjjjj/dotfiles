@@ -26,21 +26,27 @@ augroup numbertoggle
 augroup END
 
 syntax enable
-colorscheme monokai
+" colorscheme monokai
+colorscheme molokai
+let g:molokai_original=1
 set guifont=Consolos:h16
 
-autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh setf=verilog
-autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh set syntax=verilog
+augroup set_file_type
+   autocmd!
+"    autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setf=bash
+   autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh setf=verilog
+   autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh set syntax=verilog
+augroup END
 
-augroup comment
+augroup comment_group_of_code
    autocmd!
    autocmd FileType c,cpp,java,scala,verilog let b:comment_leader = '// '
-   autocmd FileType sh,ruby,python,make      let b:comment_leader = '# '
+   autocmd FileType bash,sh,ruby,python,make let b:comment_leader = '# '
    autocmd FileType tex,matlab               let b:comment_leader = '% '
    autocmd FileType vim                      let b:comment_leader = '" '
 augroup END
-noremap <silent> cc :<C-B>silent <C-E>s/^/<C-R>escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> cc :<C-B>silent <C-E>s/^\V/<C-R>escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 set laststatus=2
 set statusline=
@@ -52,4 +58,14 @@ set statusline+=%3*\ %p%%
 set statusline+=%3*\ [%c:%l/%L]
 
 inoremap jj <Esc>
+nnoremap <space> :
 
+" Enable auto completion menu after pressing TAB.
+set wildmenu
+
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx

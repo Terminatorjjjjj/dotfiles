@@ -29,6 +29,7 @@ git push [-u] origin master
 
 ## References
 ### vim
++ [vimrv config full guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
 + [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
 + [monokai colorscheme for vim](https://github.com/sickill/vim-monokai)
 + [statusline tutorial](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
