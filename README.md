@@ -21,6 +21,7 @@ git remote --global user.name <git user name>
 git add .
 git commit -m "<commit>"
 git push [-u] origin master
+git remote remove origin
 ```
 
 ## Create TOC
