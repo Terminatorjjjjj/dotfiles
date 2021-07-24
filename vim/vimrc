@@ -1,8 +1,8 @@
 set nocompatible " must be first
 
 set runtimepath^=~/.vim/bundle/tabular
-set runtimepath^=~/.vim/bundle/vim-easy-align
-set runtimepath^=~/.vim/bundle/rainbow_parentheses.vim
+set runtimepath^=~/.vim/bundle/easy_align
+set runtimepath^=~/.vim/bundle/rainbow_parentheses
 
 set ai
 set backspace=2
