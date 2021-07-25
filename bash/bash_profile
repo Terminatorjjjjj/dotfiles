@@ -6,3 +6,5 @@ alias la='ls -a'
 alias ll='ls -l'
 # alias tmux='tmux -2'
 
+alias gcc='gcc-11' # link to homebrew gcc
+alias g++='g++-11' # link to homebrew g++
