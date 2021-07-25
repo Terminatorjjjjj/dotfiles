@@ -39,9 +39,11 @@ git remote remove origin
 + [vim molokai colorscheme](https://github.com/tomasr/molokai)
 + [statusline tutorial](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [statusline example](https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b)
++ [latex math snippet on vim](https://castel.dev/post/lecture-notes-1/)
 
 ### tmux
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)
 
 ### markdown
++ [markdown on neo-vim](https://zhuanlan.zhihu.com/p/84773275)
 + [github markdown toc](https://github.com/ekalinin/github-markdown-toc)

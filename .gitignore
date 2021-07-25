@@ -1,4 +1,2 @@
-vim/bundle/tabular/**
-vim/bundle/easy_align/**
-vim/bundle/rainbow_parentheses/**
+vim/bundle/**
 .DS_Store
