@@ -32,6 +32,7 @@ git remote remove origin
 ## References
 ### terminal
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
++ [customize prompt](https://phoenixnap.com/kb/change-bash-prompt-linux)
 
 ### vim
 + [vimrv config full guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
