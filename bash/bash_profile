@@ -10,4 +10,4 @@ alias gcc='gcc-11' # link to homebrew gcc
 alias g++='g++-11' # link to homebrew g++
 
 # default prompt: \h:\W \u\$
-export PS1="[\u:\e[1;34m\W\e[0m\$]"
+export PS1="[\u:\e[1;34m\W\e[0m]\$ "
