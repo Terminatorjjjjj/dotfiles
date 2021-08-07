@@ -11,3 +11,6 @@ alias g++='g++-11' # link to homebrew g++
 
 # default prompt: \h:\W \u\$
 export PS1="[\u:\e[1;34m\W\e[0m]\$ "
+
+alias python='python3'
+

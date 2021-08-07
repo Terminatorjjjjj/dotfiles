@@ -12,6 +12,7 @@
 
 ## Issue
 - [ ] cannot display vim statusline color in mac
+- [ ] ultisnips runtimepath set, but tab expand not working
 
 ## Common Git Command
 ```bash
@@ -41,6 +42,8 @@ git remote remove origin
 + [statusline tutorial](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [statusline example](https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b)
 + [latex math snippet on vim](https://castel.dev/post/lecture-notes-1/)
++ [useful snippets](https://github.com/honza/vim-snippets)
++ [mac install vim w/ py3 support](https://clay-atlas.com/blog/2020/10/25/macos-cn-vim-support-python3/)
 
 ### tmux
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)

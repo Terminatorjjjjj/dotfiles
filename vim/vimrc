@@ -3,6 +3,12 @@ set nocompatible " must be first
 set runtimepath^=~/.vim/bundle/tabular
 set runtimepath^=~/.vim/bundle/easy_align
 set runtimepath^=~/.vim/bundle/rainbow_parentheses
+" set runtimepath^=~/.vim/bundle/ultisnips
+
+" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 set ai
 set backspace=2
@@ -83,3 +89,7 @@ set backupdir=.backup/,~/.backup/,/tmp//
 set directory=.swp/,~/.swp/,/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
 
+" auto gen right parenthesis
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
