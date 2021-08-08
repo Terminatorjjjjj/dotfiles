@@ -1,20 +1,35 @@
 set nocompatible " must be first
+" filetype off
 
 " runtimepath for plugins
 set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
 set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
 set runtimepath^=~/.vim/bundle/vim_move            " matze/vim-move
-set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
+" vim w/ py3 support is required for ultisnips
+" a link to ultisnips/ftdetect is required under ./vim/ftdetect
 set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
+" supertab must be placed before ultisnips in runtimepath order
+set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
+
+augroup set_file_type
+   autocmd!
+   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
+   autocmd BufNewFile,BufRead *.v,*.vs set filetype=verilog
+   autocmd BufNewFile,BufRead *.sv,*.svh set filetype=systemverilog
+   autocmd BufNewFile,BufRead *.v,*.vs set syntax=verilog
+   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
+augroup END
+
+filetype plugin indent on
 
 " basic settings
 set ai
 set backspace=2
 set smartindent
 set tabstop=3
-set shiftwidth=3 " >> or << for indent/unindent
+set shiftwidth=3     " >> or << for indent/unindent
 set expandtab
 set mouse=a
 set autochdir
@@ -33,20 +48,10 @@ augroup numbertoggle
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-filetype indent on
-filetype plugin on
-
 " set indep backup dir
 set backupdir=.backup/,~/.backup/,/tmp//
 set directory=.swp/,~/.swp/,/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
-
-augroup set_file_type
-   autocmd!
-   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
-   autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh set filetype=verilog
-   autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh set syntax=verilog
-augroup END
 
 " set colorscheme
 syntax enable
@@ -75,25 +80,27 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " set leader in normal mode
 let mapleader=','
 
-" setting for rainbow parentheses
+" config for rainbow parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" setting vim-move
+" config for vim-move
 let g:move_key_modifier='C'
 
-" setting for supertab
+" config for supertab
 let g:SuperTabMappingForward='<s-tab>'
 let g:SuperTabMappingBackward='<tab>'
 
-" setting for ultisnips
-let g:UltiSnipsSnippetDirectories=["ulti_snippet"]
+" config for ultisnips
+let g:UltiSnipsSnippetsDir="~/.vim/my_snippet"
+let g:UltiSnipsSnippetDirectories=["ulti_snippet", "my_snippet"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" config for east align
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
