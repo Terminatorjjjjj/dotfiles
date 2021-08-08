@@ -12,7 +12,6 @@
 
 ## Issue
 - [ ] cannot display vim statusline color in mac
-- [ ] ultisnips runtimepath set, but tab expand not working
 
 ## Common Git Command
 ```bash
