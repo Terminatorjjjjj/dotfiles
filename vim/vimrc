@@ -1,20 +1,20 @@
 set nocompatible " must be first
 
-set runtimepath^=~/.vim/bundle/tabular
-set runtimepath^=~/.vim/bundle/easy_align
-set runtimepath^=~/.vim/bundle/rainbow_parentheses
-" set runtimepath^=~/.vim/bundle/ultisnips
+" runtimepath for plugins
+set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
+set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
+set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
+set runtimepath^=~/.vim/bundle/vim_move            " matze/vim-move
+set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
+set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
+set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 
-" let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
+" basic settings
 set ai
 set backspace=2
 set smartindent
 set tabstop=3
-set shiftwidth=3
+set shiftwidth=3 " >> or << for indent/unindent
 set expandtab
 set mouse=a
 set autochdir
@@ -33,17 +33,13 @@ augroup numbertoggle
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-syntax enable
-" colorscheme monokai
-colorscheme molokai
-let g:molokai_original=1
-set guifont=Consolos:h16
+filetype indent on
+filetype plugin on
 
-" rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" set indep backup dir
+set backupdir=.backup/,~/.backup/,/tmp//
+set directory=.swp/,~/.swp/,/tmp//
+set undodir=.undo/,~/.undo/,/tmp//
 
 augroup set_file_type
    autocmd!
@@ -52,6 +48,60 @@ augroup set_file_type
    autocmd BufNewFile,BufRead *.v,*.sv,*.vs,*.svh set syntax=verilog
 augroup END
 
+" set colorscheme
+syntax enable
+colorscheme molokai
+let g:molokai_original=1
+set guifont=Consolos:h16
+
+" statusline setting
+set laststatus=2
+set statusline=
+set statusline+=%1*\ %y         " file type
+set statusline+=%2*\ %.50F      " full file path
+set statusline+=%2*\ %r\ %m     " read only; modified
+set statusline+=%=
+set statusline+=%3*\ %p%%       " percentage
+set statusline+=%3*\ [%c:%l/%L] " columen; line; total lines
+
+" enable auto completion menu after pressing TAB
+set wildmenu
+" make wildmenu behave like similar to Bash completion
+set wildmode=list:longest
+" there are certain files that we would never want to edit with Vim
+" wildmenu will ignore files with these extensions
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+" set leader in normal mode
+let mapleader=','
+
+" setting for rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+" setting vim-move
+let g:move_key_modifier='C'
+
+" setting for supertab
+let g:SuperTabMappingForward='<s-tab>'
+let g:SuperTabMappingBackward='<tab>'
+
+" setting for ultisnips
+let g:UltiSnipsSnippetDirectories=["ulti_snippet"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+inoremap jj <Esc>
+nnoremap <space> :
+
 augroup comment_group_of_code
    autocmd!
    autocmd FileType c,cpp,java,scala,verilog      let b:comment_leader = '// '
@@ -59,37 +109,18 @@ augroup comment_group_of_code
    autocmd FileType tex,matlab                    let b:comment_leader = '% '
    autocmd FileType vim                           let b:comment_leader = '" '
 augroup END
-noremap <silent> cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
-set laststatus=2
-set statusline=
-set statusline+=%1*\ %y     " file type
-set statusline+=%2*\ %.50F  " full file path
-set statusline+=%2*\ %r\ %m " read only, modified
-set statusline+=%=
-set statusline+=%3*\ %p%%
-set statusline+=%3*\ [%c:%l/%L]
-
-inoremap jj <Esc>
-nnoremap <space> :
-
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
-
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
-" set indep backup dir
-set backupdir=.backup/,~/.backup/,/tmp//
-set directory=.swp/,~/.swp/,/tmp//
-set undodir=.undo/,~/.undo/,/tmp//
+noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " auto gen right parenthesis
 inoremap ( ()<Left>
 inoremap [ []<Left>
 inoremap { {}<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+
+" shortcuts for tabularize
+nnoremap <Leader>t :Tabularize /
+vnoremap <Leader>t :Tabularize /
+
+
