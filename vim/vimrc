@@ -12,6 +12,8 @@ set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
 set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 " supertab must be placed before ultisnips in runtimepath order
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
+set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
+set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
 
 augroup set_file_type
    autocmd!
@@ -44,7 +46,7 @@ set nowrap
 set number relativenumber
 augroup numbertoggle
    autocmd!
-   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+   autocmd BufEnter,FocusGained,InsertLeave * if &ft!="nerdtree" | set relativenumber | endif
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
@@ -78,7 +80,7 @@ set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 " set leader in normal mode
-let mapleader=','
+let mapleader=';'
 
 " config for rainbow parentheses
 au VimEnter * RainbowParenthesesToggle
@@ -106,7 +108,30 @@ xmap ga <Plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-inoremap jj <Esc>
+" config for nerdtree
+nnoremap <silent> <C-n> :NERDTreeToggle <CR>
+nnoremap <Leader>nn :NERDTreeFocus<CR>
+nnoremap <Leader>nr :NERDTreeRefreshRoot<CR>
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeWinPos='right'
+let g:NERDTreeWinSize=20
+" go to tab if already exist
+function NERDTreeMyOpenInTab(node)
+   call a:node.open({'reuse': "all", 'where': 't'})
+endfunction
+autocmd VimEnter * :call NERDTreeAddKeyMap({'key':'t', 'callback':'NERDTreeMyOpenInTab', 'scope':'FileNode', 'override':1})
+" start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc()==0 && !exists('s:std_in') | NERDTree | endif
+" exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$')==1 && winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+" close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+" open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
+
+inorema jj <Esc>
 nnoremap <space> :
 
 augroup comment_group_of_code
@@ -119,12 +144,12 @@ augroup END
 noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" auto gen right parenthesis
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap { {}<Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
+" auto gen right parenthesis -> use auto-pairs plugin instead
+" inoremap ( ()<Left>
+" inoremap [ []<Left>
+" inoremap { {}<Left>
+" inoremap " ""<Left>
+" inoremap ' ''<Left>
 
 " shortcuts for tabularize
 nnoremap <Leader>t :Tabularize /
