@@ -4,9 +4,11 @@
    * [Issue](#issue)
    * [Common Git Command](#common-git-command)
    * [Create TOC](#create-toc)
+   * [Notes](#notes)
+      * [vim](#vim)
    * [References](#references)
       * [terminal](#terminal)
-      * [vim](#vim)
+      * [vim](#vim-1)
       * [tmux](#tmux)
       * [markdown](#markdown)
 
@@ -29,20 +31,26 @@ git remote remove origin
 ./gh-md-toc <markdown>
 ```
 
+## Notes
+### vim
++ ultisnips
+   + vim w/ py3 support is required for ultisnips
+   + a link to ultisnips/ftdetect is required under ./vim/ftdetect
++ supertab
+   + in runtimepath, path to supertab must come before ultisnips
+
 ## References
 ### terminal
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
 + [customize prompt](https://phoenixnap.com/kb/change-bash-prompt-linux)
 
 ### vim
-+ [vimrv config full guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
++ [vimrc config full guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
 + [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
-+ [vim molokai colorscheme](https://github.com/tomasr/molokai)
++ [reference for colorschemes](https://colorswat.ch/vim/)
 + [statusline tutorial](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
-+ [statusline example](https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b)
-+ [latex math snippet on vim](https://castel.dev/post/lecture-notes-1/)
-+ [useful snippets](https://github.com/honza/vim-snippets)
-+ [mac install vim w/ py3 support](https://clay-atlas.com/blog/2020/10/25/macos-cn-vim-support-python3/)
++ [latex math snippet](https://castel.dev/post/lecture-notes-1/)
++ [systemverilog syntax highlight](https://www.vim.org/scripts/script.php?script_id=1573)
 
 ### tmux
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)
@@ -50,3 +58,5 @@ git remote remove origin
 ### markdown
 + [markdown on neo-vim](https://zhuanlan.zhihu.com/p/84773275)
 + [github markdown toc](https://github.com/ekalinin/github-markdown-toc)
+
+
