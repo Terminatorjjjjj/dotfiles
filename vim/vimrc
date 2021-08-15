@@ -1,46 +1,47 @@
 set nocompatible " must be first
 
-" runtimepath for plugins
+" ----------------------------------------------------------------------------
+"  plugin runtime path
+" ----------------------------------------------------------------------------
 set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
 set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
-set runtimepath^=~/.vim/bundle/vim_move            " matze/vim-move
 set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
 set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
 
+" ----------------------------------------------------------------------------
+"  basic setting
+" ----------------------------------------------------------------------------
+syntax enable
 syntax on
 filetype on
 filetype plugin indent on
 
-augroup set_file_type
-   autocmd!
-   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
-   autocmd BufNewFile,BufRead *.v,*.vs set filetype=verilog
-   autocmd BufNewFile,BufRead *.sv,*.svh set filetype=systemverilog
-   autocmd BufNewFile,BufRead *.v,*.vs set syntax=verilog
-   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
-augroup END
-
-" basic settings
 set autoindent
-set backspace=2
 set smartindent
-set tabstop=3
-set shiftwidth=3     " >> or << for indent/unindent
+set backspace=2
 set expandtab
-set mouse=a
-set autochdir
+set tabstop=3
+set shiftwidth=3
 set cursorline
 set cursorcolumn
-set formatoptions-=t " disable linebreak word wrap in insert mode
-set history=50
 set ruler
 set showcmd
-set incsearch
 set nowrap
+
+" ----------------------------------------------------------------------------
+"  more setting
+" ----------------------------------------------------------------------------
+set mouse=a
+set incsearch
+set history=50
+set formatoptions-=t " disable linebreak word wrap in insert mode
+set autochdir
+set splitbelow
+set splitright
 set foldmethod=indent 
 set nofoldenable
 
@@ -51,18 +52,37 @@ augroup numbertoggle
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" set indep backup dir
 set backupdir=.backup/,~/.backup/,/tmp//
 set directory=.swp/,~/.swp/,/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
 
-" set colorscheme
-syntax enable
+" enable auto completion menu w/ TAB; behave like bash
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+" ----------------------------------------------------------------------------
+"  file type
+" ----------------------------------------------------------------------------
+augroup set_file_type
+   autocmd!
+   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
+   autocmd BufNewFile,BufRead *.v,*.vs set filetype=verilog
+   autocmd BufNewFile,BufRead *.sv,*.svh set filetype=systemverilog
+   autocmd BufNewFile,BufRead *.v,*.vs set syntax=verilog
+   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
+augroup END
+
+" ----------------------------------------------------------------------------
+"  colorscheme
+" ----------------------------------------------------------------------------
 colorscheme nord
 let g:molokai_original=1
 set guifont=Consolos:h16
 
-" statusline setting
+" ----------------------------------------------------------------------------
+"  statusline
+" ----------------------------------------------------------------------------
 set laststatus=2
 set statusline=
 set statusline+=%1*\ %y         " file type
@@ -72,18 +92,48 @@ set statusline+=%=
 set statusline+=%3*\ %p%%       " percentage
 set statusline+=%3*\ [%c:%l/%L] " columen; line; total lines
 
-" enable auto completion menu after pressing TAB, and make it behave like bash
-set wildmenu
-set wildmode=list:longest
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
-" set leader in normal mode
+" ----------------------------------------------------------------------------
+"  key binding
+" ----------------------------------------------------------------------------
 let mapleader='\'
 
-" config for nerdtree
+inoremap jj <Esc>
+nnoremap <space> :
+vnoremap <space> :
+
+augroup comment_group_of_code
+   autocmd!
+   autocmd FileType c,cpp,java,scala,verilog      let b:comment_leader = '// '
+   autocmd FileType sh,ruby,python,make,tmux,tcsh let b:comment_leader = '# '
+   autocmd FileType tex,matlab                    let b:comment_leader = '% '
+   autocmd FileType vim                           let b:comment_leader = '" '
+augroup END
+noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" line begin/end
+nnoremap <Leader>b ^
+nnoremap <Leader>e $
+
+" move line up/down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" move across splits
+map <C-l> :wincmd w<CR>
+
+" insert empty line below/above
+nnoremap <Leader>j o<Esc>k
+nnoremap <Leader>k O<Esc>j
+
+" ----------------------------------------------------------------------------
+"  plugin: nerdtree
+" ----------------------------------------------------------------------------
 nnoremap <silent> <C-n> :NERDTreeToggle <CR>
-nnoremap <Leader>nn :NERDTreeFocus<CR>
-nnoremap <Leader>nr :NERDTreeRefreshRoot<CR>
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinPos='right'
@@ -104,49 +154,41 @@ autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabT
 " open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
 
-" config for rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" ----------------------------------------------------------------------------
+"  plugin: rainbow parentheses
+" ----------------------------------------------------------------------------
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
 
-" config for vim-move
-let g:move_key_modifier='C'
-
-" config for supertab
+" ----------------------------------------------------------------------------
+"  plugin: supertab
+" ----------------------------------------------------------------------------
 let g:SuperTabMappingForward='<s-tab>'
 let g:SuperTabMappingBackward='<tab>'
 
-" config for ultisnips
+" ----------------------------------------------------------------------------
+"  plugin: ultisnips
+" ----------------------------------------------------------------------------
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippet"
 let g:UltiSnipsSnippetDirectories=["ulti_snippet", "my_snippet"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" config for east align
+" ----------------------------------------------------------------------------
+"  plugin: easy align
+" ----------------------------------------------------------------------------
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-inoremap jj <Esc>
-nnoremap <space> :
-
-augroup comment_group_of_code
-   autocmd!
-   autocmd FileType c,cpp,java,scala,verilog      let b:comment_leader = '// '
-   autocmd FileType sh,ruby,python,make,tmux,tcsh let b:comment_leader = '# '
-   autocmd FileType tex,matlab                    let b:comment_leader = '% '
-   autocmd FileType vim                           let b:comment_leader = '" '
-augroup END
-noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
-" shortcuts for tabularize
+" ----------------------------------------------------------------------------
+"  plugin: tabbular
+" ----------------------------------------------------------------------------
 nnoremap <Leader>t :Tabularize /
 vnoremap <Leader>t :Tabularize /
 
-" line begin/end
-nnoremap <Leader>b 0
-nnoremap <Leader>e $
+

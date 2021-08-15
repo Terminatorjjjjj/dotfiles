@@ -260,4 +260,14 @@ snippet strobe "strobe" b
 $strobe("${1}", ${2});
 endsnippet
 
+# parameterized bit operand: 0
+snippet p0
+{(${1:pwidth}),1'b0}
+endsnippet
+
+# parameterized bit operand: 1
+snippet p1
+{{(${1:pwidth}-1){1'b0}},1'b1}
+endsnippet
+
 
