@@ -35,21 +35,27 @@ set nowrap
 " ----------------------------------------------------------------------------
 "  more setting
 " ----------------------------------------------------------------------------
-set mouse=a
+" set mouse=a
 set incsearch
 set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow
 set splitright
-set foldmethod=indent 
+set foldmethod=indent
 set nofoldenable
 
 set number relativenumber
-augroup numbertoggle
+augroup number_toggle
    autocmd!
    autocmd BufEnter,FocusGained,InsertLeave * if &ft!="nerdtree" | set relativenumber | endif
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
+augroup autocomplete_ignore_case
+   autocmd!
+   autocmd InsertLeave * set noignorecase
+   autocmd InsertEnter * set ignorecase
 augroup END
 
 set backupdir=.backup/,~/.backup/,/tmp//
@@ -60,6 +66,9 @@ set undodir=.undo/,~/.undo/,/tmp//
 set wildmenu
 set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+" vertically center document when entering insert mode
+autocmd InsertEnter * norm zz
 
 " ----------------------------------------------------------------------------
 "  file type
@@ -103,25 +112,25 @@ vnoremap <space> :
 
 augroup comment_group_of_code
    autocmd!
-   autocmd FileType c,cpp,java,scala,verilog      let b:comment_leader = '// '
-   autocmd FileType sh,ruby,python,make,tmux,tcsh let b:comment_leader = '# '
-   autocmd FileType tex,matlab                    let b:comment_leader = '% '
-   autocmd FileType vim                           let b:comment_leader = '" '
+   autocmd FileType c,cpp,java,scala,verilog,systemverilog let b:comment_leader = '// '
+   autocmd FileType sh,ruby,python,make,tmux,tcsh          let b:comment_leader = '# '
+   autocmd FileType tex,matlab                             let b:comment_leader = '% '
+   autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
 noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
 " line begin/end
+
 nnoremap <Leader>b ^
 nnoremap <Leader>e $
 
-" move line up/down
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+" move line up/down (add ==, ==gi, gv=gv if want auto align indent)
+nnoremap <C-j> :m .+1<CR>
+nnoremap <C-k> :m .-2<CR>
+inoremap <C-j> <Esc>:m .+1<CR>gi
+inoremap <C-k> <Esc>:m .-2<CR>gi
+vnoremap <C-j> :m '>+1<CR>gv
+vnoremap <C-k> :m '<-2<CR>gv
 
 " move across splits
 map <C-l> :wincmd w<CR>
@@ -130,10 +139,16 @@ map <C-l> :wincmd w<CR>
 nnoremap <Leader>j o<Esc>k
 nnoremap <Leader>k O<Esc>j
 
+" navigate buffer
+noremap gb :ls<CR>:b<Space>
+noremap gs :ls<CR>:vert sb<Space>
+nnoremap <Leader><Leader> :w<CR>:b#<CR>
+
 " ----------------------------------------------------------------------------
 "  plugin: nerdtree
 " ----------------------------------------------------------------------------
-nnoremap <silent> <C-n> :NERDTreeToggle <CR>
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeRefreshRoot<CR>
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinPos='right'

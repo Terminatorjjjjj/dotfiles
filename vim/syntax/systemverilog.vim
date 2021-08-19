@@ -96,7 +96,7 @@ syn match   systemverilogNumber "\<[0-9_]\+step\>"
 
 " Original systemverilog syntax below here
 
-syn keyword systemverilogTodo contained TODO
+syn keyword systemverilogTodo contained TODO FIXME
 
 syn match   systemverilogOperator "[&|~><!)(*#%@+/=?:;}{,.\^\-\[\]]"
 
