@@ -44,6 +44,7 @@ set splitbelow
 set splitright
 set foldmethod=indent
 set nofoldenable
+set hidden
 
 set number relativenumber
 augroup number_toggle
@@ -62,13 +63,21 @@ set backupdir=.backup/,~/.backup/,/tmp//
 set directory=.swp/,~/.swp/,/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
 
-" enable auto completion menu w/ TAB; behave like bash
-set wildmenu
-set wildmode=list:longest
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
 " vertically center document when entering insert mode
 autocmd InsertEnter * norm zz
+
+" place cursor is last position when open file and center document
+autocmd BufReadPost * normal! g`" zz
+
+" remove trailing white space when buffer write
+autocmd FileType verilog,systemverilog autocmd BufWritePre <buffer> %/\s\+$//e
+
+" ----------------------------------------------------------------------------
+"  wildmenu: enable auto completion menu w/ TAB & behave like bash
+" ----------------------------------------------------------------------------
+set wildmenu
+set wildmode=list:longest,full
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 " ----------------------------------------------------------------------------
 "  file type
@@ -85,7 +94,7 @@ augroup END
 " ----------------------------------------------------------------------------
 "  colorscheme
 " ----------------------------------------------------------------------------
-colorscheme nord
+colorscheme gruvbox
 let g:molokai_original=1
 set guifont=Consolos:h16
 
@@ -119,10 +128,6 @@ augroup comment_group_of_code
 augroup END
 noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-" line begin/end
-
-nnoremap <Leader>b ^
-nnoremap <Leader>e $
 
 " move line up/down (add ==, ==gi, gv=gv if want auto align indent)
 nnoremap <C-j> :m .+1<CR>
@@ -132,40 +137,52 @@ inoremap <C-k> <Esc>:m .-2<CR>gi
 vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
-" move across splits
-map <C-l> :wincmd w<CR>
-
 " insert empty line below/above
 nnoremap <Leader>j o<Esc>k
 nnoremap <Leader>k O<Esc>j
 
+" add semicolon to the end of current line w/o moving cursor
+nnoremap <Leader>; m'A;<Esc>`'
+
+" move across splits
+map <C-l> :wincmd w<CR>
+
 " navigate buffer
 noremap gb :ls<CR>:b<Space>
 noremap gs :ls<CR>:vert sb<Space>
-nnoremap <Leader><Leader> :w<CR>:b#<CR>
+nnoremap <C-h> :b#<CR>
+
+" close terminal mode
+tnoremap <Esc> <C-\><C-n>:q!<CR>
 
 " ----------------------------------------------------------------------------
 "  plugin: nerdtree
 " ----------------------------------------------------------------------------
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-nnoremap <leader>r :NERDTreeRefreshRoot<CR>
+nnoremap <leader>nr :NERDTreeRefreshRoot<CR>
+
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 let NERDTreeWinPos='right'
 let NERDTreeMinimalUI=1
 let g:NERDTreeWinSize=20
+
 " go to tab if already exist
 function NERDTreeMyOpenInTab(node)
    call a:node.open({'reuse': "all", 'where': 't'})
 endfunction
 autocmd VimEnter * :call NERDTreeAddKeyMap({'key':'t', 'callback':'NERDTreeMyOpenInTab', 'scope':'FileNode', 'override':1})
+
 " start NERDTree when Vim is started without file arguments.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc()==0 && !exists('s:std_in') | NERDTree | endif
+
 " exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$')==1 && winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+
 " close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+
 " open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
 
