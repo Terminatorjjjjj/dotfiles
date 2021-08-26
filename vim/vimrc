@@ -20,14 +20,12 @@ syntax on
 filetype on
 filetype plugin indent on
 
-set autoindent
-set smartindent
+set autoindent smartindent
 set backspace=2
 set expandtab
 set tabstop=3
 set shiftwidth=3
-set cursorline
-set cursorcolumn
+set cursorline cursorcolumn
 set ruler
 set showcmd
 set nowrap
@@ -40,8 +38,7 @@ set incsearch
 set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
-set splitbelow
-set splitright
+set splitbelow splitright
 set foldmethod=indent
 set nofoldenable
 set hidden
@@ -64,13 +61,10 @@ set directory=.swp/,~/.swp/,/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
 
 " vertically center document when entering insert mode
-autocmd InsertEnter * norm zz
-
-" place cursor is last position when open file and center document
-autocmd BufReadPost * normal! g`" zz
+autocmd InsertEnter * normal zz
 
 " remove trailing white space when buffer write
-autocmd FileType verilog,systemverilog autocmd BufWritePre <buffer> %/\s\+$//e
+" autocmd FileType verilog,systemverilog autocmd BufWritePre <buffer> %/\s\+$//e
 
 " ----------------------------------------------------------------------------
 "  wildmenu: enable auto completion menu w/ TAB & behave like bash
@@ -95,7 +89,8 @@ augroup END
 "  colorscheme
 " ----------------------------------------------------------------------------
 colorscheme gruvbox
-let g:molokai_original=1
+set background=dark " gruvbox
+" let g:molokai_original=1
 set guifont=Consolos:h16
 
 " ----------------------------------------------------------------------------
@@ -141,19 +136,23 @@ vnoremap <C-k> :m '<-2<CR>gv
 nnoremap <Leader>j o<Esc>k
 nnoremap <Leader>k O<Esc>j
 
-" add semicolon to the end of current line w/o moving cursor
-nnoremap <Leader>; m'A;<Esc>`'
-
-" move across splits
-map <C-l> :wincmd w<CR>
-
-" navigate buffer
-noremap gb :ls<CR>:b<Space>
-noremap gs :ls<CR>:vert sb<Space>
-nnoremap <C-h> :b#<CR>
-
 " close terminal mode
 tnoremap <Esc> <C-\><C-n>:q!<CR>
+
+" ----------------------------------------------------------------------------
+"  splits
+" ----------------------------------------------------------------------------
+" move to next split
+map <C-l> :wincmd w<CR>
+" remove pipes | that act as separators on splits (there is a space after \)
+set fillchars+=vert:\ 
+
+" ----------------------------------------------------------------------------
+"  buffers
+" ----------------------------------------------------------------------------
+nnoremap gb :ls<CR>:b<Space>
+nnoremap gs :ls<CR>:vert sb<Space>
+nnoremap <C-h> :b#<CR>
 
 " ----------------------------------------------------------------------------
 "  plugin: nerdtree

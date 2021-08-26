@@ -10,18 +10,6 @@
 ## TODO
 - [ ] cannot display vim statusline color in mac
 
-## Git
-### Common git command
-```bash
-git init
-git remote add origin htttps://<TOKEN>@github.com/<USERNAME>/<REPO>.git
-git remote --global user.name <USERNAME>
-git add .
-git commit -m "<COMMIT>"
-git push [-u] origin master
-git remote remove origin
-```
-
 ## Terminal
 ### References
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
