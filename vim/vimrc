@@ -58,6 +58,9 @@ set undodir=.undo/,~/.undo/,/tmp//
 
 " vertically center document when entering insert mode
 autocmd InsertEnter * normal zz
+
+" make shell not source startup scripts when running shell command in vim
+set shellcmdflag=-f\ -c
 " }}}
 
 "  FOLD {{{
@@ -137,8 +140,10 @@ vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
 " insert empty line below/above
-nnoremap <Leader>j o<Esc>k
-nnoremap <Leader>k O<Esc>j
+nnoremap <CR> o<Esc>k
+
+" add semicolon to the end of current line w/o moving cursor
+nnoremap <Leader>; m'A;<Esc>`'
 
 " close terminal mode
 tnoremap <Esc> <C-\><C-n>:q!<CR>
@@ -222,10 +227,11 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-"  PLUGIN: TABBULAR {{{
+"  PLUGIN: TABULAR {{{
 " ----------------------------------------------------------------------------
 nnoremap <Leader>t :Tabularize /
 vnoremap <Leader>t :Tabularize /
 " }}}
 
+" modeline
 " vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:

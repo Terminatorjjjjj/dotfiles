@@ -18,6 +18,7 @@ git checkout [-b] <BRANCH> // -b to create before checkout
 
 #### Search
 + `*` grabs the word under the cursor and search for the next one
++ `args *.sv` to add all files under directory into buffer list, then `argdo %s/<SEARCH>/<REPLACE>/g | update` to perform some command/macro into all the files.
 + `gf` edit the file whose name is under the cursor
 
 #### Select
@@ -44,3 +45,5 @@ git checkout [-b] <BRANCH> // -b to create before checkout
 + `<C-b> o` switch to next pane
 
 + `tmux kill-server` to restart tmux after modifying some setting
+
+<!-- vim:wrap:

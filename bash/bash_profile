@@ -13,4 +13,8 @@ alias g++='g++-11' # link to homebrew g++
 export PS1="[\u:\e[1;34m\W\e[0m]\$ "
 
 alias python='python3'
+alias ctags='`brew --prefix`/bin/ctags'
+
+# set vi mode
+set -o vi
 

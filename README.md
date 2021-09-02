@@ -7,9 +7,6 @@
 * [Tmux](#tmux)
 * [Mardown](#mardown)
 
-## TODO
-- [ ] cannot display vim statusline color in mac
-
 ## Terminal
 ### References
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
@@ -31,6 +28,7 @@
 + [using snippet](https://castel.dev/post/lecture-notes-1/)
 + [systemverilog syntax highlight](https://www.vim.org/scripts/script.php?script_id=1573)
 + [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
++ [vim quickfix list](https://youtu.be/IoyW8XYGqjM)
 
 ## Tmux
 ### References
