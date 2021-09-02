@@ -1,7 +1,6 @@
 set nocompatible " must be first
 
-" ----------------------------------------------------------------------------
-"  plugin runtime path
+"  PLUGIN RUNTIME PATH {{{ 
 " ----------------------------------------------------------------------------
 set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
@@ -11,9 +10,9 @@ set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
+" }}}
 
-" ----------------------------------------------------------------------------
-"  basic setting
+"  BASIC SETTING {{{ 
 " ----------------------------------------------------------------------------
 syntax enable
 syntax on
@@ -29,9 +28,9 @@ set cursorline cursorcolumn
 set ruler
 set showcmd
 set nowrap
+" }}}
 
-" ----------------------------------------------------------------------------
-"  more setting
+"  MORE SETTING {{{
 " ----------------------------------------------------------------------------
 " set mouse=a
 set incsearch
@@ -39,9 +38,6 @@ set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow splitright
-set foldmethod=indent
-set nofoldenable
-set hidden
 
 set number relativenumber
 augroup number_toggle
@@ -62,19 +58,27 @@ set undodir=.undo/,~/.undo/,/tmp//
 
 " vertically center document when entering insert mode
 autocmd InsertEnter * normal zz
+" }}}
 
-" remove trailing white space when buffer write
-" autocmd FileType verilog,systemverilog autocmd BufWritePre <buffer> %/\s\+$//e
-
+"  FOLD {{{
 " ----------------------------------------------------------------------------
-"  wildmenu: enable auto completion menu w/ TAB & behave like bash
+" set foldmethod=indent
+" set nofoldenable
+set foldmethod=marker
+set foldmarker={{{,}}}
+set foldlevel=0
+set fillchars=fold:\  " space at the end
+" }}}
+
+"  WILDMENU {{{
+"  enable auto completion menu w/ tab & behave like bash
 " ----------------------------------------------------------------------------
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+" }}}
 
-" ----------------------------------------------------------------------------
-"  file type
+"  FILE TYPE {{{
 " ----------------------------------------------------------------------------
 augroup set_file_type
    autocmd!
@@ -84,17 +88,17 @@ augroup set_file_type
    autocmd BufNewFile,BufRead *.v,*.vs set syntax=verilog
    autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
 augroup END
+" }}}
 
-" ----------------------------------------------------------------------------
-"  colorscheme
+"  COLORSCHEME {{{
 " ----------------------------------------------------------------------------
 colorscheme gruvbox
 set background=dark " gruvbox
 " let g:molokai_original=1
 set guifont=Consolos:h16
+" }}}
 
-" ----------------------------------------------------------------------------
-"  statusline
+"  STATUSLINE {{{
 " ----------------------------------------------------------------------------
 set laststatus=2
 set statusline=
@@ -104,9 +108,9 @@ set statusline+=%2*\ %r\ %m     " read only; modified
 set statusline+=%=
 set statusline+=%3*\ %p%%       " percentage
 set statusline+=%3*\ [%c:%l/%L] " columen; line; total lines
+" }}}
 
-" ----------------------------------------------------------------------------
-"  key binding
+"  KEY BINDING {{{
 " ----------------------------------------------------------------------------
 let mapleader='\'
 
@@ -138,24 +142,25 @@ nnoremap <Leader>k O<Esc>j
 
 " close terminal mode
 tnoremap <Esc> <C-\><C-n>:q!<CR>
+" }}}
 
-" ----------------------------------------------------------------------------
-"  splits
+"  SPLITS {{{
 " ----------------------------------------------------------------------------
 " move to next split
 map <C-l> :wincmd w<CR>
 " remove pipes | that act as separators on splits (there is a space after \)
 set fillchars+=vert:\ 
+" }}}
 
+"  BUFFERS {{{
 " ----------------------------------------------------------------------------
-"  buffers
-" ----------------------------------------------------------------------------
+set hidden
 nnoremap gb :ls<CR>:b<Space>
 nnoremap gs :ls<CR>:vert sb<Space>
 nnoremap <C-h> :b#<CR>
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: nerdtree
+"  PLUGIN: NERDTREE {{{
 " ----------------------------------------------------------------------------
 nnoremap <silent> <C-n> :NERDTreeToggle<CR>
 nnoremap <leader>nr :NERDTreeRefreshRoot<CR>
@@ -184,42 +189,43 @@ autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabT
 
 " open the existing NERDTree on each new tab.
 autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: rainbow parentheses
+"  PLUGIN: RAINBOW PARENTHESES {{{
 " ----------------------------------------------------------------------------
 autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: supertab
+"  PLUGIN: SUPERTAB {{{
 " ----------------------------------------------------------------------------
 let g:SuperTabMappingForward='<s-tab>'
 let g:SuperTabMappingBackward='<tab>'
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: ultisnips
+"  PLUGIN: ULTISNIPS {{{
 " ----------------------------------------------------------------------------
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippet"
 let g:UltiSnipsSnippetDirectories=["ulti_snippet", "my_snippet"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: easy align
+"  PLUGIN: EASY ALIGN {{{
 " ----------------------------------------------------------------------------
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+" }}}
 
-" ----------------------------------------------------------------------------
-"  plugin: tabbular
+"  PLUGIN: TABBULAR {{{
 " ----------------------------------------------------------------------------
 nnoremap <Leader>t :Tabularize /
 vnoremap <Leader>t :Tabularize /
+" }}}
 
-
+" vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
