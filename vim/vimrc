@@ -65,8 +65,6 @@ set shellcmdflag=-f\ -c
 
 "  FOLD {{{
 " ----------------------------------------------------------------------------
-" set foldmethod=indent
-" set nofoldenable
 set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
@@ -147,7 +145,12 @@ nnoremap <Leader>; m'A;<Esc>`'
 
 " close terminal mode
 tnoremap <Esc> <C-\><C-n>:q!<CR>
-" }}}
+
+" keeping search centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+"" }}}
 
 "  SPLITS {{{
 " ----------------------------------------------------------------------------
@@ -177,7 +180,7 @@ let NERDTreeMinimalUI=1
 let g:NERDTreeWinSize=20
 
 " go to tab if already exist
-function NERDTreeMyOpenInTab(node)
+function! NERDTreeMyOpenInTab(node)
    call a:node.open({'reuse': "all", 'where': 't'})
 endfunction
 autocmd VimEnter * :call NERDTreeAddKeyMap({'key':'t', 'callback':'NERDTreeMyOpenInTab', 'scope':'FileNode', 'override':1})

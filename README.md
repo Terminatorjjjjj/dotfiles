@@ -1,6 +1,5 @@
 # My Config
 
-* [TODO](#todo)
 * [Git](#git)
 * [Terminal](#terminal)
 * [Vim](#vim)
@@ -21,6 +20,7 @@
    + in runtimepath, path to supertab must come before ultisnips (line in below in vimrc)
 
 ### References
++ [awesome series of guides](https://thevaluable.dev/vim-beginner/)
 + [vim cheatsheet](https://vim.rtorr.com)
 + [vimrc config guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
 + [colorschemes](https://colorswat.ch/vim/)
