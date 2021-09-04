@@ -10,6 +10,7 @@ set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
+set runtimepath^=~/.vim/bundle/systemverilog       " nachumk/systemverilog
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -84,10 +85,6 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 augroup set_file_type
    autocmd!
    autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
-   autocmd BufNewFile,BufRead *.v,*.vs set filetype=verilog
-   autocmd BufNewFile,BufRead *.sv,*.svh set filetype=systemverilog
-   autocmd BufNewFile,BufRead *.v,*.vs set syntax=verilog
-   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
 augroup END
 " }}}
 
