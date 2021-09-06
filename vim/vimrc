@@ -10,7 +10,6 @@ set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
-set runtimepath^=~/.vim/bundle/systemverilog       " nachumk/systemverilog
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -84,14 +83,18 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " ----------------------------------------------------------------------------
 augroup set_file_type
    autocmd!
-   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* set filetype=sh
+   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setfiletype sh
+   autocmd BufNewFile,BufRead *.v,*.vh,*.vs setfiletype systemverilog
+   autocmd BufNewFile,BufRead *.sv,*.svh setfiletype systemverilog
+   autocmd BufNewFile,BufRead *.v,*.vh,*.vs set syntax=systemverilog
+   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
 augroup END
 " }}}
 
 "  COLORSCHEME {{{
 " ----------------------------------------------------------------------------
 colorscheme gruvbox
-set background=dark " gruvbox
+set background=dark
 " let g:molokai_original=1
 set guifont=Consolos:h16
 " }}}
@@ -146,7 +149,6 @@ tnoremap <Esc> <C-\><C-n>:q!<CR>
 " keeping search centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
 "" }}}
 
 "  SPLITS {{{
