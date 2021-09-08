@@ -26,6 +26,7 @@ git remote update -p        # sync and remote all outdated branches
 #### Movement
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
 + `g;` goes to previous in change list, `g,` to go to next
++ `%` to go to the matching parenthesis under the cursor
 
 #### Search/Replace
 + `*` grabs the word under the cursor and search for the next one
@@ -53,8 +54,9 @@ git remote update -p        # sync and remote all outdated branches
 + `q:` opens normal command history, can be edited as normal file
 + `q/` and `q?` open search history
 
-#### Terminal
+#### Misc
 + `:ter` to open terminal in vim for quick shell access
++ `:so $VIMRUNTIME/syntax/hitest.vim` to check all the highlight group examples for current colorscheme
 
 ## Tmux
 + `<C-b> ,` rename window

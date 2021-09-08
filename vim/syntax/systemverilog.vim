@@ -1,4 +1,5 @@
-" Modified from Stephen Hobbs <stephenh@cadence.com> (main)
+" Modified from Stephen Hobbs <stephenh@cadence.com>
+"               (https://www.vim.org/scripts/script.php?script_id=1573)
 "             & Nachum Kanovsky <nkanovsky@yahoo.com> (refernce)
 
 if exists("b:current_syntax")

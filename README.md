@@ -22,13 +22,11 @@
 ### References
 + [awesome series of guides](https://thevaluable.dev/vim-beginner/)
 + [vim cheatsheet](https://vim.rtorr.com)
-+ [vimrc config guide](https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/)
 + [colorschemes](https://colorswat.ch/vim/)
 + [statusline guide](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [using snippet](https://castel.dev/post/lecture-notes-1/)
-+ [systemverilog syntax highlight](https://www.vim.org/scripts/script.php?script_id=1573)
-+ [vim in vscode](https://zhuanlan.zhihu.com/p/188499395)
 + [vim quickfix list](https://youtu.be/IoyW8XYGqjM)
++ [vim easy align cheatsheet](https://devhints.io/vim-easyalign)
 
 ## Tmux
 ### References
