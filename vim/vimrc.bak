@@ -1,0 +1,51 @@
+set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
+set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
+set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
+
+"  PLUGIN: NERDTREE {{{
+" ----------------------------------------------------------------------------
+nnoremap <silent> <C-n> :NERDTreeToggle<CR>
+nnoremap <leader>nr :NERDTreeRefreshRoot<CR>
+
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeWinPos='right'
+let NERDTreeMinimalUI=1
+let g:NERDTreeWinSize=20
+
+" go to tab if already exist
+function! NERDTreeMyOpenInTab(node)
+   call a:node.open({'reuse': "all", 'where': 't'})
+endfunction
+autocmd VimEnter * :call NERDTreeAddKeyMap({'key':'t', 'callback':'NERDTreeMyOpenInTab', 'scope':'FileNode', 'override':1})
+
+" start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc()==0 && !exists('s:std_in') | NERDTree | endif
+
+" exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$')==1 && winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+
+" close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
+
+" open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
+
+" augroup number_toggle
+"    autocmd!
+"    autocmd BufEnter,FocusGained,InsertLeave * if &ft!="nerdtree" | set relativenumber | endif
+"    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" augroup END
+" }}}
+
+"  PLUGIN: TABULAR {{{
+" ----------------------------------------------------------------------------
+nnoremap <Leader>t :Tabularize /
+vnoremap <Leader>t :Tabularize /
+" }}}
+
+
+
+
+

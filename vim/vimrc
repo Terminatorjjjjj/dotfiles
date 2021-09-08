@@ -2,14 +2,11 @@ set nocompatible " must be first
 
 "  PLUGIN RUNTIME PATH {{{ 
 " ----------------------------------------------------------------------------
-set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
 set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
 set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
 set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
-set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
-set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -42,7 +39,7 @@ set splitbelow splitright
 set number relativenumber
 augroup number_toggle
    autocmd!
-   autocmd BufEnter,FocusGained,InsertLeave * if &ft!="nerdtree" | set relativenumber | endif
+   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
@@ -126,8 +123,8 @@ augroup comment_group_of_code
    autocmd FileType tex,matlab                             let b:comment_leader = '% '
    autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
-noremap <silent> <Leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <Leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> gcc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> gcu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " move line up/down (add ==, ==gi, gv=gv if want auto align indent)
 nnoremap <C-j> :m .+1<CR>
@@ -136,9 +133,6 @@ inoremap <C-j> <Esc>:m .+1<CR>gi
 inoremap <C-k> <Esc>:m .-2<CR>gi
 vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
-
-" insert empty line below/above
-nnoremap <CR> o<Esc>k
 
 " add semicolon to the end of current line w/o moving cursor
 nnoremap <Leader>; m'A;<Esc>`'
@@ -165,37 +159,6 @@ set hidden
 nnoremap gb :ls<CR>:b<Space>
 nnoremap gs :ls<CR>:vert sb<Space>
 nnoremap <C-h> :b#<CR>
-" }}}
-
-"  PLUGIN: NERDTREE {{{
-" ----------------------------------------------------------------------------
-nnoremap <silent> <C-n> :NERDTreeToggle<CR>
-nnoremap <leader>nr :NERDTreeRefreshRoot<CR>
-
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
-let NERDTreeWinPos='right'
-let NERDTreeMinimalUI=1
-let g:NERDTreeWinSize=20
-
-" go to tab if already exist
-function! NERDTreeMyOpenInTab(node)
-   call a:node.open({'reuse': "all", 'where': 't'})
-endfunction
-autocmd VimEnter * :call NERDTreeAddKeyMap({'key':'t', 'callback':'NERDTreeMyOpenInTab', 'scope':'FileNode', 'override':1})
-
-" start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc()==0 && !exists('s:std_in') | NERDTree | endif
-
-" exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$')==1 && winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
-
-" close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$')==1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | q | endif
-
-" open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype()=='' | silent NERDTreeMirror | endif
 " }}}
 
 "  PLUGIN: RAINBOW PARENTHESES {{{
@@ -264,12 +227,6 @@ let g:easy_align_delimiters = {
 \     'right_margin': 0
 \   }
 \ }
-" }}}
-
-"  PLUGIN: TABULAR {{{
-" ----------------------------------------------------------------------------
-nnoremap <Leader>t :Tabularize /
-vnoremap <Leader>t :Tabularize /
 " }}}
 
 " modeline
