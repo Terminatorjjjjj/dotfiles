@@ -25,6 +25,7 @@ git remote update -p        # sync and remote all outdated branches
 ## Vim
 #### Movement
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
++ `<C-e>` to scroll down without moving the cursor
 + `g;` goes to previous in change list, `g,` to go to next
 + `%` to go to the matching parenthesis under the cursor
 
@@ -46,6 +47,12 @@ git remote update -p        # sync and remote all outdated branches
 + `<C-a>` increases the selected number, while `<C-x>` decreases it
 + `.` to repeat last change, including inserting, deleting or replaceing text
 + `&` to repeat last normal mode command
+
+#### Fold
++ `za` to toggle fold
++ `zM` to close all folds
++ `zR` to open all folds
++ `zf{motion}` to create fold (manual or marker) on selected region
 
 #### Window
 + `<C-w> r` to swap/rotate postition of the splits
