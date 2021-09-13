@@ -25,8 +25,9 @@
 + [colorschemes](https://colorswat.ch/vim/)
 + [statusline guide](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [using snippet](https://castel.dev/post/lecture-notes-1/)
-+ [vim quickfix list](https://youtu.be/IoyW8XYGqjM)
 + [vim easy align cheatsheet](https://devhints.io/vim-easyalign)
++ [theprimeagen: vim quickfix list](https://youtu.be/IoyW8XYGqjM)
++ [theprimeagen: vim registers](https://youtu.be/Q5eDxR7bU2k)
 
 ## Tmux
 ### References
