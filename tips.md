@@ -25,7 +25,7 @@ git remote update -p        # sync and remote all outdated branches
 ## Vim
 #### Movement
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
-+ `<C-e>` to scroll down without moving the cursor
++ `<C-e>` to scroll down without moving the cursor, `<C-y>` to scroll up
 + `g;` goes to previous in change list, `g,` to go to next
 + `%` to go to the matching parenthesis under the cursor
 

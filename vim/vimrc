@@ -7,6 +7,8 @@ set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vi
 set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
 set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
+set runtimepath^=~/.vim/bundle/fugitive            " tpope/vim-fugitive
+set runtimepath^=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -92,6 +94,7 @@ set guifont=Consolos:h16
 " -----------------------------------------------------------------------------
 set laststatus=2
 set statusline=
+set statusline+=%1*\ %{fugitive#statusline()}
 set statusline+=%1*\ %y         " file type
 set statusline+=%2*\ %.50F      " full file path
 set statusline+=%2*\ %r\ %m     " read only; modified
@@ -143,8 +146,6 @@ set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
 set fillchars=fold:\  " space at the end
-
-nnoremap <expr> <CR> &buftype ==# 'quickfix' ? "\<CR>" : 'za'
 " }}}
 
 "  SPLITS {{{
@@ -173,10 +174,7 @@ function! ToggleQuickFix()
    endif
 endfunction
 
-nnoremap <silent> gqq :call ToggleQuickFix()<CR>
-
-nnoremap gcn :cnext<CR>
-nnoremap gcp :cprev<CR>
+nnoremap <silent> gq :call ToggleQuickFix()<CR>
 
 function! QuickFixMapping()
    " go to next location and stay in quick fix window
