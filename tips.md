@@ -25,6 +25,7 @@ git remote update -p        # sync and remote all outdated branches
 #### Fugitive
 + `:G` to show git status
    + move to file then `s` to stage and `u` to unstage
+   + `c` to create commit
 + `Gcommit` to open commit window
 + `Gpush` to push to remote
 + `Gdiff` to open conflicted file on 3-way diff
@@ -34,12 +35,13 @@ git remote update -p        # sync and remote all outdated branches
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
 + `<C-e>` to scroll down without moving the cursor, `<C-y>` to scroll up
 + `g;` goes to previous in change list, `g,` to go to next
++ `gf` edit the file whose name is under the cursor
++ `gd` go to declaration of word under cursor, same effect as `[[`
 + `%` to go to the matching parenthesis under the cursor
 
 #### Search/Replace
 + `*` grabs the word under the cursor and search for the next one
 + `args *.sv` to add all files under directory into buffer list, then `argdo %s/<SEARCH>/<REPLACE>/g | update` to perform some command/macro into all the files
-+ `gf` edit the file whose name is under the cursor
 
 #### Select
 + `gv` selects last selected region in visual mode
