@@ -80,6 +80,11 @@ augroup set_file_type
    autocmd BufNewFile,BufRead *.v,*.vh,*.vs set syntax=systemverilog
    autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
 augroup END
+
+augroup set_suffixesadd
+   autocmd!
+   autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
+augroup END
 " }}}
 
 "  COLORSCHEME {{{
@@ -92,6 +97,13 @@ set guifont=Consolos:h16
 
 "  STATUSLINE {{{
 " -----------------------------------------------------------------------------
+" dummy function in case fugitive is not installed
+if !exists('*fugitive#statusline')
+   function! fugitive#statusline()
+      return ''
+   endfunction
+endif
+
 set laststatus=2
 set statusline=
 set statusline+=%1*\ %{fugitive#statusline()}
@@ -255,6 +267,14 @@ let g:easy_align_delimiters = {
 \     'right_margin': 0
 \   }
 \ }
+" }}}
+
+"  PLUGIN: FUGITIVE {{{
+" -----------------------------------------------------------------------------
+" select from target (left)
+nnoremap [g :diffget //2<CR> :diffupdate<CR>
+" select from merge (right)
+nnoremap ]g :diffget //3<CR> :diffupdate<CR>
 " }}}
 
 " modeline

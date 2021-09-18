@@ -22,6 +22,13 @@ git remote prune <REMOTE>
 git remote update -p        # sync and remote all outdated branches
 ```
 
+#### Fugitive
++ `:G` to show git status
+   + move to file then `s` to stage and `u` to unstage
++ `Gcommit` to open commit window
++ `Gpush` to push to remote
++ `Gdiff` to open conflicted file on 3-way diff
+
 ## Vim
 #### Movement
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
