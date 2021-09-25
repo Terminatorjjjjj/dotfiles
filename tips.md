@@ -53,9 +53,10 @@ git remote update -p        # sync and remote all outdated branches
 + `J` join current line w/ next line
 + `xp` transpose two letters (delete and paste)
 + `==` to indent line to match paragraph
-+ `<C-a>` increases the selected number, while `<C-x>` decreases it
++ `<C-a>` increases the selected number, while `<C-x>` decreases it; add a number before pressing increase/decrease by that amount; in visual mode, add `g` before to increase/decrease over line
 + `.` to repeat last change, including inserting, deleting or replaceing text
 + `&` to repeat last normal mode command
++ `<C-o>` in insert mode will jump to normal mode and execute one command
 
 #### Fold
 + `za` to toggle fold
@@ -69,6 +70,8 @@ git remote update -p        # sync and remote all outdated branches
 #### Command Line Window
 + `q:` opens normal command history, can be edited as normal file
 + `q/` and `q?` open search history
++ `<C-r><C-w>` copy to word under the buffer's cursor to command line
++ `<C-r><C-a>` copy to WORD under the buffer's cursor to command line
 
 #### Misc
 + `:ter` to open terminal in vim for quick shell access

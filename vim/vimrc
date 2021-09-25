@@ -27,16 +27,18 @@ set cursorline cursorcolumn
 set ruler
 set showcmd
 set nowrap
+set incsearch
 " }}}
 
 "  MORE SETTING {{{
 " -----------------------------------------------------------------------------
 " set mouse=a
-set incsearch
+set lazyredraw " do not redrwa screen in the middle of the macro
 set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow splitright
+set undofile " persistent undo
 
 set number relativenumber
 augroup number_toggle
@@ -56,7 +58,10 @@ set directory=.vi_swp/,~/.vi_swp/,/tmp//
 set undodir=.vi_undo/,~/.vi_undo/,/tmp//
 
 " vertically center document when entering insert mode
-autocmd InsertEnter * normal zz
+augroup vertical_center_insert
+   autocmd!
+   autocmd InsertEnter * normal zz
+augroup END
 
 " make shell not source startup scripts when running shell command in vim
 set shellcmdflag=-f\ -c
@@ -97,12 +102,16 @@ set guifont=Consolos:h16
 
 "  STATUSLINE {{{
 " -----------------------------------------------------------------------------
+" if has('statusline')
+"    :so bundle/fugitive/plugin/fugitive.vim
+" endif
+
 " dummy function in case fugitive is not installed
-if !exists('*fugitive#statusline')
-   function! fugitive#statusline()
-      return ''
-   endfunction
-endif
+" if !exists('*fugitive#statusline')
+"    function! fugitive#statusline()
+"       return ''
+"    endfunction
+" endif
 
 set laststatus=2
 set statusline=
@@ -152,6 +161,14 @@ endif
 " keeping search centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" line movement for easier pressing
+nnoremap H ^
+nnoremap L $
+
+" make s act like d w/o saving the cut to a register
+" used for deleting w/o clobbering unamed register
+nnoremap s "_d
 " }}}
 
 "  FOLD {{{
@@ -189,16 +206,19 @@ endfunction
 
 augroup quickfix_group
    autocmd!
-   autocmd filetype qf call QuickFixMapping()
+   autocmd Filetype quickfix call QuickFixMapping()
 augroup END
 " }}}
 
 "  PLUGIN: RAINBOW PARENTHESES {{{
 " -----------------------------------------------------------------------------
-autocmd VimEnter * RainbowParenthesesToggle
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
+augroup rainbow_parenthesis
+   autocmd!
+   autocmd VimEnter * RainbowParenthesesToggle
+   autocmd Syntax * RainbowParenthesesLoadRound
+   autocmd Syntax * RainbowParenthesesLoadSquare
+   autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 " }}}
 
 "  PLUGIN: SUPERTAB {{{

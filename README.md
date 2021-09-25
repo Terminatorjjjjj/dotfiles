@@ -29,6 +29,7 @@
 + [vim fugitive series](http://vimcasts.org/blog/2011/05/the-fugitive-series/)
 + [theprimeagen: vim quickfix list](https://youtu.be/IoyW8XYGqjM)
 + [theprimeagen: vim registers](https://youtu.be/Q5eDxR7bU2k)
++ [some ideas on vim keymapping](https://medium.com/@lakshmankumar12/vim-and-key-mapping-f02db3f88b58)
 
 ## Tmux
 ### References
