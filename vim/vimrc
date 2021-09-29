@@ -2,13 +2,14 @@ set nocompatible " must be first
 
 "  PLUGIN RUNTIME PATH {{{ 
 " -----------------------------------------------------------------------------
-set runtimepath^=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
-set runtimepath^=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
-set runtimepath^=~/.vim/bundle/visincr             " vim-scripts/VisIncr
-set runtimepath^=~/.vim/bundle/ultisnips           " SirVer/ultisnips
-set runtimepath^=~/.vim/bundle/supertab            " ervandew/supertab
-set runtimepath^=~/.vim/bundle/fugitive            " tpope/vim-fugitive
-set runtimepath^=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
+set runtimepath+=~/.vim/bundle/supertab            " ervandew/supertab
+set runtimepath+=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
+set runtimepath+=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
+set runtimepath+=~/.vim/bundle/visincr             " vim-scripts/VisIncr
+set runtimepath+=~/.vim/bundle/ultisnips           " SirVer/ultisnips
+set runtimepath+=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
+set runtimepath+=~/.vim/bundle/fugitive            " tpope/vim-fugitive
+set runtimepath+=~/.vim/bundle/limelight           " junegunn/limelight.vim
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -169,6 +170,10 @@ nnoremap L $
 " make s act like d w/o saving the cut to a register
 " used for deleting w/o clobbering unamed register
 nnoremap s "_d
+
+" command line prev match history
+cnoremap <C-j> <down>
+cnoremap <C-k> <up>
 " }}}
 
 "  FOLD {{{
@@ -284,10 +289,17 @@ let g:easy_align_delimiters = {
 "  PLUGIN: FUGITIVE {{{
 " -----------------------------------------------------------------------------
 " select from target (left)
-nnoremap [g :diffget //2<CR> :diffupdate<CR>
+nnoremap gh[ :diffget //2<CR> :diffupdate<CR>
 " select from merge (right)
-nnoremap ]g :diffget //3<CR> :diffupdate<CR>
+nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 " }}}
+
+"  PLUGIN: LIMELIGHT {{{
+" -----------------------------------------------------------------------------
+nnoremap gll :Limelight!!<CR>
+let g:limelight_conceal_ctermfg=241
+let g:limelight_conceal_guifg='#665c54'
+"  }}}
 
 " modeline
 " vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:

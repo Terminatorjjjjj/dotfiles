@@ -1,6 +1,7 @@
 # Useful Tips
 
 ## Git
+
 #### Basics
 ```bash
 git init
@@ -84,4 +85,4 @@ git remote update -p        # sync and remote all outdated branches
 
 + `tmux kill-server` to restart tmux after modifying some setting
 
-<!-- vim:wrap:
+<!-- vim:wrap:-->

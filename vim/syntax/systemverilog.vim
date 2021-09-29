@@ -161,7 +161,7 @@ highlight! default link systemverilogString       String
 highlight! default link systemverilogTodo         Todo
 highlight! default link systemverilogType         Type
 highlight! default link systemverilogComment      Comment
-highlight! default link systemverilogConstant     Constant
+highlight! default link systemverilogConstant     Identifier
 highlight! default link systemverilogBoolean      Boolean
 highlight! default link systemverilogLabel        Label
 highlight! default link systemverilogNumber       Number
