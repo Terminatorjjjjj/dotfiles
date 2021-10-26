@@ -1,10 +1,11 @@
 # My Config
 
-* [Git](#git)
+<!--ts-->
 * [Terminal](#terminal)
 * [Vim](#vim)
 * [Tmux](#tmux)
 * [Mardown](#mardown)
+<!--te-->
 
 ## Terminal
 ### References
@@ -30,6 +31,7 @@
 + [theprimeagen: vim quickfix list](https://youtu.be/IoyW8XYGqjM)
 + [theprimeagen: vim registers](https://youtu.be/Q5eDxR7bU2k)
 + [some ideas on vim keymapping](https://medium.com/@lakshmankumar12/vim-and-key-mapping-f02db3f88b58)
++ [projecy specific vimrc](http://gslsrc.net/l004_vimrc_project_search_path.html)
 
 ## Tmux
 ### References
@@ -39,7 +41,7 @@
 ## Mardown
 ### Create TOC
 ```bash
-./gh-md-toc <markdown>
+$ ./gh-md-toc --insert <markdown>
 ```
 
 ### References

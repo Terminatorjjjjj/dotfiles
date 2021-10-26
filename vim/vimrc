@@ -34,12 +34,12 @@ set incsearch
 "  MORE SETTING {{{
 " -----------------------------------------------------------------------------
 " set mouse=a
-set lazyredraw " do not redrwa screen in the middle of the macro
+set lazyredraw       " do not redraw screen in the middle of the macro
 set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow splitright
-set undofile " persistent undo
+set undofile         " persistent undo
 
 set number relativenumber
 augroup number_toggle
@@ -82,11 +82,12 @@ augroup set_file_type
    autocmd!
    autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setfiletype sh
    autocmd BufNewFile,BufRead *.v,*.vh,*.vs setfiletype systemverilog
-   autocmd BufNewFile,BufRead *.sv,*.svh setfiletype systemverilog
+   autocmd BufNewFile,BufRead *.sv,*.svh    setfiletype systemverilog
    autocmd BufNewFile,BufRead *.v,*.vh,*.vs set syntax=systemverilog
-   autocmd BufNewFile,BufRead *.sv,*.svh set syntax=systemverilog
+   autocmd BufNewFile,BufRead *.sv,*.svh    set syntax=systemverilog
 augroup END
 
+" filename suffix for 'gf' keymap to search in path
 augroup set_suffixesadd
    autocmd!
    autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
@@ -97,30 +98,18 @@ augroup END
 " -----------------------------------------------------------------------------
 colorscheme gruvbox
 set background=dark
-" let g:molokai_original=1
-set guifont=Consolos:h16
+" set guifont=Consolos:h16
 " }}}
 
 "  STATUSLINE {{{
 " -----------------------------------------------------------------------------
-" if has('statusline')
-"    :so bundle/fugitive/plugin/fugitive.vim
-" endif
-
-" dummy function in case fugitive is not installed
-" if !exists('*fugitive#statusline')
-"    function! fugitive#statusline()
-"       return ''
-"    endfunction
-" endif
-
 set laststatus=2
 set statusline=
 set statusline+=%1*\ %{fugitive#statusline()}
 set statusline+=%1*\ %y         " file type
-set statusline+=%2*\ %.50F      " full file path
+set statusline+=%2*\ %.50F      " full file path w/ 50 char max
 set statusline+=%2*\ %r\ %m     " read only; modified
-set statusline+=%=
+set statusline+=%=              " switch to right region
 set statusline+=%3*\ %p%%       " percentage
 set statusline+=%3*\ [%c:%l/%L] " columen; line; total lines
 " }}}
@@ -140,6 +129,7 @@ augroup comment_group_of_code
    autocmd FileType tex,matlab                             let b:comment_leader = '% '
    autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
+" comment and uncomment
 noremap <silent> gcc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> gcu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -154,16 +144,16 @@ vnoremap <C-k> :m '<-2<CR>gv
 " add semicolon to the end of current line w/o moving cursor
 nnoremap <Leader>; m'A;<Esc>`'
 
-" close terminal mode
+" close terminal mode (only supported in vim8)
 if v:version > 800
    tnoremap <Esc> <C-\><C-n>:q!<CR>
 endif
 
-" keeping search centered
+" keeping search result centered
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" line movement for easier pressing
+" horizontal movement w/ easier pressing
 nnoremap H ^
 nnoremap L $
 
@@ -171,9 +161,12 @@ nnoremap L $
 " used for deleting w/o clobbering unamed register
 nnoremap s "_d
 
-" command line prev match history
+" go to prev match history in command line
 cnoremap <C-j> <down>
 cnoremap <C-k> <up>
+
+" replace the word under cursor
+nnoremap <Leader>* :%s/\<<C-r><C-w>\>//g<Left><Left>
 " }}}
 
 "  FOLD {{{
@@ -194,9 +187,13 @@ set fillchars+=vert:\
 
 "  BUFFERS {{{
 " -----------------------------------------------------------------------------
+" to change buffer w/o saving current buffer
 set hidden
+" display buffer list and go to buffer
 nnoremap gb :ls<CR>:b<Space>
+" display buffet list and open buffer in right split
 nnoremap gs :ls<CR>:vert sb<Space>
+" go to last buffer
 nnoremap <C-h> :b#<CR>
 " }}}
 
@@ -252,6 +249,7 @@ nmap ga <Plug>(EasyAlign)
 inoremap <silent> <= <=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>
 
 " customized setting mainly for verilog
+" d: for aligning port/signal list with last space before ,;=)
 let g:easy_align_delimiters = {
 \ '/': {
 \     'pattern':         '//\+\|/\*\|\*/',
@@ -296,7 +294,9 @@ nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 
 "  PLUGIN: LIMELIGHT {{{
 " -----------------------------------------------------------------------------
+" toggle limelight
 nnoremap gll :Limelight!!<CR>
+" config color for unfocuesed part (for gruvbox)
 let g:limelight_conceal_ctermfg=241
 let g:limelight_conceal_guifg='#665c54'
 "  }}}

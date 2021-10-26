@@ -9,6 +9,15 @@ alias ll='ls -l'
 alias gcc='gcc-11' # link to homebrew gcc
 alias g++='g++-11' # link to homebrew g++
 
+alias python='python3'
+alias ctags='`brew --prefix`/bin/ctags'
+
+alias gl='git log --pretty=oneline --graph --decorate --all'
+
+# set vi mode
+set -o vi
+
+# show git branch in prompt
 parse_git_branch() {
    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -16,9 +25,4 @@ parse_git_branch() {
 # default prompt: \h:\W \u\$
 export PS1="[\u:\e[1;34m\W\e[0m]\e[91m\$(parse_git_branch)\e[0m\$ "
 
-alias python='python3'
-alias ctags='`brew --prefix`/bin/ctags'
-
-# set vi mode
-set -o vi
 
