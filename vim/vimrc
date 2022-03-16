@@ -21,9 +21,9 @@ filetype plugin indent on
 
 set autoindent smartindent
 set backspace=2
-set expandtab
-set tabstop=3
-set shiftwidth=3
+set expandtab softtabstop=-1 " use shiftwidth
+set tabstop=8
+set shiftwidth=4
 set cursorline cursorcolumn
 set ruler
 set showcmd

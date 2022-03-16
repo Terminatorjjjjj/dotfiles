@@ -1,5 +1,13 @@
 # Useful Tips
 
+## Linux
+
++ `<C-w>` delete word left
++ `<C-e>` go to end of command line
++ `<C-u>` clear whole line
++ `<C-p>` previous command
++ `<C-n>` next command
+
 ## Git
 
 #### Basics
@@ -21,6 +29,7 @@ git push <REMOTE> :<BRANCH> # colon to remove remote brnch
 git remote show <REMOTE>
 git remote prune <REMOTE>
 git remote update -p        # sync and remote all outdated branches
+git branch -u master        # link branch to master as upstream
 ```
 
 #### Fugitive
@@ -32,6 +41,7 @@ git remote update -p        # sync and remote all outdated branches
 + `Gdiff` to open conflicted file on 3-way diff
 
 ## Vim
+
 #### Movement
 + `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
 + `<C-e>` to scroll down without moving the cursor, `<C-y>` to scroll up
@@ -77,12 +87,13 @@ git remote update -p        # sync and remote all outdated branches
 #### Misc
 + `:ter` to open terminal in vim for quick shell access
 + `:so $VIMRUNTIME/syntax/hitest.vim` to check all the highlight group examples for current colorscheme
++ `r! <shell cmd>` to add command results into current buffer
 
 ## Tmux
 + `<C-b> ,` rename window
 + `<C-b> n` switch to next window
++ `<C-b> l` switch to last window
 + `<C-b> o` switch to next pane
 
 + `tmux kill-server` to restart tmux after modifying some setting
 
-<!-- vim:wrap:-->
