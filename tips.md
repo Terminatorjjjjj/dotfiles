@@ -28,7 +28,7 @@ git merge <SRC BRANCH>      # checkout to branch that want to merge others first
 git push <REMOTE> :<BRANCH> # colon to remove remote brnch
 git remote show <REMOTE>
 git remote prune <REMOTE>
-git remote update -p        # sync and remote all outdated branches
+git remote update -p        # sync and remove all outdated branches
 git branch -u master        # link branch to master as upstream
 ```
 
