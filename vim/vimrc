@@ -43,15 +43,15 @@ set undofile         " persistent undo
 
 set number relativenumber
 augroup number_toggle
-   autocmd!
-   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
 augroup autocomplete_ignore_case
-   autocmd!
-   autocmd InsertLeave * set noignorecase
-   autocmd InsertEnter * set ignorecase
+    autocmd!
+    autocmd InsertLeave * set noignorecase
+    autocmd InsertEnter * set ignorecase
 augroup END
 
 set backupdir=.vi_backup/,~/.vi_backup/,/tmp//
@@ -60,8 +60,8 @@ set undodir=.vi_undo/,~/.vi_undo/,/tmp//
 
 " vertically center document when entering insert mode
 augroup vertical_center_insert
-   autocmd!
-   autocmd InsertEnter * normal zz
+    autocmd!
+    autocmd InsertEnter * normal zz
 augroup END
 
 " make shell not source startup scripts when running shell command in vim
@@ -79,18 +79,18 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 "  FILE TYPE {{{
 " -----------------------------------------------------------------------------
 augroup set_file_type
-   autocmd!
-   autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setfiletype sh
-   autocmd BufNewFile,BufRead *.v,*.vh,*.vs setfiletype systemverilog
-   autocmd BufNewFile,BufRead *.sv,*.svh    setfiletype systemverilog
-   autocmd BufNewFile,BufRead *.v,*.vh,*.vs set syntax=systemverilog
-   autocmd BufNewFile,BufRead *.sv,*.svh    set syntax=systemverilog
+    autocmd!
+    autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setfiletype sh
+    autocmd BufNewFile,BufRead *.v,*.vh,*.vs setfiletype systemverilog
+    autocmd BufNewFile,BufRead *.sv,*.svh    setfiletype systemverilog
+    autocmd BufNewFile,BufRead *.v,*.vh,*.vs set syntax=systemverilog
+    autocmd BufNewFile,BufRead *.sv,*.svh    set syntax=systemverilog
 augroup END
 
 " filename suffix for 'gf' keymap to search in path
 augroup set_suffixesadd
-   autocmd!
-   autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
+    autocmd!
+    autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
 augroup END
 " }}}
 
@@ -123,11 +123,11 @@ nnoremap <space> :
 vnoremap <space> :
 
 augroup comment_group_of_code
-   autocmd!
-   autocmd FileType c,cpp,java,scala,verilog,systemverilog let b:comment_leader = '// '
-   autocmd FileType sh,ruby,python,make,tmux,tcsh          let b:comment_leader = '# '
-   autocmd FileType tex,matlab                             let b:comment_leader = '% '
-   autocmd FileType vim                                    let b:comment_leader = '" '
+    autocmd!
+    autocmd FileType c,cpp,java,scala,verilog,systemverilog let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python,make,tmux,tcsh          let b:comment_leader = '# '
+    autocmd FileType tex,matlab                             let b:comment_leader = '% '
+    autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
 " comment and uncomment
 noremap <silent> gcc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -146,7 +146,7 @@ nnoremap <Leader>; m'A;<Esc>`'
 
 " close terminal mode (only supported in vim8)
 if v:version > 800
-   tnoremap <Esc> <C-\><C-n>:q!<CR>
+    tnoremap <Esc> <C-\><C-n>:q!<CR>
 endif
 
 " keeping search result centered
@@ -200,26 +200,26 @@ nnoremap <C-h> :b#<CR>
 "  QUICKFIX LIST {{{
 " -----------------------------------------------------------------------------
 function! QuickFixMapping()
-   " go to next location and stay in quick fix window
-   nnoremap <buffer> J :cnext<CR>zz<C-w>w
-   " go to prev location and stay in quick fix window
-   nnoremap <buffer> K :cprev<CR>zz<C-w>w
+    " go to next location and stay in quick fix window
+    nnoremap <buffer> J :cnext<CR>zz<C-w>w
+    " go to prev location and stay in quick fix window
+    nnoremap <buffer> K :cprev<CR>zz<C-w>w
 endfunction
 
 augroup quickfix_group
-   autocmd!
-   autocmd Filetype quickfix call QuickFixMapping()
+    autocmd!
+    autocmd Filetype quickfix call QuickFixMapping()
 augroup END
 " }}}
 
 "  PLUGIN: RAINBOW PARENTHESES {{{
 " -----------------------------------------------------------------------------
 augroup rainbow_parenthesis
-   autocmd!
-   autocmd VimEnter * RainbowParenthesesToggle
-   autocmd Syntax * RainbowParenthesesLoadRound
-   autocmd Syntax * RainbowParenthesesLoadSquare
-   autocmd Syntax * RainbowParenthesesLoadBraces
+    autocmd!
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 " }}}
 

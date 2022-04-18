@@ -49,9 +49,9 @@ function! s:ConvertToCodes( codeline )
 	let delims = substitute(delims, 'assert\s\+property', '', 'g') " remove assert property
 	let delims = substitute(delims, 'assume\s\+property', '', 'g') " remove assume property
 	let delims = substitute(delims, 'cover\s\+property', '', 'g') " remove cover property
-	let delims = substitute(delims, "\\(`\\<if\\>\\|`\\<ifdef\\>\\|`\\<ifndef\\>\\)", "b", "g")
-	let delims = substitute(delims, "\\(`\\<endif\\>\\)", "e", "g")
-	let delims = substitute(delims, "\\(`\\<else\\>\\)", "eb", "g")
+" 	let delims = substitute(delims, "\\(`\\<if\\>\\|`\\<ifdef\\>\\|`\\<ifndef\\>\\)", "b", "g")
+" 	let delims = substitute(delims, "\\(`\\<endif\\>\\)", "e", "g")
+" 	let delims = substitute(delims, "\\(`\\<else\\>\\)", "eb", "g")
 	let delims = substitute(delims, "\\<\\(begin\\|randcase\\|case\\|casex\\|casez\\|fork\\)\\>", "b", "g")
 	let delims = substitute(delims, "\\<\\(end\\|endcase\\|join\\|join_any\\|join_none\\)\\>", "e", "g")
 	let delims = substitute(delims, "\\<\\(class\\|config\\|clocking\\|function\\|task\\|specify\\|covergroup\\|property\\|sequence\\|checker\\)\\>", "f", "g")
