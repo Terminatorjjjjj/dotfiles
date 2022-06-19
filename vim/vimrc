@@ -158,7 +158,7 @@ nnoremap H ^
 nnoremap L $
 
 " make s act like d w/o saving the cut to a register
-" used for deleting w/o clobbering unamed register
+" used for deleting w/o clobbering unnamed register
 nnoremap s "_d
 
 " go to prev match history in command line

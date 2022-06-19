@@ -12,6 +12,10 @@
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
 + [customize prompt](https://phoenixnap.com/kb/change-bash-prompt-linux)
 
+## Linux
+### References
++ [learning awk](https://youtu.be/9YOZmI-zWok)
+
 ## Vim
 ### Plugins
 + ultisnips
