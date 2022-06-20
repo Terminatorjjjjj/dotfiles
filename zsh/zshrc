@@ -11,7 +11,7 @@ alias ctags='`brew --prefix`/bin/ctags'
 alias gl='git log --pretty=oneline --graph --decorate --all'
 
 # set vi mode
-set -o vi
+bindkey -v
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
