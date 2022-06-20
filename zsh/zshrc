@@ -1,0 +1,16 @@
+alias ls='ls -G'
+alias la='ls -aG'
+alias ll='ls -lG'
+
+alias gcc='gcc-11' # link to homebrew gcc
+alias g++='g++-11' # link to homebrew g++
+
+alias python='python3'
+alias ctags='`brew --prefix`/bin/ctags'
+
+alias gl='git log --pretty=oneline --graph --decorate --all'
+
+# set vi mode
+set -o vi
+
+PROMPT='%(?.%F{green}V.%F{red}?)%f %B%F{cyan}%2~%f%b %# '

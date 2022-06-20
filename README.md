@@ -11,10 +11,8 @@
 ### References
 + [macos terminal themes](https://github.com/lysyi3m/macos-terminal-themes)
 + [customize prompt](https://phoenixnap.com/kb/change-bash-prompt-linux)
-
-## Linux
-### References
 + [learning awk](https://youtu.be/9YOZmI-zWok)
++ [customize zsh prompt](https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/)
 
 ## Vim
 ### Plugins
