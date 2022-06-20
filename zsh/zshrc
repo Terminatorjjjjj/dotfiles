@@ -13,4 +13,11 @@ alias gl='git log --pretty=oneline --graph --decorate --all'
 # set vi mode
 set -o vi
 
-PROMPT='%(?.%F{green}V.%F{red}?)%f %B%F{cyan}%2~%f%b %# '
+autoload -Uz vcs_info
+precmd() { vcs_info }
+setopt prompt_subst
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:git*' formats "%b %m%u%c"
+
+PROMPT='%(?.%F{green}V.%F{red}?)%f %B%F{cyan}%2~%f%b %F{red}${vcs_info_msg_0_}%f %# '

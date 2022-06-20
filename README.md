@@ -13,6 +13,7 @@
 + [customize prompt](https://phoenixnap.com/kb/change-bash-prompt-linux)
 + [learning awk](https://youtu.be/9YOZmI-zWok)
 + [customize zsh prompt](https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/)
++ [git info in zsh prompt](https://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html)
 
 ## Vim
 ### Plugins
