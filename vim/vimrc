@@ -122,6 +122,9 @@ inoremap jj <Esc>
 nnoremap <space> :
 vnoremap <space> :
 
+nnoremap Y y$
+nnoremap gw <C-w>
+
 augroup comment_group_of_code
     autocmd!
     autocmd FileType c,cpp,java,scala,verilog,systemverilog let b:comment_leader = '// '

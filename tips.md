@@ -83,9 +83,13 @@ git stash clear
 + `zM` to close all folds
 + `zR` to open all folds
 + `zf{motion}` to create fold (manual or marker) on selected region
++ `zd` to remove fold
++ `zj` to move to next fold
++ `zk` to move to previous fold
 
 #### Window
 + `<C-w> r` to swap/rotate postition of the splits
++ `<C-w> o` to close all other splits
 
 #### Command Line Window
 + `q:` opens normal command history, can be edited as normal file
