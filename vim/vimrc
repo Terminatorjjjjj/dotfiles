@@ -25,11 +25,13 @@ set backspace=2
 set expandtab softtabstop=-1 " use shiftwidth
 set tabstop=8
 set shiftwidth=4
-set cursorline cursorcolumn
 set ruler
 set showcmd
 set nowrap
 set incsearch
+set cursorline cursorcolumn
+autocmd WinEnter * setlocal cursorline cursorcolumn
+autocmd WinLeave * setlocal nocursorline nocursorcolumn
 " }}}
 
 "  MORE SETTING {{{
@@ -99,7 +101,6 @@ augroup END
 " -----------------------------------------------------------------------------
 colorscheme gruvbox
 set background=dark
-" set guifont=Consolos:h16
 " }}}
 
 "  STATUSLINE {{{
@@ -184,7 +185,7 @@ nnoremap <Leader>* :%s/\<<C-r><C-w>\>//g<Left><Left>
 set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
-set fillchars=fold:\  " space at the end
+" set fillchars=fold:\  " space at the end
 " }}}
 
 "  SPLITS {{{
