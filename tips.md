@@ -41,14 +41,6 @@ git stash pop [STASH]        # pop stash@{smallest id} by default
 git stash clear
 ```
 
-#### Fugitive
-+ `:G` to show git status
-   + move to file then `s` to stage and `u` to unstage
-   + `c` to create commit
-+ `Gcommit` to open commit window
-+ `Gpush` to push to remote
-+ `Gdiff` to open conflicted file on 3-way diff
-
 ## Vim
 
 #### Movement
@@ -101,6 +93,29 @@ git stash clear
 + `:ter` to open terminal in vim for quick shell access
 + `:so $VIMRUNTIME/syntax/hitest.vim` to check all the highlight group examples for current colorscheme
 + `r! <shell cmd>` to add command results into current buffer
+
+#### Plugin: Fugitive
++ `:G` to show git status
+   + move to file then `s` to stage and `u` to unstage
+   + `c` to create commit
++ `Gcommit` to open commit window
++ `Gpush` to push to remote
++ `Gdiff` to open conflicted file on 3-way diff
+
+#### Plugin: CtrlP
++ `<c-d>` search by filename only
++ `<c-f>` cycle between modes (file, buf, mru)
++ `<c-j>` navigate down the list
++ `<c-k>` navigate up the list
++ `<c-v>` open in vertical split
++ `<c-x>` open in horizontal split
+
+#### Plugin: Unimpaired
++ `[<space>` insert empty line above
++ `]<space>` insert empty line below
++ `[b` go to previous buffer
++ `]b` go to next buffer
+
 
 ## Tmux
 + `<C-b> ,` rename window

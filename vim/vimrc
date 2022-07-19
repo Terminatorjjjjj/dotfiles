@@ -10,6 +10,7 @@ set runtimepath+=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath+=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
 set runtimepath+=~/.vim/bundle/fugitive            " tpope/vim-fugitive
 set runtimepath+=~/.vim/bundle/limelight           " junegunn/limelight.vim
+set runtimepath+=~/.vim/bundle/ctrlp               " ctrlpvim/ctrlp.vim
 " }}}
 
 "  BASIC SETTING {{{ 
@@ -73,7 +74,7 @@ set shellcmdflag=-f\ -c
 " -----------------------------------------------------------------------------
 set wildmenu
 set wildmode=list:longest,full
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.so,*.swp,*.zip,*/tmp/*
 " }}}
 
 "  FILE TYPE {{{
@@ -134,7 +135,7 @@ nnoremap gw <C-w>
 augroup comment_group_of_code
     autocmd!
     autocmd FileType c,cpp,java,scala,verilog,systemverilog let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python,make,tmux,tcsh          let b:comment_leader = '# '
+    autocmd FileType sh,ruby,python,make,tmux,tcsh,csh      let b:comment_leader = '# '
     autocmd FileType tex,matlab                             let b:comment_leader = '% '
     autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
@@ -199,7 +200,7 @@ set fillchars+=vert:\
 " to change buffer w/o saving current buffer
 set hidden
 " display buffer list and go to buffer
-nnoremap gb :ls<CR>:b<Space>
+" nnoremap gb :ls<CR>:b<Space>
 " display buffet list and open buffer in right split
 nnoremap gs :ls<CR>:vert sb<Space>
 " go to last buffer
@@ -308,6 +309,23 @@ nnoremap gll :Limelight!!<CR>
 " config color for unfocuesed part (for gruvbox)
 let g:limelight_conceal_ctermfg=241
 let g:limelight_conceal_guifg='#665c54'
+"  }}}
+
+"  PLUGIN: CTRLP {{{
+" -----------------------------------------------------------------------------
+nnoremap gp :CtrlP<CR>
+nnoremap gb :CtrlPBuffer<CR>
+" let g:ctrlp_map = '<C-P>'
+" let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_user_command = {
+	\ 'types': {
+		\ 1: ['.git', 'cd %s && git ls-files'],
+		\ 2: ['.hg', 'hg --cwd %s locate -I .'],
+		\ },
+	\ 'fallback': 'find %s -type f'
+	\ }
 "  }}}
 
 " modeline
