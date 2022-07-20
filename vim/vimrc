@@ -131,7 +131,7 @@ nnoremap <space> :
 vnoremap <space> :
 
 nnoremap Y y$
-nnoremap gw <C-w>
+nnoremap gw <c-w>
 
 augroup comment_group_of_code
     autocmd!
@@ -141,28 +141,28 @@ augroup comment_group_of_code
     autocmd FileType vim                                    let b:comment_leader = '" '
 augroup END
 " comment and uncomment
-noremap <silent> gcc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> gcu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> gcc :<c-b>silent <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:nohlsearch<cr>
+noremap <silent> gcu :<c-b>silent <c-e>s/^\v<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
 
 " move line up/down (add ==, ==gi, gv=gv if want auto align indent)
-nnoremap <C-j> :m .+1<CR>
-nnoremap <C-k> :m .-2<CR>
-inoremap <C-j> <Esc>:m .+1<CR>gi
-inoremap <C-k> <Esc>:m .-2<CR>gi
-vnoremap <C-j> :m '>+1<CR>gv
-vnoremap <C-k> :m '<-2<CR>gv
+nnoremap <c-j> :m .+1<cr>
+nnoremap <c-k> :m .-2<cr>
+inoremap <c-j> <esc>:m .+1<cr>gi
+inoremap <c-k> <esc>:m .-2<cr>gi
+vnoremap <c-j> :m '>+1<cr>gv
+vnoremap <c-k> :m '<-2<cr>gv
 
 " add semicolon to the end of current line w/o moving cursor
-nnoremap <Leader>; m'A;<Esc>`'
+nnoremap <leader>; m'a;<esc>`'
 
 " close terminal mode (only supported in vim8)
 if v:version > 800
-    tnoremap <Esc> <C-\><C-n>:q!<CR>
+    tnoremap <esc> <c-\><c-n>:q!<cr>
 endif
 
 " keeping search result centered
-nnoremap n nzzzv
 nnoremap N Nzzzv
+nnoremap n nzzzv
 
 " horizontal movement w/ easier pressing
 nnoremap H ^
@@ -173,11 +173,11 @@ nnoremap L $
 nnoremap s "_d
 
 " go to prev match history in command line
-cnoremap <C-j> <down>
-cnoremap <C-k> <up>
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
 
 " replace the word under cursor
-nnoremap <Leader>* :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 " }}}
 
 "  FOLD {{{
@@ -185,13 +185,13 @@ nnoremap <Leader>* :%s/\<<C-r><C-w>\>//g<Left><Left>
 set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
-" set fillchars=fold:\  " space at the end
+set fillchars=fold:\  " space at the end
 " }}}
 
 "  SPLITS {{{
 " -----------------------------------------------------------------------------
 " move to next split
-map <C-l> :wincmd w<CR>
+map <c-l> :wincmd w<cr>
 " remove pipes | that act as separators on splits (there is a space after \)
 set fillchars+=vert:\ 
 " }}}
@@ -201,20 +201,20 @@ set fillchars+=vert:\
 " to change buffer w/o saving current buffer
 set hidden
 " display buffer list and go to buffer
-" nnoremap gb :ls<CR>:b<Space>
+nnoremap gb :ls<cr>:b<space>
 " display buffet list and open buffer in right split
-nnoremap gs :ls<CR>:vert sb<Space>
+nnoremap gs :ls<cr>:vert sb<space>
 " go to last buffer
-nnoremap <C-h> :b#<CR>
+nnoremap <c-h> :b#<cr>
 " }}}
 
 "  QUICKFIX LIST {{{
 " -----------------------------------------------------------------------------
 function! QuickFixMapping()
     " go to next location and stay in quick fix window
-    nnoremap <buffer> J :cnext<CR>zz<C-w>w
+    nnoremap <buffer> j :cnext<cr>zz<c-w>w
     " go to prev location and stay in quick fix window
-    nnoremap <buffer> K :cprev<CR>zz<C-w>w
+    nnoremap <buffer> k :cprev<cr>zz<c-w>w
 endfunction
 
 augroup quickfix_group
@@ -252,12 +252,12 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "  PLUGIN: EASY ALIGN {{{
 " -----------------------------------------------------------------------------
 " start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
+xmap ga <plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nmap ga <plug>(EasyAlign)
 
 " verilog non-blocking auto align
-inoremap <silent> <= <=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>
+inoremap <silent> <= <=<esc>mzvip:easyalign/<=/<cr>`z$a<space>
 
 " customized setting mainly for verilog
 " d: for aligning port/signal list with last space before ,;=)
@@ -298,15 +298,15 @@ let g:easy_align_delimiters = {
 "  PLUGIN: FUGITIVE {{{
 " -----------------------------------------------------------------------------
 " select from target (left)
-nnoremap gh[ :diffget //2<CR> :diffupdate<CR>
+nnoremap gh[ :diffget //2<cr> :diffupdate<cr>
 " select from merge (right)
-nnoremap gh] :diffget //3<CR> :diffupdate<CR>
+nnoremap gh] :diffget //3<cr> :diffupdate<cr>
 " }}}
 
 "  PLUGIN: LIMELIGHT {{{
 " -----------------------------------------------------------------------------
 " toggle limelight
-nnoremap gll :Limelight!!<CR>
+nnoremap gll :Limelight!!<cr>
 " config color for unfocuesed part (for gruvbox)
 let g:limelight_conceal_ctermfg=241
 let g:limelight_conceal_guifg='#665c54'
@@ -314,10 +314,8 @@ let g:limelight_conceal_guifg='#665c54'
 
 "  PLUGIN: CTRLP {{{
 " -----------------------------------------------------------------------------
-nnoremap gp :CtrlP<CR>
-nnoremap gb :CtrlPBuffer<CR>
-" let g:ctrlp_map = '<C-P>'
-" let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_user_command = {
@@ -327,6 +325,8 @@ let g:ctrlp_user_command = {
 		\ },
 	\ 'fallback': 'find %s -type f'
 	\ }
+
+nnoremap gp :CtrlPBuffer<cr>
 "  }}}
 
 " modeline

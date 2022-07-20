@@ -2,11 +2,11 @@
 
 ## Linux
 
-+ `<C-w>` delete word left
-+ `<C-e>` go to end of command line
-+ `<C-u>` clear whole line
-+ `<C-p>` previous command
-+ `<C-n>` next command
++ `<c-w>` delete word left
++ `<c-e>` go to end of command line
++ `<c-u>` clear whole line
++ `<c-p>` previous command
++ `<c-n>` next command
 
 ## Git
 
@@ -37,15 +37,15 @@ git branch -u master        # link branch to master as upstream
 git stash
 git stash save -u "<COMMIT>"
 git stash list
-git stash pop [STASH]        # pop stash@{smallest id} by default
+git stash pop [STASH]       # pop stash@{smallest id} by default
 git stash clear
 ```
 
 ## Vim
 
 #### Movement
-+ `<C-o>` goes up/preivous in jump list, while `<C-i>` goes down/next (jk does not count as jumps)
-+ `<C-e>` to scroll down without moving the cursor, `<C-y>` to scroll up
++ `<c-o>` goes up/preivous in jump list, while `<c-i>` goes down/next (jk does not count as jumps)
++ `<c-e>` to scroll down without moving the cursor, `<c-y>` to scroll up
 + `g;` goes to previous in change list, `g,` to go to next
 + `gf` edit the file whose name is under the cursor
 + `gd` go to declaration of word under cursor, same effect as `[[`
@@ -65,10 +65,10 @@ git stash clear
 + `J` join current line w/ next line
 + `xp` transpose two letters (delete and paste)
 + `==` to indent line to match paragraph
-+ `<C-a>` increases the selected number, while `<C-x>` decreases it; add a number before pressing increase/decrease by that amount; in visual mode, add `g` before to increase/decrease over line
++ `<c-a>` increases the selected number, while `<c-x>` decreases it; add a number before pressing increase/decrease by that amount; in visual mode, add `g` before to increase/decrease over line
 + `.` to repeat last change, including inserting, deleting or replaceing text
 + `&` to repeat last normal mode command
-+ `<C-o>` in insert mode will jump to normal mode and execute one command
++ `<c-o>` in insert mode will jump to normal mode and execute one command
 
 #### Fold
 + `za` to toggle fold
@@ -80,14 +80,14 @@ git stash clear
 + `zk` to move to previous fold
 
 #### Window
-+ `<C-w> r` to swap/rotate postition of the splits
-+ `<C-w> o` to close all other splits
++ `<c-w> r` to swap/rotate postition of the splits
++ `<c-w> o` to close all other splits
 
 #### Command Line Window
 + `q:` opens normal command history, can be edited as normal file
 + `q/` and `q?` open search history
-+ `<C-r><C-w>` copy to word under the buffer's cursor to command line
-+ `<C-r><C-a>` copy to WORD under the buffer's cursor to command line
++ `<c-r><c-w>` copy to word under the buffer's cursor to command line
++ `<c-r><c-a>` copy to WORD under the buffer's cursor to command line
 
 #### Misc
 + `:ter` to open terminal in vim for quick shell access
@@ -115,13 +115,15 @@ git stash clear
 + `]<space>` insert empty line below
 + `[b` go to previous buffer
 + `]b` go to next buffer
++ `[q` go up in quickfix list
++ `]q` go down in quickfix list
 
 
 ## Tmux
-+ `<C-b> ,` rename window
-+ `<C-b> n` switch to next window
-+ `<C-b> l` switch to last window
-+ `<C-b> o` switch to next pane
++ `<c-b> ,` rename window
++ `<c-b> n` switch to next window
++ `<c-b> l` switch to last window
++ `<c-b> o` switch to next pane
 
 + `tmux kill-server` to restart tmux after modifying some setting
 
