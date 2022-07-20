@@ -35,13 +35,15 @@ autocmd WinLeave * setlocal nocursorline nocursorcolumn
 
 "  MORE SETTING {{{
 " -----------------------------------------------------------------------------
-" set mouse=a
-set lazyredraw " do not redraw screen in the middle of the macro
+" do not redraw screen in the middle of the macro
+set lazyredraw
+" disable linebreak word wrap in insert mode
+set formatoptions-=t
+" persistent undo
+set undofile
 set history=50
-set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow splitright
-set undofile " persistent undo
 
 set number relativenumber
 augroup number_toggle
@@ -98,8 +100,8 @@ augroup END
 
 "  COLORSCHEME {{{
 " -----------------------------------------------------------------------------
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 " }}}
 
 "  STATUSLINE {{{
