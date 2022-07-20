@@ -1,6 +1,7 @@
 set runtimepath^=~/.vim/bundle/tabular             " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/auto_pairs          " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree            " preservim/nerdtree
+set runtimepath+=~/.vim/bundle/limelight           " junegunn/limelight.vim
 
 "  PLUGIN: NERDTREE {{{
 " ----------------------------------------------------------------------------
@@ -45,7 +46,27 @@ nnoremap <Leader>t :Tabularize /
 vnoremap <Leader>t :Tabularize /
 " }}}
 
+"  PLUGIN: LIMELIGHT {{{
+" -----------------------------------------------------------------------------
+" toggle limelight
+nnoremap gll :Limelight!!<cr>
+" config color for unfocuesed part (for gruvbox)
+let g:limelight_conceal_ctermfg=241
+let g:limelight_conceal_guifg='#665c54'
+"  }}}
 
+"  QUICKFIX LIST {{{
+" -----------------------------------------------------------------------------
+function! QuickFixMapping()
+    " go to next location and stay in quick fix window
+    nnoremap <buffer> j :cnext<cr>zz<c-w>w
+    " go to prev location and stay in quick fix window
+    nnoremap <buffer> k :cprev<cr>zz<c-w>w
+endfunction
 
-
+augroup quickfix_group
+    autocmd!
+    autocmd Filetype quickfix call QuickFixMapping()
+augroup END
+" }}}
 

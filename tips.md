@@ -98,9 +98,9 @@ git stash clear
 + `:G` to show git status
    + move to file then `s` to stage and `u` to unstage
    + `c` to create commit
-+ `Gcommit` to open commit window
-+ `Gpush` to push to remote
-+ `Gdiff` to open conflicted file on 3-way diff
++ `Git commit` to open commit window
++ `Git push` to push to remote
++ `Git diff` to open conflicted file on 3-way diff
 
 #### Plugin: CtrlP
 + `<c-d>` search by filename only

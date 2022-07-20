@@ -9,7 +9,6 @@ set runtimepath+=~/.vim/bundle/visincr             " vim-scripts/VisIncr
 set runtimepath+=~/.vim/bundle/ultisnips           " SirVer/ultisnips
 set runtimepath+=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
 set runtimepath+=~/.vim/bundle/fugitive            " tpope/vim-fugitive
-set runtimepath+=~/.vim/bundle/limelight           " junegunn/limelight.vim
 set runtimepath+=~/.vim/bundle/ctrlp               " ctrlpvim/ctrlp.vim
 " }}}
 
@@ -37,12 +36,12 @@ autocmd WinLeave * setlocal nocursorline nocursorcolumn
 "  MORE SETTING {{{
 " -----------------------------------------------------------------------------
 " set mouse=a
-set lazyredraw       " do not redraw screen in the middle of the macro
+set lazyredraw " do not redraw screen in the middle of the macro
 set history=50
 set formatoptions-=t " disable linebreak word wrap in insert mode
 set autochdir
 set splitbelow splitright
-set undofile         " persistent undo
+set undofile " persistent undo
 
 set number relativenumber
 augroup number_toggle
@@ -126,7 +125,7 @@ hi User1 cterm=none ctermfg=243 ctermbg=235
 " -----------------------------------------------------------------------------
 let mapleader='\'
 
-inoremap jj <Esc>
+inoremap jj <esc>
 nnoremap <space> :
 vnoremap <space> :
 
@@ -178,6 +177,8 @@ cnoremap <c-k> <up>
 
 " replace the word under cursor
 nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+
+" nnoremap gp :find<space>*
 " }}}
 
 "  FOLD {{{
@@ -206,21 +207,6 @@ nnoremap gb :ls<cr>:b<space>
 nnoremap gs :ls<cr>:vert sb<space>
 " go to last buffer
 nnoremap <c-h> :b#<cr>
-" }}}
-
-"  QUICKFIX LIST {{{
-" -----------------------------------------------------------------------------
-function! QuickFixMapping()
-    " go to next location and stay in quick fix window
-    nnoremap <buffer> j :cnext<cr>zz<c-w>w
-    " go to prev location and stay in quick fix window
-    nnoremap <buffer> k :cprev<cr>zz<c-w>w
-endfunction
-
-augroup quickfix_group
-    autocmd!
-    autocmd Filetype quickfix call QuickFixMapping()
-augroup END
 " }}}
 
 "  PLUGIN: RAINBOW PARENTHESES {{{
@@ -302,15 +288,6 @@ nnoremap gh[ :diffget //2<cr> :diffupdate<cr>
 " select from merge (right)
 nnoremap gh] :diffget //3<cr> :diffupdate<cr>
 " }}}
-
-"  PLUGIN: LIMELIGHT {{{
-" -----------------------------------------------------------------------------
-" toggle limelight
-nnoremap gll :Limelight!!<cr>
-" config color for unfocuesed part (for gruvbox)
-let g:limelight_conceal_ctermfg=241
-let g:limelight_conceal_guifg='#665c54'
-"  }}}
 
 "  PLUGIN: CTRLP {{{
 " -----------------------------------------------------------------------------
