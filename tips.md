@@ -97,7 +97,7 @@ git stash clear
 #### Plugin: Fugitive
 + `:G` to show git status
    + move to file then `s` to stage and `u` to unstage
-   + `c` to create commit
+   + `cc` to create commit
 + `Git commit` to open commit window
 + `Git push` to push to remote
 + `Git diff` to open conflicted file on 3-way diff
