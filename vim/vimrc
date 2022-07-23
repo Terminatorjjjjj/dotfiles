@@ -1,6 +1,6 @@
 set nocompatible " must be first
 
-"  PLUGIN RUNTIME PATH {{{ 
+"  PLUGIN RUNTIME PATH {{{
 " -----------------------------------------------------------------------------
 set runtimepath+=~/.vim/bundle/supertab            " ervandew/supertab
 set runtimepath+=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
@@ -12,7 +12,7 @@ set runtimepath+=~/.vim/bundle/fugitive            " tpope/vim-fugitive
 set runtimepath+=~/.vim/bundle/ctrlp               " ctrlpvim/ctrlp.vim
 " }}}
 
-"  BASIC SETTING {{{ 
+"  BASIC SETTING {{{
 " -----------------------------------------------------------------------------
 syntax enable
 syntax on
@@ -185,10 +185,22 @@ nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
 "  FOLD {{{
 " -----------------------------------------------------------------------------
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let sub = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
+    let folded_line_count = v:foldend - v:foldstart + 1
+    return printf('%6d %s  ...', folded_line_count, sub)
+endfunction
+
 set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
-set fillchars=fold:\  " space at the end
+set foldcolumn=0
+set fillchars=fold:\  " a space after \
+set foldtext=MyFoldText()
+
+nnoremap <cr> za
+vnoremap <cr> za
 " }}}
 
 "  SPLITS {{{
