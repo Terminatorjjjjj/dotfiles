@@ -77,7 +77,7 @@ set shellcmdflag=-f\ -c
 " -----------------------------------------------------------------------------
 set wildmenu
 set wildmode=list:longest,full
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.so,*.swp,*.zip,*/tmp/*
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.zip,*.so,*.swp,*/tmp/*
 " }}}
 
 "  FILE TYPE {{{
@@ -189,7 +189,7 @@ function! MyFoldText()
     let line = getline(v:foldstart)
     let sub = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
     let folded_line_count = v:foldend - v:foldstart + 1
-    return printf('%6d %s  ...', folded_line_count, sub)
+    return printf('%5d ...  %s  ...', folded_line_count, sub)
 endfunction
 
 set foldmethod=marker
@@ -236,17 +236,17 @@ augroup END
 
 "  PLUGIN: SUPERTAB {{{
 " -----------------------------------------------------------------------------
-let g:SuperTabMappingForward='<s-tab>'
-let g:SuperTabMappingBackward='<tab>'
+let g:SuperTabMappingForward = '<s-tab>'
+let g:SuperTabMappingBackward = '<tab>'
 " }}}
 
 "  PLUGIN: ULTISNIPS {{{
 " -----------------------------------------------------------------------------
-let g:UltiSnipsSnippetsDir="~/.vim/my_snippet"
-let g:UltiSnipsSnippetDirectories=["ulti_snippet", "my_snippet"]
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
+let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " }}}
 
 "  PLUGIN: EASY ALIGN {{{
@@ -310,12 +310,12 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_user_command = {
-	\ 'types': {
-		\ 1: ['.git', 'cd %s && git ls-files'],
-		\ 2: ['.hg', 'hg --cwd %s locate -I .'],
-		\ },
-	\ 'fallback': 'find %s -type f'
-	\ }
+\ 'types': {
+\     1: ['.git', 'cd %s && git ls-files'],
+\     2: ['.hg', 'hg --cwd %s locate -I .'],
+\     },
+\ 'fallback': 'find %s -type f'
+\ }
 
 nnoremap gp :CtrlPBuffer<cr>
 "  }}}
