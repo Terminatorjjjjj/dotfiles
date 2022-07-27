@@ -187,9 +187,10 @@ nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 " -----------------------------------------------------------------------------
 function! MyFoldText()
     let line = getline(v:foldstart)
-    let sub = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
+    let sub1 = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
+    let sub2 = substitute(sub1, '^ \+', '', 'g')
     let folded_line_count = v:foldend - v:foldstart + 1
-    return printf('%5d ...  %s  ...', folded_line_count, sub)
+    return printf('%5d ...  %s  ...', folded_line_count, sub2)
 endfunction
 
 set foldmethod=marker
