@@ -2,14 +2,14 @@ set nocompatible " must be first
 
 "  PLUGIN RUNTIME PATH {{{
 " -----------------------------------------------------------------------------
-set runtimepath+=~/.vim/bundle/supertab            " ervandew/supertab
-set runtimepath+=~/.vim/bundle/easy_align          " junegunn/vim-easy-align
-set runtimepath+=~/.vim/bundle/rainbow_parentheses " kien/rainbow_parentheses.vim
-set runtimepath+=~/.vim/bundle/visincr             " vim-scripts/VisIncr
-set runtimepath+=~/.vim/bundle/ultisnips           " SirVer/ultisnips
-set runtimepath+=~/.vim/bundle/unimpaired          " tpope/vim-unimpaired
-set runtimepath+=~/.vim/bundle/fugitive            " tpope/vim-fugitive
-set runtimepath+=~/.vim/bundle/ctrlp               " ctrlpvim/ctrlp.vim
+set runtimepath+=~/.vim/bundle/supertab " ervandew/supertab
+set runtimepath+=~/.vim/bundle/vim-easy-align " junegunn/vim-easy-align
+set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
+set runtimepath+=~/.vim/bundle/VisIncr " vim-scripts/VisIncr
+set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
+set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
+set runtimepath+=~/.vim/bundle/vim-fugitive " tpope/vim-fugitive
+set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
 " }}}
 
 "  BASIC SETTING {{{
@@ -49,7 +49,7 @@ set number relativenumber
 augroup number_toggle
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
 
 augroup autocomplete_ignore_case
