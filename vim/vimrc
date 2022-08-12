@@ -173,7 +173,7 @@ nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 augroup comment_group_of_code
     autocmd!
     autocmd FileType c,cpp,java,scala,verilog,systemverilog,fotran,stata let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python,make,tmux,tcsh,csh                   let b:comment_leader = '# '
+    autocmd FileType sh,ruby,python,make,tmux,tcsh,csh,zsh,conf          let b:comment_leader = '# '
     autocmd FileType tex,matlab                                          let b:comment_leader = '% '
     autocmd FileType vim                                                 let b:comment_leader = '" '
 augroup END
