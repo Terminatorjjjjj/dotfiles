@@ -17,12 +17,14 @@ alias gl='git log --pretty=oneline --graph --decorate --all'
 # set vi mode
 set -o vi
 
+set show-mode-in-prompt on
+
 # show git branch in prompt
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 # default prompt: \h:\W \u\$
-export PS1="[\u:\e[1;34m\W\e[0m]\e[91m\$(parse_git_branch)\e[0m\$ "
+export PS1="\e[1;34m\w\e[0m \e[91m\$(parse_git_branch)\e[0m\$ "
 
 
