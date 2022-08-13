@@ -24,6 +24,7 @@
    + in runtimepath, path to supertab must come before ultisnips (line in below in vimrc)
 
 ### References
++ [use vim as ide](https://github.com/yangyangwithgnu/use_vim_as_ide)
 + [awesome series of guides](https://thevaluable.dev/vim-beginner/)
 + [vim cheatsheet](https://vim.rtorr.com)
 + [colorschemes](https://colorswat.ch/vim/)
@@ -35,11 +36,13 @@
 + [theprimeagen: vim registers](https://youtu.be/Q5eDxR7bU2k)
 + [some ideas on vim keymapping](https://medium.com/@lakshmankumar12/vim-and-key-mapping-f02db3f88b58)
 + [projecy specific vimrc](http://gslsrc.net/l004_vimrc_project_search_path.html)
++ [vim snippets](https://github.com/honza/vim-snippets)
 
 ## Tmux
 ### References
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)
 + [tmux cheatsheet](https://tmuxcheatsheet.com)
++ [awesome tmux](https://github.com/rothgar/awesome-tmux)
 
 ## Mardown
 ### Create TOC
