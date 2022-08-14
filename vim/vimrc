@@ -101,9 +101,7 @@ augroup END
 "  COLORSCHEME {{{
 " -----------------------------------------------------------------------------
 set background=dark
-" colorscheme gruvbox
-colorscheme solarized
-" colorscheme nord
+colorscheme gruvbox
 " }}}
 
 "  STATUSLINE {{{
@@ -122,23 +120,22 @@ augroup Gitget
     autocmd BufEnter * let b:git_branch = Gitbranch()
 augroup END
 
-" au InsertEnter * hi StatusLine cterm=none ctermfg=235 ctermbg=248
-" au InsertLeave * hi StatusLine cterm=none ctermfg=235 ctermbg=241
-" hi StatusLine cterm=none ctermfg=235 ctermbg=241
-" hi StatusLineNC cterm=none ctermfg=238 ctermbg=235
+au InsertEnter * hi StatusLine cterm=none ctermfg=233 ctermbg=247 gui=none guifg=#121212 guibg=#9e9e9e
+au InsertLeave * hi StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
+hi StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
+hi StatusLineNC cterm=none ctermfg=238 ctermbg=235 gui=none guifg=#444444 guibg=#262626
+hi User3 cterm=none ctermfg=243 ctermbg=235 gui=none guifg=#767676 guibg=#262626
 
 set laststatus=2
 set statusline=
 set statusline+=%0*\ %y         " file type
 " set statusline+=%0*\ %{fugitive#statusline()}\ 
 set statusline+=%0*\ %{b:git_branch}
-set statusline+=%0*\ %f         " file name; .50F: full file path w/ 50 char max
-set statusline+=%0*\ %r\ %m     " read only; modified
+set statusline+=%3*\ %f         " file name; .50F: full file path w/ 50 char max
+set statusline+=%3*\ %r\ %m     " read only; modified
 set statusline+=%=              " switch to right region
-set statusline+=%0*\ %p%%       " percentage
+set statusline+=%3*\ %p%%\      " percentage
 set statusline+=%0*\ [%c:%l/%L] " columen; line; total lines
-
-" hi User3 cterm=none ctermfg=243 ctermbg=235
 " }}}
 
 "  KEY BINDING {{{
