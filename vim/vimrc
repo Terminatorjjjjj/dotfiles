@@ -101,13 +101,20 @@ augroup END
 "  COLORSCHEME {{{
 " -----------------------------------------------------------------------------
 set background=dark
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme solarized
+" colorscheme nord
 " }}}
 
 "  STATUSLINE {{{
 " -----------------------------------------------------------------------------
 function! Gitbranch()
-    return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
+    let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
+    if len(br)>0
+        return '(' . br . ') '
+    else
+        return br
+    endif
 endfunction
 
 augroup Gitget
@@ -115,22 +122,23 @@ augroup Gitget
     autocmd BufEnter * let b:git_branch = Gitbranch()
 augroup END
 
-au InsertEnter * hi statusline cterm=standout
-au InsertLeave * hi statusline cterm=none ctermfg=243 ctermbg=235
-hi statusline cterm=none ctermfg=243 ctermbg=235
+" au InsertEnter * hi StatusLine cterm=none ctermfg=235 ctermbg=248
+" au InsertLeave * hi StatusLine cterm=none ctermfg=235 ctermbg=241
+" hi StatusLine cterm=none ctermfg=235 ctermbg=241
+" hi StatusLineNC cterm=none ctermfg=238 ctermbg=235
 
 set laststatus=2
 set statusline=
-set statusline+=%0*\ %{fugitive#statusline()}
-" set statusline+=%0*\ [Git(%{b:git_branch})]
-set statusline+=%0*\ %y\        " file type
-set statusline+=%1*\ %f         " file name; .50F: full file path w/ 50 char max
-set statusline+=%1*\ %r\ %m     " read only; modified
+set statusline+=%0*\ %y         " file type
+" set statusline+=%0*\ %{fugitive#statusline()}\ 
+set statusline+=%0*\ %{b:git_branch}
+set statusline+=%0*\ %f         " file name; .50F: full file path w/ 50 char max
+set statusline+=%0*\ %r\ %m     " read only; modified
 set statusline+=%=              " switch to right region
-set statusline+=%1*\ %p%%       " percentage
-set statusline+=%1*\ [%c:%l/%L] " columen; line; total lines
+set statusline+=%0*\ %p%%       " percentage
+set statusline+=%0*\ [%c:%l/%L] " columen; line; total lines
 
-hi User1 cterm=none ctermfg=243 ctermbg=235
+" hi User3 cterm=none ctermfg=243 ctermbg=235
 " }}}
 
 "  KEY BINDING {{{
