@@ -28,9 +28,6 @@ set ruler
 set showcmd
 set nowrap
 set incsearch
-set cursorline cursorcolumn
-autocmd WinEnter * setlocal cursorline cursorcolumn
-autocmd WinLeave * setlocal nocursorline nocursorcolumn
 " }}}
 
 "  MORE SETTING {{{
@@ -44,6 +41,13 @@ set undofile
 set history=50
 set autochdir
 set splitbelow splitright
+
+set cursorline cursorcolumn
+augroup cursor_toggle
+    autocmd!
+    autocmd WinEnter * setlocal cursorline cursorcolumn
+    autocmd WinLeave * setlocal nocursorline nocursorcolumn
+augroup END
 
 set number relativenumber
 augroup number_toggle
@@ -106,25 +110,25 @@ colorscheme gruvbox
 
 "  STATUSLINE {{{
 " -----------------------------------------------------------------------------
-function! Gitbranch()
-    let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
-    if len(br)>0
-        return '(' . br . ') '
+function! GitBranch()
+    let branch = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
+    if len(branch)>0
+        return printf('(%s) ', branch)
     else
-        return br
+        return branch
     endif
 endfunction
 
-augroup Gitget
+augroup get_git_branch
     autocmd!
-    autocmd BufEnter * let b:git_branch = Gitbranch()
+    autocmd BufEnter * let b:git_branch = GitBranch()
 augroup END
 
-au InsertEnter * hi StatusLine cterm=none ctermfg=233 ctermbg=247 gui=none guifg=#121212 guibg=#9e9e9e
-au InsertLeave * hi StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
-hi StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
-hi StatusLineNC cterm=none ctermfg=238 ctermbg=235 gui=none guifg=#444444 guibg=#262626
-hi User3 cterm=none ctermfg=243 ctermbg=235 gui=none guifg=#767676 guibg=#262626
+autocmd InsertEnter * highlight StatusLine cterm=none ctermfg=233 ctermbg=247 gui=none guifg=#121212 guibg=#9e9e9e
+autocmd InsertLeave * highlight StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
+highlight StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
+highlight StatusLineNC cterm=none ctermfg=238 ctermbg=235 gui=none guifg=#444444 guibg=#262626
+highlight User3 cterm=none ctermfg=243 ctermbg=235 gui=none guifg=#767676 guibg=#262626
 
 set laststatus=2
 set statusline=
@@ -185,7 +189,7 @@ nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
 "  CODE COMMENT {{{
 " -----------------------------------------------------------------------------
-augroup comment_group_of_code
+augroup get_comment_leader
     autocmd!
     autocmd FileType c,cpp,java,scala,verilog,systemverilog,fotran,stata let b:comment_leader = '// '
     autocmd FileType sh,ruby,python,make,tmux,tcsh,csh,zsh,conf          let b:comment_leader = '# '
