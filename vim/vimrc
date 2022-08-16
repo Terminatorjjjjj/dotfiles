@@ -115,73 +115,57 @@ set laststatus=2
 " modified from this blog:
 "   https://jip.dev/posts/a-simpler-vim-statusline/
 "   https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
-function! Status(winnum)
+function! Status(winnum) abort
     let active = a:winnum == winnr()
     let bufnum = winbufnr(a:winnum)
-    let fill = '%#Comment#'
-    let stat = ''
-
-    " this function just outputs the content colored by the
-    " supplied colorgroup number, e.g. num = 2 -> User2
-    " it only colors the input if the window is the currently
-    " focused one
 
     function! Color(active, num, content, fill)
         if a:active
+            " output the content with supplied colorgroup num, e.g. num=1 -> User1
             return '%' . a:num. '*' . a:content . '%*'
         else
-            " tried using num_inactive for flexibility but not working
+            " tried using different num for flexibility but not working
             return a:fill . a:content . '%*'
         endif
     endfunction
 
-    " column
-    "   this might seem a bit complicated but all it amounts to is
-    "   a calculation to see how much padding should be used for the
-    "   column number, so that it lines up nicely with the line numbers
-
-    "   an expression is needed because expressions are evaluated within
-    "   the context of the window for which the statusline is being prepared
-    "   this is crucial because the line and virtcol functions otherwise
-    "   operate on the currently focused window
-
-    function! Column()
-        let vc = virtcol('.')
-        let ruler_width = max([strlen(line('$')), (&numberwidth - 1)])
-        let column_width = strlen(vc)
-        let padding = ruler_width - column_width
-        let column = ''
-
-        if padding <= 0
-            let column .= vc
-        else
-            " + 1 becuase for some reason vim eats one of the spaces
-            let column .= repeat(' ', padding + 1) . vc
-        endif
-
-        return column . ' '
+    function! GitBranch()
+        return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
     endfunction
 
-    let stat .= Color(active, 1, '%{Column()}', fill)
+    let fill = '%#Comment#'
+    let type = getbufvar(bufnum, '&buftype')
+    let name = bufname(bufnum)
 
-    " file name
-    let stat .= Color(active, 2, ' %<%f', fill)
+    " handles alternative statusline
+    if type ==# 'help'
+        let helpname = ' ' . fnamemodify(name, ':t:r')
+        let altstat = fill . ' »' . '%*'
+        let altstat .= Color(active, 5, helpname, fill)
+        let altstat .= fill . ' «'
+        return altstat
+    endif
 
-    " read only
-    let readonly = getbufvar(bufnum, '&readonly')
-    let stat .= Color(active, 3, readonly ? ' ‼' : '', fill)
+    let branch = (active) ? ' ' . GitBranch() : ''
+    let separator = (len(branch)>0) ? ' »' : ''
+    let filename = ' %<%f'
+    let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
+    let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
+    let column = '%c '
 
-    " file modified
-    let modified = getbufvar(bufnum, '&modified')
-    let stat .= Color(active, 3, modified ? ' +' : '', fill)
-    
-    " right side
-    let stat .= '%#Comment#'
+    let stat = ''
+    let stat .= Color(active, 1, branch, fill)
+    let stat .= fill . separator . '%*'
+    let stat .= Color(active, 2, filename, fill)
+    let stat .= fill . ' »'
+    let stat .= Color(active, 3, readonly, fill)
+    let stat .= Color(active, 3, modified, fill)
+    let stat .= fill
     let stat .= '%='
+    let stat .= fill . '« '
 
-    " git branch
-    let branch = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
-    let stat .= Color(active, 4, branch, fill) . fill . ' '
+    let stat .= Color(active, 4, column, fill)
+    let stat .= fill . ' '
 
     return stat
 endfunction
@@ -197,10 +181,11 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 
-hi link User1 CursorLineNr
-hi link User2 Normal
-hi link User3 WarningMsg
-hi link User4 MoreMsg
+hi link User1 String
+hi link User2 Identifier
+hi link User3 Number
+hi link User4 Identifier
+hi link User5 Normal
 " }}}
 
 "  KEY BINDING {{{
