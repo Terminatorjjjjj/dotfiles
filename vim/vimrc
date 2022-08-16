@@ -108,38 +108,99 @@ set background=dark
 colorscheme gruvbox
 " }}}
 
-"  STATUSLINE {{{
-" -----------------------------------------------------------------------------
-function! GitBranch()
-    let branch = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
-    if len(branch)>0
-        return printf('(%s) ', branch)
-    else
-        return branch
-    endif
-endfunction
-
-augroup get_git_branch
-    autocmd!
-    autocmd BufEnter * let b:git_branch = GitBranch()
-augroup END
-
-autocmd InsertEnter * highlight StatusLine cterm=none ctermfg=233 ctermbg=247 gui=none guifg=#121212 guibg=#9e9e9e
-autocmd InsertLeave * highlight StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
-highlight StatusLine cterm=none ctermfg=235 ctermbg=241 gui=none guifg=#262626 guibg=#606060
-highlight StatusLineNC cterm=none ctermfg=238 ctermbg=235 gui=none guifg=#444444 guibg=#262626
-highlight User3 cterm=none ctermfg=243 ctermbg=235 gui=none guifg=#767676 guibg=#262626
+" Status Line: {{{
 
 set laststatus=2
-set statusline=
-set statusline+=%0*\ %y         " file type
-" set statusline+=%0*\ %{fugitive#statusline()}\ 
-set statusline+=%0*\ %{b:git_branch}
-set statusline+=%3*\ %f         " file name; .50F: full file path w/ 50 char max
-set statusline+=%3*\ %r\ %m     " read only; modified
-set statusline+=%=              " switch to right region
-set statusline+=%3*\ %p%%\      " percentage
-set statusline+=%0*\ [%c:%l/%L] " columen; line; total lines
+
+" modified from this blog:
+"   https://jip.dev/posts/a-simpler-vim-statusline/
+"   https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
+function! Status(winnum)
+    let active = a:winnum == winnr()
+    let bufnum = winbufnr(a:winnum)
+    let fill = '%#Comment#'
+    let stat = ''
+
+    " this function just outputs the content colored by the
+    " supplied colorgroup number, e.g. num = 2 -> User2
+    " it only colors the input if the window is the currently
+    " focused one
+
+    function! Color(active, num, content, fill)
+        if a:active
+            return '%' . a:num. '*' . a:content . '%*'
+        else
+            " tried using num_inactive for flexibility but not working
+            return a:fill . a:content . '%*'
+        endif
+    endfunction
+
+    " column
+    "   this might seem a bit complicated but all it amounts to is
+    "   a calculation to see how much padding should be used for the
+    "   column number, so that it lines up nicely with the line numbers
+
+    "   an expression is needed because expressions are evaluated within
+    "   the context of the window for which the statusline is being prepared
+    "   this is crucial because the line and virtcol functions otherwise
+    "   operate on the currently focused window
+
+    function! Column()
+        let vc = virtcol('.')
+        let ruler_width = max([strlen(line('$')), (&numberwidth - 1)])
+        let column_width = strlen(vc)
+        let padding = ruler_width - column_width
+        let column = ''
+
+        if padding <= 0
+            let column .= vc
+        else
+            " + 1 becuase for some reason vim eats one of the spaces
+            let column .= repeat(' ', padding + 1) . vc
+        endif
+
+        return column . ' '
+    endfunction
+
+    let stat .= Color(active, 1, '%{Column()}', fill)
+
+    " file name
+    let stat .= Color(active, 2, ' %<%f', fill)
+
+    " read only
+    let readonly = getbufvar(bufnum, '&readonly')
+    let stat .= Color(active, 3, readonly ? ' ‼' : '', fill)
+
+    " file modified
+    let modified = getbufvar(bufnum, '&modified')
+    let stat .= Color(active, 3, modified ? ' +' : '', fill)
+    
+    " right side
+    let stat .= '%#Comment#'
+    let stat .= '%='
+
+    " git branch
+    let branch = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))
+    let stat .= Color(active, 4, branch, fill) . fill . ' '
+
+    return stat
+endfunction
+
+function! s:RefreshStatus()
+  for nr in range(1, winnr('$'))
+    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
+  endfor
+endfunction
+
+augroup status
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
+augroup END
+
+hi link User1 CursorLineNr
+hi link User2 Normal
+hi link User3 WarningMsg
+hi link User4 MoreMsg
 " }}}
 
 "  KEY BINDING {{{
@@ -297,37 +358,37 @@ inoremap <silent> <= <=<esc>mzvip:EasyAlign/<=/<cr>`z$a<space>
 " customized setting mainly for verilog
 " d: for aligning port/signal list with last space before ,;=)
 let g:easy_align_delimiters = {
-\ '/': {
-\     'pattern':         '//\+\|/\*\|\*/',
-\     'delimiter_align': 'l',
-\     'ignore_groups':   ['!Comment'] 
-\     },
-\ ':': {
-\     'pattern':       ':',
-\     'left_margin':   1,
-\     'right_margin':  1,
-\     },
-\ '?': {
-\     'pattern':       '?',
-\     'left_margin':   1,
-\     'right_margin':  1,
-\     },
-\ '(': {
-\     'pattern':       '(',
-\     'left_margin':   1,
-\     'right_margin':  0,
-\   },
-\ ')': {
-\     'pattern':       ')',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\   },
-\ 'd': {
-\     'pattern':      ' \ze\S\+\s*[,;=]',
-\     'left_margin':  0,
-\     'right_margin': 0
-\   }
-\ }
+            \ '/': {
+            \     'pattern':         '//\+\|/\*\|\*/',
+            \     'delimiter_align': 'l',
+            \     'ignore_groups':   ['!Comment'] 
+            \     },
+            \ ':': {
+            \     'pattern':       ':',
+            \     'left_margin':   1,
+            \     'right_margin':  1,
+            \     },
+            \ '?': {
+            \     'pattern':       '?',
+            \     'left_margin':   1,
+            \     'right_margin':  1,
+            \     },
+            \ '(': {
+            \     'pattern':       '(',
+            \     'left_margin':   1,
+            \     'right_margin':  0,
+            \   },
+            \ ')': {
+            \     'pattern':       ')',
+            \     'left_margin':   0,
+            \     'right_margin':  0,
+            \   },
+            \ 'd': {
+            \     'pattern':      ' \ze\S\+\s*[,;=]',
+            \     'left_margin':  0,
+            \     'right_margin': 0
+            \   }
+            \ }
 " }}}
 
 "  PLUGIN: FUGITIVE {{{
