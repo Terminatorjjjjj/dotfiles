@@ -1,7 +1,7 @@
 set nocompatible " must be first
 
-"  PLUGIN RUNTIME PATH {{{
-" -----------------------------------------------------------------------------
+" Runtime Path: {{{
+
 set runtimepath+=~/.vim/bundle/supertab " ervandew/supertab
 set runtimepath+=~/.vim/bundle/vim-easy-align " junegunn/vim-easy-align
 set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
@@ -10,10 +10,10 @@ set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
 set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
 set runtimepath+=~/.vim/bundle/vim-fugitive " tpope/vim-fugitive
 set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
-" }}}
 
-"  BASIC SETTING {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Basic Setting: {{{
+
 syntax enable
 syntax on
 filetype on
@@ -28,10 +28,10 @@ set ruler
 set showcmd
 set nowrap
 set incsearch
-" }}}
 
-"  MORE SETTING {{{
-" -----------------------------------------------------------------------------
+" }}}
+" More Setting: {{{
+
 " do not redraw screen in the middle of the macro
 set lazyredraw
 " disable linebreak word wrap in insert mode
@@ -74,18 +74,18 @@ augroup END
 
 " make shell not source startup scripts when running shell command in vim
 set shellcmdflag=-f\ -c
-" }}}
 
-"  WILDMENU {{{
-"  enable auto completion menu w/ tab & behave like bash
-" -----------------------------------------------------------------------------
+" }}}
+" Wildmenu: {{{
+
+" enable auto completion menu w/ tab & behave like bash
 set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.zip,*.so,*.swp,*/tmp/*
-" }}}
 
-"  FILE TYPE {{{
-" -----------------------------------------------------------------------------
+" }}}
+" File Type: {{{
+
 augroup set_file_type
     autocmd!
     autocmd BufNewFile,BufRead .bashrc*,bashrc,.bash_profile*,bash_profile* setfiletype sh
@@ -100,14 +100,15 @@ augroup set_suffixesadd
     autocmd!
     autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
 augroup END
+
 " }}}
 
-"  COLORSCHEME {{{
-" -----------------------------------------------------------------------------
+" Colorscheme: {{{
+
 set background=dark
 colorscheme gruvbox
-" }}}
 
+" }}}
 " Status Line: {{{
 
 set laststatus=2
@@ -115,7 +116,8 @@ set laststatus=2
 " modified from this blog:
 "   https://jip.dev/posts/a-simpler-vim-statusline/
 "   https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
-function! Status(winnum) abort
+
+function! Status(winnum)
     let active = a:winnum == winnr()
     let bufnum = winbufnr(a:winnum)
 
@@ -134,12 +136,12 @@ function! Status(winnum) abort
     endfunction
 
     let fill = '%#Comment#'
-    let type = getbufvar(bufnum, '&buftype')
-    let name = bufname(bufnum)
+    let buftype = getbufvar(bufnum, '&buftype')
+    let bufname = bufname(bufnum)
 
-    " handles alternative statusline
-    if type ==# 'help'
-        let helpname = ' ' . fnamemodify(name, ':t:r')
+    " handlftype alternative statusline
+    if buftype ==# 'help'
+        let helpname = ' ' . fnamemodify(bufname, ':t:r')
         let altstat = fill . ' »' . '%*'
         let altstat .= Color(active, 5, helpname, fill)
         let altstat .= fill . ' «'
@@ -162,8 +164,9 @@ function! Status(winnum) abort
     let stat .= Color(active, 3, modified, fill)
     let stat .= fill
     let stat .= '%='
+"     let stat .= fill . '« '
+"     let stat .= fill . &filetype . ' '
     let stat .= fill . '« '
-
     let stat .= Color(active, 4, column, fill)
     let stat .= fill . ' '
 
@@ -187,9 +190,8 @@ hi link User3 Number
 hi link User4 Identifier
 hi link User5 Normal
 " }}}
+" Key Binding: {{{
 
-"  KEY BINDING {{{
-" -----------------------------------------------------------------------------
 let mapleader='\'
 
 inoremap jj <esc>
@@ -231,10 +233,10 @@ cnoremap <c-k> <up>
 nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
 " nnoremap gp :find<space>*
-" }}}
 
-"  CODE COMMENT {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Code Comment: {{{
+
 augroup get_comment_leader
     autocmd!
     autocmd FileType c,cpp,java,scala,verilog,systemverilog,fotran,stata let b:comment_leader = '// '
@@ -261,10 +263,10 @@ nnoremap <c-\> :CT<cr>
 vnoremap <c-\> :CT<cr>
 nnoremap gci :CT<cr>
 vnoremap gci :CT<cr>
-" }}}
 
-"  FOLD {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Fold: {{{
+
 function! MyFoldText()
     let line = getline(v:foldstart)
     let sub1 = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
@@ -282,18 +284,18 @@ set foldtext=MyFoldText()
 
 nnoremap <cr> za
 vnoremap <cr> za
-" }}}
 
-"  SPLITS {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Splits: {{{
+
 " move to next split
 map <c-l> :wincmd w<cr>
 " remove pipes | that act as separators on splits (there is a space after \)
 set fillchars+=vert:\ 
-" }}}
 
-"  BUFFERS {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Buffers: {{{
+
 " to change buffer w/o saving current buffer
 set hidden
 " display buffer list and go to buffer
@@ -302,10 +304,11 @@ nnoremap gb :ls<cr>:b<space>
 nnoremap gs :ls<cr>:vert sb<space>
 " go to last buffer
 nnoremap <c-h> :b#<cr>
+
 " }}}
 
-"  PLUGIN: RAINBOW PARENTHESES {{{
-" -----------------------------------------------------------------------------
+" Plugin: Rainbow Parentheses {{{
+
 augroup rainbow_parenthesis
     autocmd!
     autocmd VimEnter * RainbowParenthesesToggle
@@ -313,25 +316,25 @@ augroup rainbow_parenthesis
     autocmd Syntax * RainbowParenthesesLoadSquare
     autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
-" }}}
 
-"  PLUGIN: SUPERTAB {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Plugin: Supertab {{{
+
 let g:SuperTabMappingForward = '<s-tab>'
 let g:SuperTabMappingBackward = '<tab>'
-" }}}
 
-"  PLUGIN: ULTISNIPS {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Plugin: Ultisnips {{{
+
 let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
 let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" }}}
 
-"  PLUGIN: EASY ALIGN {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Plugin: Easy Align {{{
+
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <plug>(EasyAlign)
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -374,32 +377,33 @@ let g:easy_align_delimiters = {
             \     'right_margin': 0
             \   }
             \ }
-" }}}
 
-"  PLUGIN: FUGITIVE {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Plugin: Fugitive {{{
+
 " select from target (left)
 nnoremap gh[ :diffget //2<cr> :diffupdate<cr>
 " select from merge (right)
 nnoremap gh] :diffget //3<cr> :diffupdate<cr>
-" }}}
 
-"  PLUGIN: CTRLP {{{
-" -----------------------------------------------------------------------------
+" }}}
+" Plugin: CtrlP {{{
+
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_user_command = {
-\ 'types': {
-\     1: ['.git', 'cd %s && git ls-files'],
-\     2: ['.hg', 'hg --cwd %s locate -I .'],
-\     },
-\ 'fallback': 'find %s -type f'
-\ }
+            \ 'types': {
+            \     1: ['.git', 'cd %s && git ls-files'],
+            \     2: ['.hg', 'hg --cwd %s locate -I .'],
+            \     },
+            \ 'fallback': 'find %s -type f'
+            \ }
 
 nnoremap gp :CtrlPBuffer<cr>
-"  }}}
+
+" }}}
 
 " modeline
 " vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
