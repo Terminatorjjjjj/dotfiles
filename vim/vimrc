@@ -76,7 +76,7 @@ augroup END
 set shellcmdflag=-f\ -c
 
 " }}}
-" Wildmenu: {{{
+" Wild Menu: {{{
 
 " enable auto completion menu w/ tab & behave like bash
 set wildmenu
