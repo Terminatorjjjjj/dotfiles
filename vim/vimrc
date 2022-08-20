@@ -27,7 +27,7 @@ set shiftwidth=4
 set ruler
 set showcmd
 set nowrap
-set incsearch
+set incsearch hlsearch
 
 " }}}
 " More Setting: {{{
@@ -81,7 +81,7 @@ set shellcmdflag=-f\ -c
 " enable auto completion menu w/ tab & behave like bash
 set wildmenu
 set wildmode=list:longest,full
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.zip,*.so,*.swp,*/tmp/*
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.zip,*.so,*.swp,*/tmp/*,*/.git/*
 
 " }}}
 " File Type: {{{
@@ -132,7 +132,11 @@ function! Status(winnum)
     endfunction
 
     function! GitBranch()
-        return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
+        let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
+        if strlen(br) > 0
+            return ' ' . br
+        else
+            return ''
     endfunction
 
     let fill = '%#Comment#'
@@ -148,8 +152,8 @@ function! Status(winnum)
         return altstat
     endif
 
-    let branch = (active) ? ' ' . GitBranch() : ''
-    let separator = (len(branch)>0) ? ' »' : ''
+    let branch = (active) ? GitBranch() : ''
+    let separator = (strlen(branch)>0) ? ' »' : ''
     let filename = ' %<%f'
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
@@ -184,8 +188,8 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 
-hi link User1 String
-hi link User2 Identifier
+hi link User1 Identifier
+hi link User2 String
 hi link User3 Number
 hi link User4 Identifier
 hi link User5 Normal
@@ -233,6 +237,9 @@ cnoremap <c-k> <up>
 nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
 
 " nnoremap gp :find<space>*
+
+" remap since ; is used for fold toggle
+nnoremap <space>; ;
 
 " }}}
 " Code Comment: {{{
@@ -282,8 +289,8 @@ set foldcolumn=0
 set fillchars=fold:\  " a space after \
 set foldtext=MyFoldText()
 
-nnoremap <cr> za
-vnoremap <cr> za
+nnoremap ; za
+vnoremap ; za
 
 " }}}
 " Splits: {{{
@@ -393,12 +400,35 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
-let g:ctrlp_user_command = {
-            \ 'types': {
-            \     1: ['.git', 'cd %s && git ls-files'],
-            \     2: ['.hg', 'hg --cwd %s locate -I .'],
-            \     },
-            \ 'fallback': 'find %s -type f'
+let g:ctrlp_custom_ignore = {
+            \ 'dir': '\v[\/]\.(git)$',
+            \ 'file': '\v\.(DS_Store)$',
+            \ }
+let g:ctrlp_user_command = ['.git', 'git --git-dir=%s/.git ls-files -co --exclude-standard']
+
+" Argument: focus, byfname, s:regexp, prv, item, nxt, marked
+"           a:1    a:2      a:3       a:4  a:5   a:6  a:7
+function! CtrlPMainStatus(...)
+    let prv = '%#Comment# ' . a:4 . ' %*'
+    let item = '%#PmenuSel# ' . (a:5 == 'mru files' ? 'mru' : a:5) . ' %*'
+    let nxt = '%#Comment# ' . a:6 . ' %*'
+    let dir = '%#Comment# « %*%4*' . fnamemodify(getcwd(), ':~') . '%* '
+
+    " only output current mode and dir
+    return '%#Comment# » %*' . item . '%#Comment# « ' . '%=%<' . dir
+endfunction
+
+" Argument: len
+"           a:1
+function! CtrlPProgressStatus(...)
+    let len = '%#Function# ' . a:1 . ' %*'
+    let dir = ' %=%<%#LineNr# ' . getcwd() . ' %*'
+    return len . dir
+endfunction
+
+let g:ctrlp_status_func = {
+            \ 'main': 'CtrlPMainStatus',
+            \ 'prog': 'CtrlPProgressStatus'
             \ }
 
 nnoremap gp :CtrlPBuffer<cr>
