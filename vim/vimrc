@@ -42,11 +42,17 @@ set history=50
 set autochdir
 set splitbelow splitright
 
-set cursorline cursorcolumn
+set cursorline "cursorcolumn
 augroup cursor_toggle
     autocmd!
-    autocmd WinEnter * setlocal cursorline cursorcolumn
-    autocmd WinLeave * setlocal nocursorline nocursorcolumn
+    autocmd WinEnter * setlocal cursorline "cursorcolumn
+    autocmd WinLeave * setlocal nocursorline "nocursorcolumn
+augroup END
+
+augroup cursor_insert
+    autocmd!
+    autocmd InsertEnter * setlocal cursorcolumn
+    autocmd InsertLeave * setlocal nocursorcolumn
 augroup END
 
 set number relativenumber
@@ -58,8 +64,8 @@ augroup END
 
 augroup autocomplete_ignore_case
     autocmd!
-    autocmd InsertLeave * set noignorecase
     autocmd InsertEnter * set ignorecase
+    autocmd InsertLeave * set noignorecase
 augroup END
 
 set backupdir=.vi_backup/,~/.vi_backup/,/tmp//
