@@ -8,7 +8,6 @@ set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parenthese
 set runtimepath+=~/.vim/bundle/VisIncr " vim-scripts/VisIncr
 set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
 set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
-set runtimepath+=~/.vim/bundle/vim-fugitive " tpope/vim-fugitive
 set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
 
 " }}}
@@ -287,7 +286,7 @@ function! MyFoldText()
     let sub1 = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
     let sub2 = substitute(sub1, '^ \+', '', 'g')
     let folded_line_count = v:foldend - v:foldstart + 1
-    return printf('%5d   %s  ', folded_line_count, sub2)
+    return printf('··· %4d   %s  ', folded_line_count, sub2)
 endfunction
 
 set foldmethod=marker
@@ -394,14 +393,6 @@ let g:easy_align_delimiters = {
             \     'right_margin': 0
             \   }
             \ }
-
-" }}}
-" Plugin: Fugitive {{{
-
-" select from target (left)
-nnoremap gh[ :diffget //2<CR> :diffupdate<CR>
-" select from merge (right)
-nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 
 " }}}
 " Plugin: CtrlP {{{
