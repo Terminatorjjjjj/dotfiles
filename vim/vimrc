@@ -114,6 +114,9 @@ augroup END
 set background=dark
 colorscheme gruvbox
 
+hi CursorLine ctermbg=233
+hi CursorLineNr ctermbg=233
+
 " }}}
 " Status Line: {{{
 
@@ -121,17 +124,16 @@ colorscheme gruvbox
 "   https://jip.dev/posts/a-simpler-vim-statusline/
 "   https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
 
-function! Status(winnum)
+function! Status(winnum) abort
     let active = a:winnum == winnr()
     let bufnum = winbufnr(a:winnum)
 
-    function! Color(active, num, content, fill)
+    function! Color(active, num, content, pad)
         if a:active
             " output the content with supplied colorgroup num, e.g. num=1 -> User1
             return '%' . a:num. '*' . a:content . '%*'
         else
-            " tried using different num for flexibility but not working
-            return a:fill . a:content . '%*'
+            return a:pad . a:content . '%*'
         endif
     endfunction
 
@@ -143,19 +145,20 @@ function! Status(winnum)
             return ''
     endfunction
 
-    let fill = '%#Comment#'
     let buftype = getbufvar(bufnum, '&buftype')
     let bufname = bufname(bufnum)
 
     " handlftype alternative statusline
     if buftype ==# 'help'
         let helpname = ' ' . fnamemodify(bufname, ':t:r')
-        let altstat = fill . ' »' . '%*'
-        let altstat .= Color(active, 5, helpname, fill)
-        let altstat .= fill . ' «'
+        let altstat = Color(active, 6, ' »')
+        let altstat .= Color(active, 5, helpname)
+        let altstat .= Color(active, 6, ' «')
         return altstat
     endif
 
+    let pad = '%#Comment#'
+    let fill = (active) ? '%6*' : pad
     let branch = (active) ? GitBranch() : ''
     let separator = (strlen(branch)>0) ? ' »' : ''
     let filename = ' %<%f'
@@ -164,18 +167,18 @@ function! Status(winnum)
     let column = '%c '
 
     let stat = ''
-    let stat .= Color(active, 1, branch, fill)
-    let stat .= fill . separator . '%*'
-    let stat .= Color(active, 2, filename, fill)
-    let stat .= fill . ' »'
-    let stat .= Color(active, 3, readonly, fill)
-    let stat .= Color(active, 3, modified, fill)
+    let stat .= Color(active, 1, branch, pad)
+    let stat .= Color(active, 6, separator, pad)
+    let stat .= Color(active, 2, filename, pad)
+    let stat .= Color(active, 6, ' »', pad)
+    let stat .= fill
+    let stat .= Color(active, 3, readonly, pad)
+    let stat .= Color(active, 3, modified, pad)
     let stat .= fill
     let stat .= '%='
-"     let stat .= fill . '« '
-"     let stat .= fill . &filetype . ' '
-    let stat .= fill . '« '
-    let stat .= Color(active, 4, column, fill)
+    let stat .= Color(active, 6, '« ', pad)
+    let stat .= fill
+    let stat .= Color(active, 4, column, pad)
     let stat .= fill . ' '
 
     return stat
@@ -197,6 +200,9 @@ hi link User2 String
 hi link User3 Number
 hi link User4 Identifier
 hi link User5 Normal
+hi link User6 Comment
+hi link User7 Comment
+
 " }}}
 " Key Binding: {{{
 
@@ -270,8 +276,6 @@ function! CommentToggle() range
 endfunction
 command! -range CT <line1>,<line2>call CommentToggle()|nohlsearch
 
-nnoremap <silent> <C-\> :CT<CR>
-vnoremap <silent> <C-\> :CT<CR>
 nnoremap <silent> gci :CT<CR>
 vnoremap <silent> gci :CT<CR>
 
@@ -283,15 +287,17 @@ function! MyFoldText()
     let sub1 = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
     let sub2 = substitute(sub1, '^ \+', '', 'g')
     let folded_line_count = v:foldend - v:foldstart + 1
-    return printf('%5d ...  %s  ...', folded_line_count, sub2)
+    return printf('%5d   %s  ', folded_line_count, sub2)
 endfunction
 
 set foldmethod=marker
 set foldmarker={{{,}}}
 set foldlevel=0
 set foldcolumn=0
-set fillchars=fold:\  " a space after \
+set fillchars=fold:\·
 set foldtext=MyFoldText()
+
+hi! link Folded Comment
 
 nnoremap ; za
 vnoremap ; za
