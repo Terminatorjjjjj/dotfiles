@@ -28,6 +28,10 @@ set ruler
 set showcmd
 set nowrap
 set incsearch hlsearch
+set cursorline
+set number relativenumber
+set wildmenu
+set laststatus=2
 
 " }}}
 " More Setting: {{{
@@ -38,15 +42,13 @@ set lazyredraw
 set formatoptions-=t
 " persistent undo
 set undofile
-set history=50
 set autochdir
 set splitbelow splitright
 
-set cursorline "cursorcolumn
 augroup cursor_toggle
     autocmd!
-    autocmd WinEnter * setlocal cursorline "cursorcolumn
-    autocmd WinLeave * setlocal nocursorline "nocursorcolumn
+    autocmd WinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
 augroup END
 
 augroup cursor_insert
@@ -55,7 +57,6 @@ augroup cursor_insert
     autocmd InsertLeave * setlocal nocursorcolumn
 augroup END
 
-set number relativenumber
 augroup number_toggle
     autocmd!
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
@@ -85,7 +86,6 @@ set shellcmdflag=-f\ -c
 " Wild Menu: {{{
 
 " enable auto completion menu w/ tab & behave like bash
-set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.zip,*.so,*.swp,*/tmp/*,*/.git/*
 
@@ -116,8 +116,6 @@ colorscheme gruvbox
 
 " }}}
 " Status Line: {{{
-
-set laststatus=2
 
 " modified from this blog:
 "   https://jip.dev/posts/a-simpler-vim-statusline/
@@ -204,27 +202,27 @@ hi link User5 Normal
 
 let mapleader='\'
 
-inoremap jj <esc>
-nnoremap <space> :
-vnoremap <space> :
+inoremap jj <Esc>
+nnoremap <Space> :
+vnoremap <Space> :
 
 nnoremap Y y$
-nnoremap gw <c-w>
+nnoremap gw <C-w>
 
 " move line up/down (add ==, ==gi, gv=gv if want auto align indent)
-nnoremap <c-j> :m .+1<cr>
-nnoremap <c-k> :m .-2<cr>
-inoremap <c-j> <esc>:m .+1<cr>gi
-inoremap <c-k> <esc>:m .-2<cr>gi
-vnoremap <c-j> :m '>+1<cr>gv
-vnoremap <c-k> :m '<-2<cr>gv
+nnoremap <C-j> :m .+1<CR>
+nnoremap <C-k> :m .-2<CR>
+inoremap <C-j> <Esc>:m .+1<CR>gi
+inoremap <C-k> <Esc>:m .-2<CR>gi
+vnoremap <C-j> :m '>+1<CR>gv
+vnoremap <C-k> :m '<-2<CR>gv
 
 " add semicolon to the end of current line w/o moving cursor
-nnoremap <leader>; m'a;<esc>`'
+nnoremap <leader>; m'a;<Esc>`'
 
 " close terminal mode (only supported in vim8)
 if v:version > 800
-    tnoremap <esc> <c-\><c-n>:q!<cr>
+    tnoremap <Esc> <C-\><C-n>:q!<CR>
 endif
 
 " keeping search result centered
@@ -236,16 +234,16 @@ nnoremap H ^
 nnoremap L $
 
 " go to prev match history in command line
-cnoremap <c-j> <down>
-cnoremap <c-k> <up>
+cnoremap <C-j> <down>
+cnoremap <C-k> <up>
 
 " replace the word under cursor
-nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+nnoremap gcr :%s/\<<C-r><C-w>\>//g<left><left>
 
-" nnoremap gp :find<space>*
+" nnoremap gp :find<Space>*
 
 " remap since ; is used for fold toggle
-nnoremap <space>; ;
+nnoremap <Space>; ;
 
 " }}}
 " Code Comment: {{{
@@ -259,8 +257,8 @@ augroup get_comment_leader
 augroup END
 
 " comment and uncomment
-noremap <silent> gcc :<c-b>silent <c-e>s/^/<c-r>=escape(b:comment_leader,'\/')<cr>/<cr>:nohlsearch<cr>
-noremap <silent> gcu :<c-b>silent <c-e>s/^\v<c-r>=escape(b:comment_leader,'\/')<cr>//e<cr>:nohlsearch<cr>
+noremap <silent> gcc :<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> gcu :<C-b>silent <C-e>s/^\v<C-r>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " single keymap toggle
 function! CommentToggle() range
@@ -272,10 +270,10 @@ function! CommentToggle() range
 endfunction
 command! -range CT <line1>,<line2>call CommentToggle()|nohlsearch
 
-nnoremap <c-\> :CT<cr>
-vnoremap <c-\> :CT<cr>
-nnoremap gci :CT<cr>
-vnoremap gci :CT<cr>
+nnoremap <silent> <C-\> :CT<CR>
+vnoremap <silent> <C-\> :CT<CR>
+nnoremap <silent> gci :CT<CR>
+vnoremap <silent> gci :CT<CR>
 
 " }}}
 " Fold: {{{
@@ -302,7 +300,7 @@ vnoremap ; za
 " Splits: {{{
 
 " move to next split
-map <c-l> :wincmd w<cr>
+map <C-l> <C-w>w
 " remove pipes | that act as separators on splits (there is a space after \)
 set fillchars+=vert:\ 
 
@@ -312,11 +310,11 @@ set fillchars+=vert:\
 " to change buffer w/o saving current buffer
 set hidden
 " display buffer list and go to buffer
-nnoremap gb :ls<cr>:b<space>
+nnoremap gb :ls<CR>:b<Space>
 " display buffet list and open buffer in right split
-nnoremap gs :ls<cr>:vert sb<space>
+nnoremap gs :ls<CR>:vert sb<Space>
 " go to last buffer
-nnoremap <c-h> :b#<cr>
+nnoremap <C-h> :b#<CR>
 
 " }}}
 
@@ -354,7 +352,7 @@ xmap ga <plug>(EasyAlign)
 nmap ga <plug>(EasyAlign)
 
 " verilog non-blocking auto align
-inoremap <silent> <= <=<esc>mzvip:EasyAlign/<=/<cr>`z$a<space>
+inoremap <silent> <= <=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>
 
 " customized setting mainly for verilog
 " d: for aligning port/signal list with last space before ,;=)
@@ -395,14 +393,14 @@ let g:easy_align_delimiters = {
 " Plugin: Fugitive {{{
 
 " select from target (left)
-nnoremap gh[ :diffget //2<cr> :diffupdate<cr>
+nnoremap gh[ :diffget //2<CR> :diffupdate<CR>
 " select from merge (right)
-nnoremap gh] :diffget //3<cr> :diffupdate<cr>
+nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 
 " }}}
 " Plugin: CtrlP {{{
 
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<C-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
@@ -437,7 +435,7 @@ let g:ctrlp_status_func = {
             \ 'prog': 'CtrlPProgressStatus'
             \ }
 
-nnoremap gp :CtrlPBuffer<cr>
+nnoremap gp :CtrlPBuffer<CR>
 
 " }}}
 
