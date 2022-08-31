@@ -31,6 +31,7 @@
 *.esproj
 *.sublime-project
 *.sublime-workspace
+*.netrwhist
 nbproject
 Thumbs.db
 ehthumbs.db
@@ -38,5 +39,3 @@ ehthumbs.db
 .DS_Store?
 .Spotlight-V100
 .Trashes
-*.swp
-._*
