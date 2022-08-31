@@ -1,21 +1,19 @@
+
+" Runtime Path: {{{
+set runtimepath+=~/.vim/bundle/supertab " ervandew/supertab
+set runtimepath+=~/.vim/bundle/vim-easy-align " junegunn/vim-easy-align
+set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
+set runtimepath+=~/.vim/bundle/VisIncr " vim-scripts/VisIncr
+set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
+set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
+set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
+
 set runtimepath^=~/.vim/bundle/tabular " godlygeek/tabular
 set runtimepath^=~/.vim/bundle/auto_pairs " jiangmiao/auto-pairs
 set runtimepath^=~/.vim/bundle/nerdtree " preservim/nerdtree
 set runtimepath+=~/.vim/bundle/limelight " junegunn/limelight.vim
 set runtimepath+=~/.vim/bundle/vim-fugitive " tpope/vim-fugitive
-
-" Quickfix List {{{
-function! QuickFixMapping()
-    " go to next location and stay in quick fix window
-    nnoremap <buffer> j :cnext<cr>zz<c-w>w
-    " go to prev location and stay in quick fix window
-    nnoremap <buffer> k :cprev<cr>zz<c-w>w
-endfunction
-
-augroup quickfix_group
-    autocmd!
-    autocmd Filetype quickfix call QuickFixMapping()
-augroup END
+set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
 
 " }}}
 
@@ -79,3 +77,30 @@ nnoremap gh[ :diffget //2<CR> :diffupdate<CR>
 nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 
 " }}}
+" Plugin: Rainbow Parentheses {{{
+
+" augroup rainbow_parenthesis
+"     autocmd!
+"     autocmd VimEnter * RainbowParenthesesToggle
+"     autocmd Syntax * RainbowParenthesesLoadRound
+"     autocmd Syntax * RainbowParenthesesLoadSquare
+"     autocmd Syntax * RainbowParenthesesLoadBraces
+" augroup END
+
+" }}}
+
+" Quickfix List {{{
+function! QuickFixMapping()
+    " go to next location and stay in quick fix window
+    nnoremap <buffer> j :cnext<cr>zz<c-w>w
+    " go to prev location and stay in quick fix window
+    nnoremap <buffer> k :cprev<cr>zz<c-w>w
+endfunction
+
+augroup quickfix_group
+    autocmd!
+    autocmd Filetype quickfix call QuickFixMapping()
+augroup END
+
+" }}}
+

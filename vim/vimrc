@@ -1,21 +1,29 @@
 set nocompatible " must be first
 
-" Runtime Path: {{{
+" Plugged {{{
 
-set runtimepath+=~/.vim/bundle/supertab " ervandew/supertab
-set runtimepath+=~/.vim/bundle/vim-easy-align " junegunn/vim-easy-align
-set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
-set runtimepath+=~/.vim/bundle/VisIncr " vim-scripts/VisIncr
-set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
-set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
-set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
+" :PlugInstall
+" :PlugUpdate
+call plug#begin('~/.vim/plugged')
+
+Plug 'ervandew/supertab'
+Plug 'junegunn/vim-easy-align'
+Plug 'vim-scripts/VisIncr'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-unimpaired'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'luochen1990/rainbow'
+Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+
+call plug#end()
 
 " }}}
+
 " Basic Setting: {{{
 
 syntax enable
 syntax on
-filetype on
 filetype plugin indent on
 
 set autoindent smartindent
@@ -111,9 +119,10 @@ augroup END
 " Colorscheme: {{{
 
 set background=dark
-colorscheme gruvbox
+colorscheme nord
 
 hi CursorLine ctermbg=233
+hi CursorColumn ctermbg=233
 hi CursorLineNr ctermbg=233
 
 " }}}
@@ -324,30 +333,10 @@ nnoremap <C-h> :b#<CR>
 
 " }}}
 
-" Plugin: Rainbow Parentheses {{{
-
-augroup rainbow_parenthesis
-    autocmd!
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
-augroup END
-
-" }}}
 " Plugin: Supertab {{{
 
 let g:SuperTabMappingForward = '<s-tab>'
 let g:SuperTabMappingBackward = '<tab>'
-
-" }}}
-" Plugin: Ultisnips {{{
-
-let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
-let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " }}}
 " Plugin: Easy Align {{{
@@ -396,6 +385,15 @@ let g:easy_align_delimiters = {
             \ }
 
 " }}}
+" Plugin: Ultisnips {{{
+
+let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
+let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" }}}
 " Plugin: CtrlP {{{
 
 let g:ctrlp_map = '<C-p>'
@@ -434,6 +432,11 @@ let g:ctrlp_status_func = {
             \ }
 
 nnoremap gp :CtrlPBuffer<CR>
+
+" }}}
+" Plugin: Rainbow {{{
+
+let g:rainbow_active = 1
 
 " }}}
 
