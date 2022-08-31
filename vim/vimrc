@@ -127,12 +127,12 @@ function! Status(winnum) abort
     let active = a:winnum == winnr()
     let bufnum = winbufnr(a:winnum)
 
-    function! Color(active, num, content, pad)
+    function! Color(active, num, content)
         if a:active
             " output the content with supplied colorgroup num, e.g. num=1 -> User1
             return '%' . a:num. '*' . a:content . '%*'
         else
-            return a:pad . a:content . '%*'
+            return a:content
         endif
     endfunction
 
@@ -144,6 +144,7 @@ function! Status(winnum) abort
             return ''
     endfunction
 
+    let fill = (active) ? '%6*' : ''
     let buftype = getbufvar(bufnum, '&buftype')
     let bufname = bufname(bufnum)
 
@@ -153,11 +154,10 @@ function! Status(winnum) abort
         let altstat = Color(active, 6, ' »')
         let altstat .= Color(active, 5, helpname)
         let altstat .= Color(active, 6, ' «')
+        let altstat .= fill
         return altstat
     endif
 
-    let pad = '%#Comment#'
-    let fill = (active) ? '%6*' : pad
     let branch = (active) ? GitBranch() : ''
     let separator = (strlen(branch)>0) ? ' »' : ''
     let filename = ' %<%f'
@@ -166,18 +166,18 @@ function! Status(winnum) abort
     let column = '%c '
 
     let stat = ''
-    let stat .= Color(active, 1, branch, pad)
-    let stat .= Color(active, 6, separator, pad)
-    let stat .= Color(active, 2, filename, pad)
-    let stat .= Color(active, 6, ' »', pad)
+    let stat .= Color(active, 1, branch)
+    let stat .= Color(active, 6, separator)
+    let stat .= Color(active, 2, filename)
+    let stat .= Color(active, 6, ' »')
     let stat .= fill
-    let stat .= Color(active, 3, readonly, pad)
-    let stat .= Color(active, 3, modified, pad)
+    let stat .= Color(active, 3, readonly)
+    let stat .= Color(active, 3, modified)
     let stat .= fill
     let stat .= '%='
-    let stat .= Color(active, 6, '« ', pad)
+    let stat .= Color(active, 6, '« ')
     let stat .= fill
-    let stat .= Color(active, 4, column, pad)
+    let stat .= Color(active, 4, column)
     let stat .= fill . ' '
 
     return stat
@@ -189,6 +189,7 @@ function! s:RefreshStatus()
   endfor
 endfunction
 
+" TODO: when <C-w>o to close all other windows, current statusline becomes default
 augroup status
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
@@ -200,7 +201,7 @@ hi link User3 Number
 hi link User4 Identifier
 hi link User5 Normal
 hi link User6 Comment
-hi link User7 Comment
+" hi! link StatusLineNC Comment
 
 " }}}
 " Key Binding: {{{
