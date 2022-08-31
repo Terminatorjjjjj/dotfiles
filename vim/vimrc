@@ -13,8 +13,10 @@ Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
+
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
@@ -118,8 +120,12 @@ augroup END
 
 " Colorscheme: {{{
 
+if has('termguicolors')
+    set termguicolors
+endif
+
 set background=dark
-colorscheme nord
+colorscheme onedark
 
 hi CursorLine ctermbg=233
 hi CursorColumn ctermbg=233
