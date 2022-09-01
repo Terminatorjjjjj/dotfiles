@@ -79,10 +79,6 @@ augroup autocomplete_ignore_case
     autocmd InsertLeave * set noignorecase
 augroup END
 
-set backupdir=.vi_backup/,~/.vi_backup/,/tmp//
-set directory=.vi_swp/,~/.vi_swp/,/tmp//
-set undodir=.vi_undo/,~/.vi_undo/,/tmp//
-
 " vertically center document when entering insert mode
 augroup vertical_center_insert
     autocmd!
