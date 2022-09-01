@@ -152,11 +152,7 @@ function! Status(winnum) abort
     endfunction
 
     function! GitBranch()
-        let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
-        if strlen(br) > 0
-            return ' ' . br
-        else
-            return ''
+        return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
     endfunction
 
     let fill = (active) ? '%6*' : ''
@@ -173,7 +169,7 @@ function! Status(winnum) abort
         return altstat
     endif
 
-    let branch = (active) ? GitBranch() : ''
+    let branch = (active) ? GitBranch() . ' ' : ''
     let separator = (strlen(branch)>0) ? ' »' : ''
     let filename = ' %<%f'
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
@@ -181,8 +177,8 @@ function! Status(winnum) abort
     let column = '%c '
 
     let stat = ''
-    let stat .= Color(active, 1, branch)
-    let stat .= Color(active, 6, separator)
+"     let stat .= Color(active, 1, branch)
+"     let stat .= Color(active, 6, separator)
     let stat .= Color(active, 2, filename)
     let stat .= Color(active, 6, ' »')
     let stat .= fill
@@ -190,6 +186,7 @@ function! Status(winnum) abort
     let stat .= Color(active, 3, modified)
     let stat .= fill
     let stat .= '%='
+    let stat .= Color(active, 1, branch)
     let stat .= Color(active, 6, '« ')
     let stat .= fill
     let stat .= Color(active, 4, column)
@@ -213,15 +210,13 @@ augroup END
 hi link User1 Identifier
 hi link User2 String
 hi link User3 Number
-hi link User4 Identifier
+hi link User4 String
 hi link User5 Normal
 hi link User6 Comment
 " hi! link StatusLineNC Comment
 
 " }}}
 " Key Binding: {{{
-
-let mapleader='\'
 
 inoremap jj <Esc>
 nnoremap <Space> :
@@ -239,7 +234,7 @@ vnoremap <C-j> :m '>+1<CR>gv
 vnoremap <C-k> :m '<-2<CR>gv
 
 " add semicolon to the end of current line w/o moving cursor
-nnoremap <leader>; m'a;<Esc>`'
+" nnoremap <leader>; m'a;<Esc>`'
 
 " close terminal mode (only supported in vim8)
 if v:version > 800
@@ -264,7 +259,7 @@ nnoremap gcr :%s/\<<C-r><C-w>\>//g<left><left>
 " nnoremap gp :find<Space>*
 
 " remap since ; is used for fold toggle
-nnoremap <Space>; ;
+nnoremap <leader>; ;
 
 " }}}
 " Code Comment: {{{
@@ -298,11 +293,9 @@ vnoremap <silent> gci :CT<CR>
 " Fold: {{{
 
 function! MyFoldText()
-    let line = getline(v:foldstart)
-    let sub1 = substitute(line, '/\*\|\*/\| {{{\d\=', '', 'g') " }}} for correct folding
-    let sub2 = substitute(sub1, '^ \+', '', 'g')
+    let line = substitute(getline(v:foldstart), '^ \+\|/\*\|\*/\|{{{\d\=', '', 'g') " }}} for correct folding
     let folded_line_count = v:foldend - v:foldstart + 1
-    return printf('··· %4d   %s  ', folded_line_count, sub2)
+    return printf('··· %4d   %s ', folded_line_count, line)
 endfunction
 
 set foldmethod=marker

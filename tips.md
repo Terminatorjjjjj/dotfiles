@@ -19,6 +19,7 @@ git add .
 git commit -m "<COMMIT>"
 git push [-u] origin master
 git remote remove origin
+git status -s -b
 ```
 
 #### Branch
@@ -30,6 +31,7 @@ git remote show <REMOTE>
 git remote prune <REMOTE>
 git remote update -p        # sync and remove all outdated branches
 git branch -u master        # link branch to master as upstream
+git branch --color --column
 ```
 
 #### Stash
