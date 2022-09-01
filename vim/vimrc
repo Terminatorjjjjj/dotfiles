@@ -126,11 +126,11 @@ if has('termguicolors')
 endif
 
 set background=dark
-colorscheme onedark
+colorscheme gruvbox
 
-hi CursorLine ctermbg=233
-hi CursorColumn ctermbg=233
-hi CursorLineNr ctermbg=233
+hi CursorLine ctermbg=16 guibg=#000000
+hi CursorColumn ctermbg=16 guibg=#000000
+hi CursorLineNr ctermbg=16 guibg=#000000
 
 " }}}
 " Status Line: {{{
@@ -153,8 +153,13 @@ function! Status(winnum) abort
     endfunction
 
     function! GitBranch()
-"         return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
-        return gitbranch#name()
+"         let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
+        let br = gitbranch#name()
+        if strlen(br) > 0
+            return br . ' '
+        else
+            return ''
+        endif
     endfunction
 
     let fill = (active) ? '%6*' : ''
@@ -171,28 +176,25 @@ function! Status(winnum) abort
         return altstat
     endif
 
-    let branch = (active) ? GitBranch() . ' ' : ''
-    let separator = (strlen(branch)>0) ? ' »' : ''
-    let filename = ' %<%f'
+    let branch = (active) ? GitBranch() : ''
+    let filename = ' %<%f '
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
-    let column = '%c '
+    let column = ' %c '
 
     let stat = ''
-"     let stat .= Color(active, 1, branch)
-"     let stat .= Color(active, 6, separator)
     let stat .= Color(active, 2, filename)
-    let stat .= Color(active, 6, ' »')
     let stat .= fill
     let stat .= Color(active, 3, readonly)
     let stat .= Color(active, 3, modified)
+    let stat .= Color(active, 3, ' ')
     let stat .= fill
     let stat .= '%='
+    let stat .= Color(active, 1, ' ')
     let stat .= Color(active, 1, branch)
-    let stat .= Color(active, 6, '« ')
     let stat .= fill
     let stat .= Color(active, 4, column)
-    let stat .= fill . ' '
+    let stat .= fill
 
     return stat
 endfunction
@@ -209,13 +211,14 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 
-hi link User1 Identifier
-hi link User2 String
-hi link User3 Number
-hi link User4 String
+hi link User1 Pmenu 
+hi link User2 PmenuSel
+hi link User3 Pmenu
+hi link User4 PmenuSel
 hi link User5 Normal
 hi link User6 Comment
-" hi! link StatusLineNC Comment
+hi! link StatusLine User4
+hi! link StatusLineNC Comment
 
 " }}}
 " Key Binding: {{{
@@ -413,7 +416,7 @@ function! CtrlPMainStatus(...)
     let prv = '%#Comment# ' . a:4 . ' %*'
     let item = '%#PmenuSel# ' . (a:5 == 'mru files' ? 'mru' : a:5) . ' %*'
     let nxt = '%#Comment# ' . a:6 . ' %*'
-    let dir = '%#Comment# « %*%4*' . fnamemodify(getcwd(), ':~') . '%* '
+    let dir = '%#WildMenu# ' . fnamemodify(getcwd(), ':~') . ' %*'
 
     " only output current mode and dir
     return '%#Comment# » %*' . item . '%#Comment# « ' . '%=%<' . dir
