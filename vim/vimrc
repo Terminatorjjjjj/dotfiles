@@ -13,6 +13,7 @@ Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
+Plug 'itchyny/vim-gitbranch'
 
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
@@ -152,7 +153,8 @@ function! Status(winnum) abort
     endfunction
 
     function! GitBranch()
-        return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
+"         return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
+        return gitbranch#name()
     endfunction
 
     let fill = (active) ? '%6*' : ''
