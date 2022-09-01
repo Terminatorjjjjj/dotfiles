@@ -122,7 +122,7 @@ if has('termguicolors')
 endif
 
 set background=dark
-colorscheme gruvbox
+colorscheme onedark
 
 hi CursorLine ctermbg=16 guibg=#000000
 hi CursorColumn ctermbg=16 guibg=#000000
@@ -139,7 +139,7 @@ function! Status(winnum) abort
     let active = a:winnum == winnr()
     let bufnum = winbufnr(a:winnum)
 
-    function! Color(active, num, content)
+    function! Color(active, num, content) abort
         if a:active
             " output the content with supplied colorgroup num, e.g. num=1 -> User1
             return '%' . a:num. '*' . a:content . '%*'
@@ -148,7 +148,7 @@ function! Status(winnum) abort
         endif
     endfunction
 
-    function! GitBranch()
+    function! GitBranch() abort
 "         let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
         let br = gitbranch#name()
         if strlen(br) > 0
@@ -180,7 +180,6 @@ function! Status(winnum) abort
 
     let stat = ''
     let stat .= Color(active, 2, filename)
-    let stat .= fill
     let stat .= Color(active, 3, readonly)
     let stat .= Color(active, 3, modified)
     let stat .= Color(active, 3, ' ')
@@ -188,9 +187,7 @@ function! Status(winnum) abort
     let stat .= '%='
     let stat .= Color(active, 1, ' ')
     let stat .= Color(active, 1, branch)
-    let stat .= fill
     let stat .= Color(active, 4, column)
-    let stat .= fill
 
     return stat
 endfunction
