@@ -176,7 +176,7 @@ function! Status(winnum) abort
     let filename = ' %<%f '
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
-    let column = ' %c '
+    let column = ' %2c '
 
     let stat = ''
     let stat .= Color(active, 2, filename)
