@@ -38,6 +38,9 @@
 + [projecy specific vimrc](http://gslsrc.net/l004_vimrc_project_search_path.html)
 + [vim snippets](https://github.com/honza/vim-snippets)
 
+### Neovim
++ [Learn Neovim the practical way](https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f#545a)
+
 ## Tmux
 ### References
 + [tmux intro](https://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/)

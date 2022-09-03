@@ -17,6 +17,8 @@ vim.opt.fillchars = { vert = ' ' }
 -- Make shell not source startup scripts when running shell command in vim
 vim.opt.shellcmdflag = '-f -c'
 
+vim.opt.foldmethod = 'marker'
+
 -- }}}
 -- Keymap: {{{
 
@@ -83,16 +85,6 @@ vim.api.nvim_create_autocmd(
     { group = "cursorline_toggle", command = "setlocal nocursorline" }
 )
 
-vim.api.nvim_create_augroup("cursorcolumn_toggle", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "InsertEnter" },
-    { group = "cursorcolumn_toggle", command = "setlocal cursorcolumn" }
-)
-vim.api.nvim_create_autocmd(
-    { "InsertLeave" },
-    { group = "cursorcolumn_toggle", command = "setlocal nocursorcolumn" }
-)
-
 vim.api.nvim_create_augroup("number_toggle", { clear = true })
 vim.api.nvim_create_autocmd(
     { "BufEnter", "FocusGained", "InsertLeave" },
@@ -129,6 +121,38 @@ vim.api.nvim_create_autocmd(
         command = "setlocal suffixesadd+=.v,.sv,.h,.vh,.svh"
     }
 )
+
+-- }}}
+
+-- Packer {{{
+
+local packer_path = vim.fn.stdpath('config') .. '/site'
+vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+
+require('packer').startup({function(use)
+    use 'wbthomason/packer.nvim'
+
+    use 'morhetz/gruvbox'
+    use 'arcticicestudio/nord-vim'
+    use 'joshdick/onedark.vim'
+end,
+config = {
+    display = {
+        open_fn = function()
+            return require('packer.util').float({ border = 'rounded' })
+        end
+    },
+    package_root = vim.fn.stdpath('config') .. '/site/pack'
+}})
+
+-- }}}
+
+-- Colorscheme {{{
+
+vim.cmd('colorscheme nord')
+vim.cmd('hi CursorLine ctermbg=16')
+vim.cmd('hi CursorLineNr ctermbg=16')
+vim.cmd('hi! link Folded Comment')
 
 -- }}}
 

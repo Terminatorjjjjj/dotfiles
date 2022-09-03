@@ -284,16 +284,14 @@ vnoremap <silent> gci :CT<CR>
 " }}}
 " Fold: {{{
 
+" Awesome guide at https://jdhao.github.io/2019/08/16/nvim_config_folding/
 function! MyFoldText()
-    let line = substitute(getline(v:foldstart), '^ \+\|/\*\|\*/\|{{{\d\=', '', 'g') " }}} for correct folding
+    let line = substitute(getline(v:foldstart), '^ \+\|/\*\|\*/\|{\+d\=', '', 'g')
     let folded_line_count = v:foldend - v:foldstart + 1
     return printf('··· %4d   %s ', folded_line_count, line)
 endfunction
 
 set foldmethod=marker
-set foldmarker={{{,}}}
-set foldlevel=0
-set foldcolumn=0
 set fillchars=fold:\·
 set foldtext=MyFoldText()
 
