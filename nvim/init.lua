@@ -77,7 +77,7 @@ map('n', '<C-l>', '<C-w>w', true)
 
 vim.api.nvim_create_augroup("cursorline_toggle", { clear = true })
 vim.api.nvim_create_autocmd(
-    { "VimEnter", "WinEnter" },
+    { "VimEnter", "WinEnter", "BufWinEnter" },
     { group = "cursorline_toggle", command = "setlocal cursorline" }
 )
 vim.api.nvim_create_autocmd(

@@ -1,19 +1,18 @@
 
 " Runtime Path: {{{
-set runtimepath+=~/.vim/bundle/supertab " ervandew/supertab
-set runtimepath+=~/.vim/bundle/vim-easy-align " junegunn/vim-easy-align
-set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
-set runtimepath+=~/.vim/bundle/VisIncr " vim-scripts/VisIncr
-set runtimepath+=~/.vim/bundle/ultisnips " SirVer/ultisnips
-set runtimepath+=~/.vim/bundle/vim-unimpaired " tpope/vim-unimpaired
-set runtimepath+=~/.vim/bundle/ctrlp.vim " ctrlpvim/ctrlp.vim
+set runtimepath+=~/.vim/bundle/ervandew/supertab
+set runtimepath+=~/.vim/bundle/junegunn/vim-easy-align
+set runtimepath+=~/.vim/bundle/vim-scripts/VisIncr
+set runtimepath+=~/.vim/bundle/SirVer/ultisnips
+set runtimepath+=~/.vim/bundle/tpope/vim-unimpaired
+set runtimepath+=~/.vim/bundle/ctrlpvim/ctrlp.vim
 
-set runtimepath^=~/.vim/bundle/tabular " godlygeek/tabular
-set runtimepath^=~/.vim/bundle/auto_pairs " jiangmiao/auto-pairs
-set runtimepath^=~/.vim/bundle/nerdtree " preservim/nerdtree
-set runtimepath+=~/.vim/bundle/limelight " junegunn/limelight.vim
-set runtimepath+=~/.vim/bundle/vim-fugitive " tpope/vim-fugitive
-set runtimepath+=~/.vim/bundle/rainbow_parentheses.vim " kien/rainbow_parentheses.vim
+set runtimepath^=~/.vim/bundle/godlygeek/tabular
+set runtimepath^=~/.vim/bundle/jiangmiao/auto-pairs
+set runtimepath^=~/.vim/bundle/preservim/nerdtree
+set runtimepath+=~/.vim/bundle/junegunn/limelight.vim
+set runtimepath+=~/.vim/bundle/tpope/vim-fugitive
+set runtimepath+=~/.vim/bundle/kien/rainbow_parentheses.vim
 
 " }}}
 
@@ -86,6 +85,24 @@ nnoremap gh] :diffget //3<CR> :diffupdate<CR>
 "     autocmd Syntax * RainbowParenthesesLoadSquare
 "     autocmd Syntax * RainbowParenthesesLoadBraces
 " augroup END
+
+" }}}
+" Plugin: Ultisnips {{{
+
+" vim with python3 support is required
+" a link to ultisnips/ftdetect is required under ./vim/ftdetect
+" in runtimepath, path to supertab must come before ultisnips
+let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
+let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" }}}
+" Plugin: Supertab {{{
+
+let g:SuperTabMappingForward = '<tab>' " default
+let g:SuperTabMappingBackward = '<s-tab>' " default
 
 " }}}
 

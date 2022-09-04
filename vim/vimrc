@@ -9,11 +9,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'ervandew/supertab'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/VisIncr'
-Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/vim-gitbranch'
+
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
@@ -63,7 +67,7 @@ set shellcmdflag=-f\ -c
 
 augroup cursor_toggle
     autocmd!
-    autocmd VimEnter,WinEnter * setlocal cursorline
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
@@ -322,12 +326,6 @@ nnoremap <C-h> :b#<CR>
 
 " }}}
 
-" Plugin: Supertab {{{
-
-let g:SuperTabMappingForward = '<s-tab>'
-let g:SuperTabMappingBackward = '<tab>'
-
-" }}}
 " Plugin: Easy Align {{{
 
 " start interactive EasyAlign in visual mode (e.g. vipga)
@@ -374,15 +372,6 @@ let g:easy_align_delimiters = {
             \ }
 
 " }}}
-" Plugin: Ultisnips {{{
-
-let g:UltiSnipsSnippetsDir = "~/.vim/my_snippet"
-let g:UltiSnipsSnippetDirectories = ["ulti_snippet", "my_snippet"]
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" }}}
 " Plugin: CtrlP {{{
 
 let g:ctrlp_map = '<C-p>'
@@ -426,6 +415,13 @@ nnoremap gp :CtrlPBuffer<CR>
 " Plugin: Rainbow {{{
 
 let g:rainbow_active = 1
+
+" }}}
+" Plugin: SnipMate {{{
+
+let g:snipMate = { 'snippet_version' : 0 }
+" let g:snipMate.always_choose_first = 1
+let g:snipMate.override = 1 " use custom snippet load in after/
 
 " }}}
 

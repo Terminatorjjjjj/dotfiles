@@ -64,8 +64,8 @@ endsnippet
 
 # always sequential block: pos clk neg rst
 snippet alpn "always pos clk neg rst" b
-always @(posedge ${1:i_clk} or negedge ${2:i_rst_n}) begin
-	if (!i_rst_n) begin
+always @(posedge ${1:clk} or negedge ${2:rst_n}) begin
+	if (!$2) begin
 		${0}
 	end
 	else begin
@@ -75,8 +75,8 @@ endsnippet
 
 # always sequential block: pos clk pos rst
 snippet alpp "always pos clk pos rst" b
-always @(posedge ${1:i_clk} or posedge ${2:i_rst}) begin
-	if (i_rst) begin
+always @(posedge ${1:clk} or posedge ${2:rst}) begin
+	if ($2) begin
 		${0}
 	end
 	else begin
@@ -87,22 +87,18 @@ endsnippet
 # generate
 snippet gen "generate" b
 generate
-	for (${1:i}; $1<${2:count}; $1=$1+${3:1})
-	begin : ${4:name}
-		${5}
-	end
+${0}
 endgenerate
 endsnippet
 
 # module block
 snippet mod "module" b
 module ${1:name} (
-	${2}
+	${0}
 );
 
 \`protect
 
-${0}
 
 \`endprotect
 
@@ -262,7 +258,7 @@ endsnippet
 
 # parameterized bit operand: 0
 snippet p0
-{(${1:pwidth}),1'b0}
+{(${1:pwidth}){1'b0}}
 endsnippet
 
 # parameterized bit operand: 1
@@ -270,4 +266,4 @@ snippet p1
 {{(${1:pwidth}-1){1'b0}},1'b1}
 endsnippet
 
-
+# vim:foldmethod=marker
