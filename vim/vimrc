@@ -22,6 +22,9 @@ Plug 'honza/vim-snippets'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/gruvbox-material'
+Plug 'cocopon/iceberg.vim'
 
 call plug#end()
 
@@ -48,8 +51,6 @@ set wildmenu
 set laststatus=2
 " do not redraw screen in the middle of the macro
 set lazyredraw
-" " disable linebreak word wrap in insert mode
-" set formatoptions-=t
 " persistent undo
 set undofile
 set autochdir
@@ -164,8 +165,16 @@ if has('termguicolors')
     set termguicolors
 endif
 
+let g:everforest_background = 'hard'
+let g:everforest_better_performance = 1
+" let g:everforest_disable_italic_comment = 1
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_better_performance = 1
+" let g:gruvbox_material_disable_italic_comment = 1
+" let g:gruvbox_material_menu_selection_background = 'yellow'
+
 set background=dark
-colorscheme onedark
+colorscheme everforest
 
 hi CursorLine ctermbg=16 guibg=#000000
 hi CursorColumn ctermbg=16 guibg=#000000

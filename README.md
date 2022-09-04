@@ -18,6 +18,7 @@
 ## Vim
 + [Use vim as ide](https://github.com/yangyangwithgnu/use_vim_as_ide)
 + [Greate series of guide for beginners](https://thevaluable.dev/vim-beginner/)
++ [List of colorschemes](https://vimcolorschemes.com)
 + [Customize statusline](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [Example of using snippet](https://castel.dev/post/lecture-notes-1/)
 + [Vimcast series on vim fugitive](http://vimcasts.org/blog/2011/05/the-fugitive-series/)

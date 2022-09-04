@@ -191,9 +191,9 @@ begin
 end
 endsnippet
 
-# dq
-snippet dq "ff dq" b
-reg ${1:#:nbit} ${2:reg}_q, $2_d;${0}
+# reg dq
+snippet rdq "ff dq" b
+reg ${1:#:nbit}${2:reg}_q, $2_d;${0}
 endsnippet
 
 # input port
@@ -212,12 +212,12 @@ inout ${1:nbit} io_${2:port},${0}
 endsnippet
 
 # reg sequential
-snippet regseq "reg sequential" b
+snippet as< "reg sequential" b
 ${1:reg}_q <= ${2:delay} $1_d;${0}
 endsnippet
 
 # reg keep
-snippet regkeep "reg keep value" b
+snippet as= "reg keep value" b
 ${1:reg}_d = $1_q;${0}
 endsnippet
 

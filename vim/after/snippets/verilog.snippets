@@ -152,7 +152,7 @@ snippet ifde
 	\`endif // $1
 # FF D-pin/Q-pin declaration
 snippet rdq
-	reg ${1:#:nbit} ${2:reg}_q, $2_d;${0}
+	reg ${1:#:nbit}${2:reg}_q, $2_d;${0}
 # Input port
 snippet inp
 	input ${1:#:nbit} i_${2:port},${0}
@@ -163,10 +163,10 @@ snippet out
 snippet ino
 	inout ${1:#:nbit} io_${2:port},${0}
 # Non-blocking assignment
-snippet reg<
+snippet as<
 	${1:reg}_q <= ${2:delay} $1_d;${0}
 # Blocking assignment
-snippet reg=
+snippet as=
 	${1:reg}_d = $1_q;${0}
 # Wire assignment
 snippet ass
