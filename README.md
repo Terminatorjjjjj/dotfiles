@@ -29,17 +29,16 @@
 
 ## Neovim
 + [Learn Neovim the practical way](https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f#545a)
++ [Customize Neovim statusline in Lua](https://nuxsh.is-a.dev/blog/custom-nvim-statusline.html)
 
 ## Tmux
 + [Full cheatsheat for tmux](https://tmuxcheatsheet.com)
 + [List of helpful tmux links](https://github.com/rothgar/awesome-tmux)
 
 ## Mardown
-```bash
-$ ./gh-md-toc --insert <markdown>
-```
-
 + [Markdown setup on neovim](https://zhuanlan.zhihu.com/p/84773275)
-+ [Create table of contents for github markdown](https://github.com/ekalinin/github-markdown-toc)
 
+```bash
+$ ./gh-md-toc --insert <markdown> # ekalinin/github-markdown-toc
+```
 

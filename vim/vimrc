@@ -29,7 +29,7 @@ Plug 'cocopon/iceberg.vim'
 call plug#end()
 
 " }}}
-
+     
 " Setting: {{{
 
 syntax enable
@@ -158,7 +158,7 @@ nnoremap gcr :%s/\<<C-r><C-w>\>//g<left><left>
 nnoremap <leader>; ;
 
 " }}}
-
+ 
 " Colorscheme: {{{
 
 if has('termguicolors')
@@ -199,47 +199,70 @@ function! Status(winnum) abort
             return a:content
         endif
     endfunction
-
+  
     function! GitBranch() abort
 "         let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
         let br = gitbranch#name()
         if strlen(br) > 0
-            return br . ' '
+            return ' ' . br
         else
             return ''
         endif
+    endfunction
+
+    " column
+    "   this might seem a bit complicated but all it amounts to is
+    "   a calculation to see how much padding should be used for the
+    "   column number, so that it lines up nicely with the line numbers
+
+    "   an expression is needed because expressions are evaluated within
+    "   the context of the window for which the statusline is being prepared
+    "   this is crucial because the line and virtcol functions otherwise
+    "   operate on the currently focused window
+
+    function! Column()
+        let vc = virtcol('.')
+        let ruler_width = max([strlen(line('$')), (&numberwidth - 1)])
+        let column_width = strlen(vc)
+        let padding = ruler_width - column_width
+        let column = ''
+
+        if padding <= 0
+            let column .= vc
+        else " + 1 becuase for some reason vim eats one of the spaces
+            let column .= repeat(' ', padding + 1) . vc
+        endif
+
+        return column . ' '
     endfunction
 
     let fill = (active) ? '%6*' : ''
     let buftype = getbufvar(bufnum, '&buftype')
     let bufname = bufname(bufnum)
 
-    " handlftype alternative statusline
+    " handle filetype alternative statusline
     if buftype ==# 'help'
-        let helpname = ' ' . fnamemodify(bufname, ':t:r')
-        let altstat = Color(active, 6, ' »')
-        let altstat .= Color(active, 5, helpname)
-        let altstat .= Color(active, 6, ' «')
-        let altstat .= fill
-        return altstat
+        let helpname = ' ' . fnamemodify(bufname, ':t:r') . ' '
+        return Color(active, 5, helpname) . fill
+    elseif buftype ==# 'quickfix'
+        return Color(active, 5, ' Quickfix ') . fill
     endif
 
     let branch = (active) ? GitBranch() : ''
-    let filename = ' %<%f '
+    let filename = ' %<%f'
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
-    let column = ' %2c '
+"     let column = ' %3c '
+    let column = (active) ? '%{Column()}' : ''
 
     let stat = ''
+    let stat .= Color(active, 4, column)
     let stat .= Color(active, 2, filename)
     let stat .= Color(active, 3, readonly)
     let stat .= Color(active, 3, modified)
-    let stat .= Color(active, 3, ' ')
     let stat .= fill
     let stat .= '%='
-    let stat .= Color(active, 1, ' ')
     let stat .= Color(active, 1, branch)
-    let stat .= Color(active, 4, column)
 
     return stat
 endfunction
@@ -256,13 +279,13 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 
-hi link User1 Pmenu 
-hi link User2 PmenuSel
-hi link User3 Pmenu
+hi link User1 Normal
+hi link User2 Normal
+hi link User3 Title 
 hi link User4 PmenuSel
-hi link User5 Normal
+hi link User5 PmenuSel
 hi link User6 Comment
-hi! link StatusLine User4
+hi! link StatusLine User3
 hi! link StatusLineNC Comment
 
 " }}}
@@ -334,7 +357,7 @@ nnoremap gs :ls<CR>:vert sb<Space>
 nnoremap <C-h> :b#<CR>
 
 " }}}
-
+       
 " Plugin: Easy Align {{{
 
 " start interactive EasyAlign in visual mode (e.g. vipga)
@@ -399,7 +422,7 @@ function! CtrlPMainStatus(...)
     let prv = '%#Comment# ' . a:4 . ' %*'
     let item = '%#PmenuSel# ' . (a:5 == 'mru files' ? 'mru' : a:5) . ' %*'
     let nxt = '%#Comment# ' . a:6 . ' %*'
-    let dir = '%#WildMenu# ' . fnamemodify(getcwd(), ':~') . ' %*'
+    let dir = '%#Comment# ' . fnamemodify(getcwd(), ':~') . ' %*'
 
     " only output current mode and dir
     return '%#Comment# » %*' . item . '%#Comment# « ' . '%=%<' . dir
