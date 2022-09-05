@@ -52,7 +52,7 @@ snippet casez
 		end
 	endcase
 # Always block
-snippet al
+snippet alw
 	always @(${1:/* sensitive list */}) begin
 		${0}
 	end
@@ -95,7 +95,8 @@ snippet fori
 	end
 # For with genvar
 snippet forn
-	for (${1:n}=0; $1<${2:count}; $1${3:++}) begin
+	for (${1:n}=0; $1<${2:count}; $1${3:++})
+	begin : ${4:label}
 		${0}
 	end
 # Forever
@@ -152,16 +153,16 @@ snippet ifde
 	\`endif // $1
 # FF D-pin/Q-pin declaration
 snippet rdq
-	reg ${1:#:nbit}${2:reg}_q, $2_d;${0}
+	reg ${1}${2:reg}_q, $2_d;${0}
 # Input port
 snippet inp
-	input ${1:#:nbit} i_${2:port},${0}
+	input ${1}i_${2:port},${0}
 # Output port
 snippet out
-	output ${1:#:nbit} o_${2:port},${0}
+	output ${1}o_${2:port},${0}
 # In/out port
 snippet ino
-	inout ${1:#:nbit} io_${2:port},${0}
+	inout ${1}io_${2:port},${0}
 # Non-blocking assignment
 snippet as<
 	${1:reg}_q <= ${2:delay} $1_d;${0}
@@ -176,10 +177,10 @@ snippet wir
 	wire ${1:#:nbit} ${2:name} = ${3:value};${0}
 # Global Parameter
 snippet gpa
-	parameter ${1:name} = ${2:value};${0}
+	parameter ${1:name} = ${2:value}${3:,}${0}
 # Local parameter
 snippet lpa "localparam" b
-	localparam ${1:name} = ${2:value};${0}
+	localparam ${1:name} = ${2:value}${3:;}${0}
 # Dumpfile
 snippet df
 	$dumpfile("${1:`expand("%:r")`}.fsdb");${0}

@@ -24,9 +24,10 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/gruvbox-material'
-Plug 'cocopon/iceberg.vim'
 
 call plug#end()
+
+set runtimepath+=~/.vim/sv_vim
 
 " }}}
      
@@ -204,7 +205,7 @@ function! Status(winnum) abort
 "         let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
         let br = gitbranch#name()
         if strlen(br) > 0
-            return ' ' . br
+            return ' ' . br . ' '
         else
             return ''
         endif
@@ -452,7 +453,6 @@ let g:rainbow_active = 1
 " Plugin: SnipMate {{{
 
 let g:snipMate = { 'snippet_version' : 0 }
-" let g:snipMate.always_choose_first = 1
 let g:snipMate.override = 1 " use custom snippet load in after/
 
 " }}}
