@@ -317,6 +317,12 @@ cmp.setup {
         },
         { name = 'path' },
     },
+    view = {
+        entries = {
+            name = 'custom',
+            selection_order = 'near_cursor'
+        }
+    },
 }
 
 cmp.setup.cmdline('/', {
