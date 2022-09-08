@@ -11,6 +11,7 @@ vim.opt.cursorline = true
 vim.opt.undofile = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.opt.pumheight = 10
 vim.opt.wildignore = {'*.docx' ,'*.jpg' ,'*.png' ,'*.gif' ,'*.pdf' ,'*.pyc' ,'*.exe' ,'*.flv' ,'*.img' ,'*.xlsx' ,'*.zip' ,'*.so' ,'*.swp' ,'*/tmp/*' ,'*/.git/*'}
 vim.opt.fillchars = { vert = ' ' }
 
@@ -55,12 +56,11 @@ map('n', 'L', '$', true)
 -- Replace the word under cursor
 map('n', 'gcr', ':%s/\\<<C-r><C-w>\\>//g<left><left>', false)
 
--- Remap since ; is used for fold toggle
-map('n', '<leader>;', ';', true)
-
 -- Toggle fold
-map('n', ';', 'za', true)
-map('v', ';', 'za', true)
+map('n', "'", 'za', true)
+map('v', "'", 'za', true)
+-- Remap since ' is used for fold toggle
+map('n', "<leader>'", "'", true)
 
 -- Display buffer list and go to buffer
 map('n', 'gb', ':ls<CR>:b<Space>', false)
@@ -71,6 +71,9 @@ map('n', 'gs', ':ls<CR>:vert sb<Space>', false)
 map('n', '<C-h>', ':b#<CR>', true)
 -- Move to next split
 map('n', '<C-l>', '<C-w>w', true)
+
+-- Quit terminal with Esc
+map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', true)
 
 -- }}}
 -- Autocmd: {{{
@@ -127,7 +130,7 @@ vim.api.nvim_create_autocmd(
 -- Packer {{{
 
 local packer_path = vim.fn.stdpath('config') .. '/site'
-vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+vim.opt.packpath = vim.o.packpath .. ',' .. packer_path
 
 require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'

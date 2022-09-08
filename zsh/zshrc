@@ -8,6 +8,10 @@ alias g++='g++-11' # link to homebrew g++
 alias python='python3'
 alias ctags='`brew --prefix`/bin/ctags'
 
+alias gs='git status -s -b'
+alias ga='git add'
+alias gc='git commit -m'
+alias gb='git branch'
 alias gl='git log --pretty=oneline --graph --decorate --all'
 
 # set vi mode
