@@ -7,7 +7,6 @@ vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
-    use 'ervandew/supertab'
     use 'tpope/vim-unimpaired'
 
     use {
@@ -18,6 +17,12 @@ require('packer').startup({function(use)
     use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
     use 'sainnhe/gruvbox-material'
+
+    use 'onsails/lspkind.nvim'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
 end,
 config = {
     display = {
@@ -32,8 +37,9 @@ config = {
 
 -- Setting: {{{
 
+vim.opt.smartindent = true
 vim.opt.expandtab = true
-vim.opt.softtabstop = -1 -- if negative, shiftwidth is used
+vim.opt.softtabstop = -1 -- If negative, shiftwidth is used
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 vim.opt.number = true
@@ -96,7 +102,7 @@ map('n', "<leader>'", "'", true)
 
 -- Display buffer list and go to buffer
 map('n', 'gb', ':ls<CR>:b<Space>', false)
--- Display buffet list and open buffer in right split
+-- Display buffer list and open buffer in right split
 map('n', 'gs', ':ls<CR>:vert sb<Space>', false)
 
 -- Go to last buffer
@@ -234,5 +240,74 @@ require('lualine').setup {
 }
 
 -- }}}
+-- Cmp {{{
 
+local lspkind = require('lspkind')
+local cmp = require('cmp')
+
+cmp.setup {
+    mapping = {
+        ['<C-e>'] = cmp.mapping {
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        },
+        ['<CR>'] = cmp.mapping.confirm { select = true },
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif check_backspace() then
+                fallback()
+            else
+                fallback()
+            end
+        end,
+        { 'i', 's' }
+        ),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                fallback()
+            end
+        end,
+        { 'i', 's' }
+        ),
+    },
+    formatting = {
+        fields = {'kind', 'abbr', 'menu'},
+        format = lspkind.cmp_format({
+            mode = 'symbol',
+            maxwidth = 50,
+
+            before = function(entry, vim_item)
+                vim_item.menu = ({
+                    buffer = '[Buffer]',
+                    path = '[Path]',
+                })[entry.source.name]
+                return vim_item
+            end,
+        })
+    },
+    sources = {
+        {
+            name = 'buffer',
+            -- Use all buffers for completion
+            option = {
+                get_bufnrs = function()
+                    return vim.api.nvim_list_bufs()
+                end
+            }
+        },
+        { name = 'path' },
+    },
+}
+
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- }}}
 
