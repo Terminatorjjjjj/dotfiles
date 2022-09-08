@@ -19,7 +19,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/everforest'
@@ -71,12 +71,6 @@ augroup cursor_toggle
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
-augroup END
-
-augroup cursor_insert
-    autocmd!
-    autocmd InsertEnter * setlocal cursorcolumn
-    autocmd InsertLeave * setlocal nocursorcolumn
 augroup END
 
 augroup number_toggle
@@ -155,8 +149,8 @@ nnoremap gcr :%s/\<<C-r><C-w>\>//g<left><left>
 
 " nnoremap gp :find<Space>*
 
-" remap since ; is used for fold toggle
-nnoremap <leader>; ;
+" remap since ' is used for fold toggle
+nnoremap <leader>' '
 
 " }}}
  
@@ -250,6 +244,7 @@ function! Status(winnum) abort
     endif
 
     let branch = (active) ? GitBranch() : ''
+    let separator = (strlen(branch)>0) ? ' «' : ''
     let filename = ' %<%f'
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
@@ -259,10 +254,12 @@ function! Status(winnum) abort
     let stat = ''
     let stat .= Color(active, 4, column)
     let stat .= Color(active, 2, filename)
+    let stat .= Color(active, 6, ' »')
     let stat .= Color(active, 3, readonly)
     let stat .= Color(active, 3, modified)
     let stat .= fill
     let stat .= '%='
+    let stat .= Color(active, 6, separator)
     let stat .= Color(active, 1, branch)
 
     return stat
@@ -280,8 +277,8 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter * call <SID>RefreshStatus()
 augroup END
 
-hi link User1 Normal
-hi link User2 Normal
+hi link User1 Comment
+hi link User2 Comment
 hi link User3 Title 
 hi link User4 PmenuSel
 hi link User5 PmenuSel
@@ -334,8 +331,8 @@ set foldtext=MyFoldText()
 
 hi! link Folded Comment
 
-nnoremap ; za
-vnoremap ; za
+nnoremap ' za
+vnoremap ' za
 
 " }}}
 " Splits: {{{
@@ -358,7 +355,7 @@ nnoremap gs :ls<CR>:vert sb<Space>
 nnoremap <C-h> :b#<CR>
 
 " }}}
-       
+         
 " Plugin: Easy Align {{{
 
 " start interactive EasyAlign in visual mode (e.g. vipga)
