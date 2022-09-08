@@ -23,6 +23,9 @@ require('packer').startup({function(use)
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
+    use 'saadparwaiz1/cmp_luasnip'
+
+    use 'L3MON4D3/LuaSnip'
 end,
 config = {
     display = {
@@ -242,10 +245,18 @@ require('lualine').setup {
 -- }}}
 -- Cmp {{{
 
+local luasnip = require('luasnip')
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 
+require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
+
 cmp.setup {
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
     mapping = {
         ['<C-e>'] = cmp.mapping {
             i = cmp.mapping.abort(),
@@ -255,8 +266,10 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif check_backspace() then
-                fallback()
+            elseif luasnip.expandable() then
+                luasnip.expand()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             else
                 fallback()
             end
@@ -266,6 +279,8 @@ cmp.setup {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -281,14 +296,16 @@ cmp.setup {
 
             before = function(entry, vim_item)
                 vim_item.menu = ({
-                    buffer = '[Buffer]',
-                    path = '[Path]',
+                    luasnip = '[S]',
+                    buffer = '[B]',
+                    path = '[P]',
                 })[entry.source.name]
                 return vim_item
             end,
         })
     },
     sources = {
+        { name = 'luasnip' },
         {
             name = 'buffer',
             -- Use all buffers for completion
