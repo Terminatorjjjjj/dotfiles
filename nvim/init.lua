@@ -9,6 +9,8 @@ require('packer').startup({function(use)
 
     use 'tpope/vim-unimpaired'
     use 'junegunn/vim-easy-align'
+    use 'vim-scripts/VisIncr'
+    use 'luochen1990/rainbow'
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -267,6 +269,11 @@ let g:easy_align_delimiters = {
     \   }
     \ }
 ]])
+
+-- }}}
+-- Rainbow {{{
+
+vim.g.rainbow_active = 1
 
 -- }}}
 -- Lualine {{{
