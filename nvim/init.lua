@@ -14,9 +14,9 @@ require('packer').startup({function(use)
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
-    use 'arcticicestudio/nord-vim'
+--     use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
-    use 'sainnhe/gruvbox-material'
+--     use 'sainnhe/gruvbox-material'
 
     use 'onsails/lspkind.nvim'
     use 'hrsh7th/nvim-cmp'
@@ -26,6 +26,7 @@ require('packer').startup({function(use)
     use 'saadparwaiz1/cmp_luasnip'
 
     use 'L3MON4D3/LuaSnip'
+--     use 'rafamadriz/friendly-snippets'
 end,
 config = {
     display = {
@@ -40,7 +41,6 @@ config = {
 
 -- Setting: {{{
 
-vim.opt.smartindent = true
 vim.opt.expandtab = true
 vim.opt.softtabstop = -1 -- If negative, shiftwidth is used
 vim.opt.shiftwidth = 4
@@ -139,16 +139,6 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
     { "BufLeave", "FocusLost", "InsertEnter" },
     { group = "number_toggle", command = "set norelativenumber" }
-)
-
-vim.api.nvim_create_augroup("autocomplete_ignore_case", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "InsertEnter" },
-    { group = "autocomplete_ignore_case", command = "set ignorecase" }
-)
-vim.api.nvim_create_autocmd(
-    { "InsertLeave" },
-    { group = "autocomplete_ignore_case", command = "set noignorecase" }
 )
 
 vim.api.nvim_create_augroup("vertical_center_insert", { clear = true })
@@ -261,6 +251,10 @@ end
 cmp.setup {
     snippet = {
         expand = function(args)
+            local luasnip = prequire('luasnip')
+            if not luasnip then
+                return
+            end
             luasnip.lsp_expand(args.body)
         end,
     },
@@ -348,3 +342,5 @@ cmp.setup.cmdline('/', {
 
 -- }}}
 
+-- modeline
+-- vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
