@@ -8,15 +8,16 @@ require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     use 'tpope/vim-unimpaired'
+    use 'junegunn/vim-easy-align'
 
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
---     use 'arcticicestudio/nord-vim'
+    use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
---     use 'sainnhe/gruvbox-material'
+    use 'sainnhe/gruvbox-material'
 
     use 'onsails/lspkind.nvim'
     use 'hrsh7th/nvim-cmp'
@@ -65,58 +66,58 @@ vim.opt.foldmethod = 'marker'
 -- }}}
 -- Keymap: {{{
 
-local function map(m, k, v, sil)
-    vim.keymap.set(m, k, v, { noremap = true, silent = sil })
-end
+local map = vim.keymap.set
+local opt_n = { noremap = true }
+local opt_s = { noremap = true, silent = true }
 
-map('i', 'jj', '<Esc>', true)
-map('n', '<Space>', ':', false)
-map('v', '<Space>', ':', false)
-map('n', 'gw', '<C-w>', true)
--- map('n', 'gp', ':find<Space>*')
+map('n', '<Space>', ':', opt_n)
+map('v', '<Space>', ':', opt_n)
+map('i', 'jj', '<Esc>', opt_s)
+map('n', 'gw', '<C-w>', opt_s)
+-- map('n', 'gp', ':find<Space>*', opt_n)
 
 -- Move line up/down
-map('n', '<C-j>', ':m .+1<CR>', true)
-map('n', '<C-k>', ':m .-2<CR>', true)
-map('i', '<C-j>', '<Esc>:m .+1<CR>gi', true)
-map('i', '<C-k>', '<Esc>:m .-2<CR>gi', true)
-map('v', '<C-j>', ":m '>+1<CR>gv", true)
-map('v', '<C-k>', ":m '<-2<CR>gv", true)
+map('n', '<C-j>', ':m .+1<CR>', opt_s)
+map('n', '<C-k>', ':m .-2<CR>', opt_s)
+map('i', '<C-j>', '<Esc>:m .+1<CR>gi', opt_s)
+map('i', '<C-k>', '<Esc>:m .-2<CR>gi', opt_s)
+map('v', '<C-j>', ":m '>+1<CR>gv", opt_s)
+map('v', '<C-k>', ":m '<-2<CR>gv", opt_s)
 
 -- TODO don't seem to work when cmp-cmdline is on
 -- Go to prev match history in command line
-map('c', '<C-j>', '<Down>', false)
-map('c', '<C-k>', '<Up>', true)
+map('c', '<C-j>', '<Down>', opt_n)
+map('c', '<C-k>', '<Up>', opt_n)
 
 -- Keeping search result centered
-map('n', 'N', 'Nzzzv', true)
-map('n', 'n', 'nzzzv', true)
+map('n', 'N', 'Nzzzv', opt_s)
+map('n', 'n', 'nzzzv', opt_s)
 
 -- Horizontal movement w/ easier pressing
-map('n', 'H', '^', true)
-map('n', 'L', '$', true)
+map('n', 'H', '^', opt_s)
+map('n', 'L', '$', opt_s)
 
 -- Replace the word under cursor
-map('n', 'gcr', ':%s/\\<<C-r><C-w>\\>//g<left><left>', false)
+map('n', 'gcr', ':%s/\\<<C-r><C-w>\\>//g<left><left>', opt_n)
 
 -- Toggle fold
-map('n', "'", 'za', true)
-map('v', "'", 'za', true)
+map('n', "'", 'za', opt_s)
+map('v', "'", 'za', opt_s)
 -- Remap since ' is used for fold toggle
-map('n', "<leader>'", "'", true)
+map('n', "<leader>'", "'", opt_s)
 
 -- Display buffer list and go to buffer
-map('n', 'gb', ':ls<CR>:b<Space>', false)
+map('n', 'gb', ':ls<CR>:b<Space>', opt_n)
 -- Display buffer list and open buffer in right split
-map('n', 'gs', ':ls<CR>:vert sb<Space>', false)
+map('n', 'gs', ':ls<CR>:vert sb<Space>', opt_n)
 
 -- Go to last buffer
-map('n', '<C-h>', ':b#<CR>', true)
+map('n', '<C-h>', ':b#<CR>', opt_s)
 -- Move to next split
-map('n', '<C-l>', '<C-w>w', true)
+map('n', '<C-l>', '<C-w>w', opt_s)
 
 -- Quit terminal with Esc
-map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', true)
+map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', opt_s)
 
 -- }}}
 -- Autocmd: {{{
@@ -215,11 +216,59 @@ vim.api.nvim_create_autocmd(
     }
 )
 
-map('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<CR>:nohlsearch<CR>", true)
-map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", true)
+map('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<CR>:nohlsearch<CR>", opt_s)
+map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", opt_s)
 
 -- }}}
 
+-- Easy Align {{{
+
+-- Start interactive EasyAlign in visual mode (e.g. vipga)
+map('x', 'ga', '<Plug>(EasyAlign)')
+-- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+map('n', 'ga', '<Plug>(EasyAlign)')
+
+-- Verilog non-blocking auto align
+map('i', '<=', '<=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>', opt_s)
+
+-- Customized setting mainly for verilog
+-- d: for aligning port/signal list with last space before ,;=)
+vim.cmd([[
+let g:easy_align_delimiters = {
+    \ '/': {
+    \     'pattern':         '//\+\|/\*\|\*/',
+    \     'delimiter_align': 'l',
+    \     'ignore_groups':   ['!Comment'] 
+    \     },
+    \ ':': {
+    \     'pattern':       ':',
+    \     'left_margin':   1,
+    \     'right_margin':  1,
+    \     },
+    \ '?': {
+    \     'pattern':       '?',
+    \     'left_margin':   1,
+    \     'right_margin':  1,
+    \     },
+    \ '(': {
+    \     'pattern':       '(',
+    \     'left_margin':   1,
+    \     'right_margin':  0,
+    \   },
+    \ ')': {
+    \     'pattern':       ')',
+    \     'left_margin':   0,
+    \     'right_margin':  0,
+    \   },
+    \ 'd': {
+    \     'pattern':      ' \ze\S\+\s*[,;=]',
+    \     'left_margin':  0,
+    \     'right_margin': 0
+    \   }
+    \ }
+]])
+
+-- }}}
 -- Lualine {{{
 
 require('lualine').setup {
