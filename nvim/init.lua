@@ -159,6 +159,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- }}}
+
 -- Colorscheme {{{
 
 vim.g.everforest_background = 'hard'
@@ -168,6 +169,54 @@ vim.cmd('colorscheme everforest')
 vim.cmd('hi CursorLine ctermbg=16 guibg=#000000')
 vim.cmd('hi CursorLineNr ctermbg=16 guibg=#000000')
 vim.cmd('hi! link Folded Comment')
+
+-- }}}
+-- Comment {{{
+
+vim.api.nvim_create_augroup("get_comment_leader", { clear = true })
+vim.api.nvim_create_autocmd(
+   { "FileType" },
+   {
+       group = "get_comment_leader",
+       pattern = { "c", "cpp", "java", "scala", "verilog", "systemverilog", "fotran", "stata" },
+       command = "let b:comment_leader = '// '"
+   }
+)
+vim.api.nvim_create_autocmd(
+    { "FileType" },
+    {
+        group = "get_comment_leader",
+        pattern = { "sh", "ruby", "python", "make", "tmux", "tcsh", "csh", "zsh", "conf" },
+        command = "let b:comment_leader = '# '"
+    }
+)
+vim.api.nvim_create_autocmd(
+    { "FileType" },
+    {
+        group = "get_comment_leader",
+        pattern = { "tex", "matlab" },
+        command = "let b:comment_leader = '% '"
+    }
+)
+vim.api.nvim_create_autocmd(
+    { "FileType" },
+    {
+        group = "get_comment_leader",
+        pattern = { "vim" },
+        command = "let b:comment_leader = '\" '"
+    }
+)
+vim.api.nvim_create_autocmd(
+    { "FileType" },
+    {
+        group = "get_comment_leader",
+        pattern = { "lua" },
+        command = "let b:comment_leader = '-- '"
+    }
+)
+
+map('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<CR>:nohlsearch<CR>", true)
+map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", true)
 
 -- }}}
 
