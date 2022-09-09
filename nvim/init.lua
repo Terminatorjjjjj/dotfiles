@@ -55,6 +55,7 @@ vim.opt.pumheight = 10
 vim.opt.wildignore = {'*.docx' ,'*.jpg' ,'*.png' ,'*.gif' ,'*.pdf' ,'*.pyc' ,'*.exe' ,'*.flv' ,'*.img' ,'*.xlsx' ,'*.zip' ,'*.so' ,'*.swp' ,'*/tmp/*' ,'*/.git/*'}
 vim.opt.fillchars = { vert = ' ' }
 vim.opt.termguicolors = true
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- Make shell not source startup scripts when running shell command in vim
 vim.opt.shellcmdflag = '-f -c'
@@ -251,6 +252,11 @@ local cmp = require('cmp')
 
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
 
+local check_backspace = function()
+    local col = vim.fn.col "." - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+end
+
 cmp.setup {
     snippet = {
         expand = function(args)
@@ -262,7 +268,7 @@ cmp.setup {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
-        ['<CR>'] = cmp.mapping.confirm { select = true },
+        ['<CR>'] = cmp.mapping.confirm { select = false },
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -270,6 +276,8 @@ cmp.setup {
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif check_backspace() then
+                fallback()
             else
                 fallback()
             end
@@ -308,10 +316,14 @@ cmp.setup {
         { name = 'luasnip' },
         {
             name = 'buffer',
-            -- Use all buffers for completion
             option = {
                 get_bufnrs = function()
-                    return vim.api.nvim_list_bufs()
+                    local buf = vim.api.nvim_get_current_buf()
+                    local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+                    if byte_size > 1024 * 1024 then -- 1MB max
+                        return {}
+                    end
+                    return { buf }
                 end
             }
         },
