@@ -78,14 +78,10 @@ snippet gen
 
 # Module block
 snippet mod
-	module ${1:`vim_snippets#Filename('$1', 'name')`} (
+	module ${1:name} (
 		${0}
 	);
 
-	\`protect
-
-
-	\`endprotect
 
 	endmodule // $1
 # For with interger
@@ -123,7 +119,7 @@ snippet ini
 snippet tdsp
 	typedef struct packed {
 		int ${2:data};
-	} ${1:`vim_snippets#Filename('$1_t', 'name')`};
+	} ${1:name};
 # typedef eum
 snippet tde
 	typedef enum ${2:logic[15:0]}
@@ -132,25 +128,25 @@ snippet tde
 	} ${1:my_dest_t};
 # Timescale
 snippet ts
-	\`timescale ${1:1ns}/${2:10ps}${0}
+	`timescale ${1:1ns}/${2:10ps}${0}
 # Include
 snippet inc
-	\`include "${1}"${0}
+	`include "${1}"${0}
 # Define
 snippet def
-	\`define ${1} ${2}
+	`define ${1} ${2}
 # If define
 snippet ifd
-	\`ifdef ${1:macro}
+	`ifdef ${1:macro}
 	${0}
-	\`endif // $1
+	`endif // $1
 
 # If define / else
 snippet ifde
-	\`ifdef ${1:macro}
+	`ifdef ${1:macro}
 	${0}
-	\`else // $1
-	\`endif // $1
+	`else // $1
+	`endif // $1
 # FF D-pin/Q-pin declaration
 snippet rdq
 	reg ${1}${2:reg}_q, $2_d;${0}

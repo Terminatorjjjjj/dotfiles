@@ -83,9 +83,10 @@ map('i', '<C-k>', '<Esc>:m .-2<CR>gi', true)
 map('v', '<C-j>', ":m '>+1<CR>gv", true)
 map('v', '<C-k>', ":m '<-2<CR>gv", true)
 
+-- TODO don't seem to work when cmp-cmdline is on
 -- Go to prev match history in command line
-map('c', '<C-j>', '<down>', true)
-map('c', '<C-k>', '<up>', true)
+map('c', '<C-j>', '<Down>', false)
+map('c', '<C-k>', '<Up>', true)
 
 -- Keeping search result centered
 map('n', 'N', 'Nzzzv', true)
@@ -264,6 +265,8 @@ cmp.setup {
         end,
     },
     mapping = {
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
         ['<C-e>'] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
@@ -297,43 +300,42 @@ cmp.setup {
         ),
     },
     formatting = {
-        fields = {'kind', 'abbr', 'menu'},
-        format = lspkind.cmp_format({
-            mode = 'symbol',
-            maxwidth = 50,
-
-            before = function(entry, vim_item)
-                vim_item.menu = ({
-                    luasnip = '[S]',
-                    buffer = '[B]',
-                    path = '[P]',
-                })[entry.source.name]
-                return vim_item
-            end,
-        })
+        fields = {'menu', 'abbr'},
+        format = function(entry, vim_item)
+            vim_item.kind = ''
+            vim_item.menu = ({
+                luasnip = '', -- [S]
+                buffer = '', -- [B]
+                path = '', -- [P]
+            })[entry.source.name]
+            return vim_item
+        end,
     },
     sources = {
-        { name = 'luasnip' },
+        { name = 'luasnip', keyword_length = 2 },
         {
             name = 'buffer',
             option = {
                 get_bufnrs = function()
                     local buf = vim.api.nvim_get_current_buf()
                     local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
-                    if byte_size > 1024 * 1024 then -- 1MB max
+                    if byte_size > 1024 * 1024 then -- 1MByte max
                         return {}
                     end
                     return { buf }
                 end
             }
         },
-        { name = 'path' },
+        { name = 'path', keyword_length = 2 },
     },
     view = {
         entries = {
             name = 'custom',
             selection_order = 'near_cursor'
         }
+    },
+    window = {
+        documentation = cmp.config.window.bordered(),
     },
 }
 
