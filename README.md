@@ -22,8 +22,8 @@
 + [Customize statusline](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [Example of using snippets](https://castel.dev/post/lecture-notes-1/)
 + [Vimcast - Vim fugitive series](http://vimcasts.org/blog/2011/05/the-fugitive-series/)
-+ [Theprimeagen - Vim quickfix list](https://youtu.be/IoyW8XYGqjM)
-+ [Theprimeagen - Vim registers](https://youtu.be/Q5eDxR7bU2k)
++ [ThePrimeagen - Vim quickfix list](https://youtu.be/IoyW8XYGqjM)
++ [ThePrimeagen - Vim registers](https://youtu.be/Q5eDxR7bU2k)
 + [Some design concepts on vim keymapping](https://medium.com/@lakshmankumar12/vim-and-key-mapping-f02db3f88b58)
 + [Seamless navigation in vim and tmux](https://www.bugsnag.com/blog/tmux-and-vim)
 

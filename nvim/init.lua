@@ -1,5 +1,5 @@
 
--- Packer {{{
+-- Packer: {{{
 
 local packer_path = vim.fn.stdpath('config') .. '/site'
 vim.o.packpath = vim.o.packpath .. ',' .. packer_path
@@ -86,7 +86,7 @@ map('i', '<C-k>', '<Esc>:m .-2<CR>gi', opt_s)
 map('v', '<C-j>', ":m '>+1<CR>gv", opt_s)
 map('v', '<C-k>', ":m '<-2<CR>gv", opt_s)
 
--- TODO don't seem to work when cmp-cmdline is on
+-- TODO don't seem to work when cmp-cmdline is on or not actually in cmd mode?
 -- Go to prev match history in command line
 map('c', '<C-j>', '<Down>', opt_n)
 map('c', '<C-k>', '<Up>', opt_n)
@@ -163,7 +163,7 @@ vim.api.nvim_create_autocmd(
 
 -- }}}
 
--- Colorscheme {{{
+-- Colorscheme: {{{
 
 vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 1
@@ -174,7 +174,7 @@ vim.cmd('hi CursorLineNr ctermbg=16 guibg=#000000')
 vim.cmd('hi! link Folded Comment')
 
 -- }}}
--- Comment {{{
+-- Comment: {{{
 
 vim.api.nvim_create_augroup("get_comment_leader", { clear = true })
 vim.api.nvim_create_autocmd(
@@ -222,8 +222,21 @@ map('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<
 map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", opt_s)
 
 -- }}}
+-- Foldtext: {{{
 
--- Easy Align {{{
+-- Reference: https://jdhao.github.io/2019/08/16/nvim_config_folding/
+function _G.MyFoldText()
+    local pat = '^ \\+\\|/\\*\\|\\*/\\|-\\+\\|{\\+d\\='
+    local line = vim.fn.getline(vim.v.foldstart)
+    local trim = vim.fn.substitute(line, pat, '', 'g')
+    local line_count = vim.v.foldend - vim.v.foldstart + 1
+    return vim.fn.printf('··· %4d %s ', line_count, trim)
+end
+
+vim.opt.foldtext = 'v:lua.MyFoldText()'
+-- }}}
+
+-- Easy Align: {{{
 
 -- Start interactive EasyAlign in visual mode (e.g. vipga)
 map('x', 'ga', '<Plug>(EasyAlign)')
@@ -271,12 +284,12 @@ let g:easy_align_delimiters = {
 ]])
 
 -- }}}
--- Rainbow {{{
+-- Rainbow: {{{
 
 vim.g.rainbow_active = 1
 
 -- }}}
--- Lualine {{{
+-- Lualine: {{{
 
 require('lualine').setup {
   options = {
@@ -340,7 +353,7 @@ require('lualine').setup {
 }
 
 -- }}}
--- Cmp {{{
+-- Cmp: {{{
 
 local luasnip = require('luasnip')
 local lspkind = require('lspkind')
