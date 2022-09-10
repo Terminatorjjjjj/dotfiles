@@ -86,8 +86,8 @@ map('i', '<C-k>', '<Esc>:m .-2<CR>gi', opt_s)
 map('v', '<C-j>', ":m '>+1<CR>gv", opt_s)
 map('v', '<C-k>', ":m '<-2<CR>gv", opt_s)
 
--- TODO don't seem to work when cmp-cmdline is on or not actually in cmd mode?
 -- Go to prev match history in command line
+-- Need to disable c-j/c-k in cmp
 map('c', '<C-j>', '<Down>', opt_n)
 map('c', '<C-k>', '<Up>', opt_n)
 
@@ -369,16 +369,14 @@ end
 cmp.setup {
     snippet = {
         expand = function(args)
-            local luasnip = prequire('luasnip')
-            if not luasnip then
-                return
-            end
             luasnip.lsp_expand(args.body)
         end,
     },
     mapping = {
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ['<C-k>'] = cmp.config.disable, -- disable for cmap prev match in history
+        ['<C-j>'] = cmp.config.disable,
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-e>'] = cmp.mapping {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
