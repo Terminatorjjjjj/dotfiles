@@ -7,20 +7,24 @@ vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
+    -- Utils
     use 'tpope/vim-unimpaired'
     use 'junegunn/vim-easy-align'
     use 'vim-scripts/VisIncr'
     use 'luochen1990/rainbow'
 
+    -- Statusline
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
+    -- Colorscheme
     use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
     use 'sainnhe/gruvbox-material'
 
+    -- Autocomplete
     use 'onsails/lspkind.nvim'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-buffer'
@@ -28,8 +32,15 @@ require('packer').startup({function(use)
     use 'hrsh7th/cmp-cmdline'
     use 'saadparwaiz1/cmp_luasnip'
 
+    -- Snippets
     use 'L3MON4D3/LuaSnip'
 --     use 'rafamadriz/friendly-snippets'
+
+    -- Fuzzy finder
+    use {
+        'nvim-telescope/telescope.nvim', branch = '0.1.x',
+        requires = { 'nvim-lua/plenary.nvim' }
+    }
 end,
 config = {
     display = {
@@ -70,12 +81,12 @@ vim.opt.shellcmdflag = '-f -c'
 local map = vim.keymap.set
 local opt_n = { noremap = true }
 local opt_s = { noremap = true, silent = true }
-
 map('n', '<Space>', ':', opt_n)
+
 map('v', '<Space>', ':', opt_n)
 map('i', 'jj', '<Esc>', opt_s)
 map('n', 'gw', '<C-w>', opt_s)
-map('n', 'gp', ':find<Space>*', opt_n)
+-- map('n', 'gp', ':find<Space>*', opt_n)
 
 -- Move line up/down
 map('n', '<C-j>', ':m .+1<CR>', opt_s)
@@ -130,6 +141,7 @@ local function autocmd(e, g, p, c)
     return vim.api.nvim_create_autocmd(e, { group = g, pattern = p, command = c })
 end
 
+-- TODO disable cursorline in TelescopePrompt
 local aug_cul = augroup('cursorline_toggle')
 autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter' }, grp_cul, '*', 'setlocal cursorline')
 autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocursorline')
@@ -181,7 +193,7 @@ map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>
 -- Foldtext: {{{
 
 -- Reference: https://jdhao.github.io/2019/08/16/nvim_config_folding/
-function _G.MyFoldText()
+function _G.FoldText()
     local pat = '^ \\+\\|/\\*\\|\\*/\\|-\\+\\|{\\+d\\='
     local line = vim.fn.getline(vim.v.foldstart)
     local trim = vim.fn.substitute(line, pat, '', 'g')
@@ -189,7 +201,7 @@ function _G.MyFoldText()
     return vim.fn.printf('··· %4d %s ', line_count, trim)
 end
 
-vim.opt.foldtext = 'v:lua.MyFoldText()'
+vim.opt.foldtext = 'v:lua.FoldText()'
 
 -- }}}
 
@@ -403,6 +415,75 @@ cmp.setup.cmdline('/', {
 })
 
 -- }}}
+-- Telescope: {{{
+
+local actions = require('telescope.actions')
+local finders = require('telescope.builtin')
+local theme = require('telescope.themes').get_dropdown({ previewer = false })
+
+require('telescope').setup {
+    defaults = {
+        path_display = { 'smart' },
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim" -- Add this value
+        },
+
+        mappings = {
+            i = {
+                ['<C-c>'] = actions.close,
+                ['<CR>'] = actions.select_default,
+                ['<C-x>'] = actions.select_horizontal,
+                ['<C-v>'] = actions.select_vertical,
+                ['<C-n>'] = actions.cycle_history_next,
+                ['<C-p>'] = actions.cycle_history_prev,
+
+                ['<C-j>'] = actions.move_selection_next,
+                ['<C-k>'] = actions.move_selection_previous,
+
+                ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
+                ['<C-/>'] = actions.which_key, -- Show telescope keymaps
+            },
+
+            n = {
+                ['<Esc>'] = actions.close,
+                ['<CR>'] = actions.select_default,
+                ['<C-x>'] = actions.select_horizontal,
+                ['<C-v>'] = actions.select_vertical,
+
+                ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
+                ['?'] = actions.which_key, -- Show telescope keymaps
+            },
+        },
+    },
+}
+
+_G.TelescopeFiles = function()
+    local _, ret, _ = require('telescope.utils').get_os_command_output({ 'git', 'rev-parse', '--is-inside-work-tree' }) 
+    if ret == 0 then 
+        finders.git_files(theme, { show_untracked = true }) 
+    else
+        finders.find_files(theme) -- Recommended: sharkdp/fd
+    end 
+end 
+map('n', '<C-p>', '<cmd>lua TelescopeFiles()<CR>', opt_s)
+
+map('n', 'gpb', function()
+    finders.buffers(theme)
+end, opt_s)
+map('n', 'gpo', function()
+    finders.oldfiles(theme)
+end, opt_s)
+
+map('n', 'gpf', finders.current_buffer_fuzzy_find, opt_s)
+map('n', 'gpg', finders.live_grep, opt_s) -- Require: BurntShusi/ripgrep
+map('n', 'gpc', finders.grep_string, opt_s) -- Require: BurntShusi/ripgrep
 
 -- modeline
 -- vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
