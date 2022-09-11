@@ -59,11 +59,10 @@ vim.opt.wildignore = {'*.docx' ,'*.jpg' ,'*.png' ,'*.gif' ,'*.pdf' ,'*.pyc' ,'*.
 vim.opt.fillchars = { vert = ' ' }
 vim.opt.termguicolors = true
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+vim.opt.foldmethod = 'marker'
 
 -- Make shell not source startup scripts when running shell command in vim
 vim.opt.shellcmdflag = '-f -c'
-
-vim.opt.foldmethod = 'marker'
 
 -- }}}
 -- Keymap: {{{
@@ -76,7 +75,7 @@ map('n', '<Space>', ':', opt_n)
 map('v', '<Space>', ':', opt_n)
 map('i', 'jj', '<Esc>', opt_s)
 map('n', 'gw', '<C-w>', opt_s)
--- map('n', 'gp', ':find<Space>*', opt_n)
+map('n', 'gp', ':find<Space>*', opt_n)
 
 -- Move line up/down
 map('n', '<C-j>', ':m .+1<CR>', opt_s)
@@ -124,42 +123,26 @@ map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', opt_s)
 -- }}}
 -- Autocmd: {{{
 
-vim.api.nvim_create_augroup("cursorline_toggle", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "VimEnter", "WinEnter", "BufWinEnter" },
-    { group = "cursorline_toggle", command = "setlocal cursorline" }
-)
-vim.api.nvim_create_autocmd(
-    { "WinLeave" },
-    { group = "cursorline_toggle", command = "setlocal nocursorline" }
-)
+local function augroup(g)
+    return vim.api.nvim_create_augroup(g, { clear = true })
+end
+local function autocmd(e, g, p, c)
+    return vim.api.nvim_create_autocmd(e, { group = g, pattern = p, command = c })
+end
 
-vim.api.nvim_create_augroup("number_toggle", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "BufEnter", "FocusGained", "InsertLeave" },
-    { group = "number_toggle", command = "set relativenumber" }
-)
-vim.api.nvim_create_autocmd(
-    { "BufLeave", "FocusLost", "InsertEnter" },
-    { group = "number_toggle", command = "set norelativenumber" }
-)
+local aug_cul = augroup('cursorline_toggle')
+autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter' }, grp_cul, '*', 'setlocal cursorline')
+autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocursorline')
 
-vim.api.nvim_create_augroup("vertical_center_insert", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "InsertEnter" },
-    { group = "vertical_center_insert", command = "norm zz" }
-)
+local aug_nu = augroup('number_toggle')
+autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_nu, '*', 'set relativenumber')
+autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_nu, '*', 'set norelativenumber')
 
--- Filename suffix for 'gf' to search in path
-vim.api.nvim_create_augroup("verilog_suffixadd", { clear = true })
-vim.api.nvim_create_autocmd(
-    { "InsertEnter" },
-    {
-        group = "verilog_suffixadd",
-        pattern = { "verilog", "systemverilog" },
-        command = "setlocal suffixesadd+=.v,.sv,.h,.vh,.svh"
-    }
-)
+local aug_zz = augroup('vertical_center_insert')
+autocmd({ 'InsertEnter' }, aug_zz, '*', 'norm zz')
+
+local aug_sua = augroup('suffixadd_for_gf')
+autocmd({ 'InsertEnter' }, aug_sua, { 'verilog', 'systemverilog' }, 'setlocal suffixesadd+=.v,.sv,.h,.vh,.svh')
 
 -- }}}
 
@@ -170,53 +153,26 @@ vim.g.everforest_better_performance = 1
 
 vim.cmd('colorscheme everforest')
 vim.cmd('hi CursorLine ctermbg=16 guibg=#000000')
-vim.cmd('hi CursorLineNr ctermbg=16 guibg=#000000')
+vim.cmd('hi! link CursorLineNr CursorLine')
 vim.cmd('hi! link Folded Comment')
 
 -- }}}
 -- Comment: {{{
 
-vim.api.nvim_create_augroup("get_comment_leader", { clear = true })
-vim.api.nvim_create_autocmd(
-   { "FileType" },
-   {
-       group = "get_comment_leader",
-       pattern = { "c", "cpp", "java", "scala", "verilog", "systemverilog", "fotran", "stata" },
-       command = "let b:comment_leader = '// '"
-   }
-)
-vim.api.nvim_create_autocmd(
-    { "FileType" },
-    {
-        group = "get_comment_leader",
-        pattern = { "sh", "ruby", "python", "make", "tmux", "tcsh", "csh", "zsh", "conf" },
-        command = "let b:comment_leader = '# '"
-    }
-)
-vim.api.nvim_create_autocmd(
-    { "FileType" },
-    {
-        group = "get_comment_leader",
-        pattern = { "tex", "matlab" },
-        command = "let b:comment_leader = '% '"
-    }
-)
-vim.api.nvim_create_autocmd(
-    { "FileType" },
-    {
-        group = "get_comment_leader",
-        pattern = { "vim" },
-        command = "let b:comment_leader = '\" '"
-    }
-)
-vim.api.nvim_create_autocmd(
-    { "FileType" },
-    {
-        group = "get_comment_leader",
-        pattern = { "lua" },
-        command = "let b:comment_leader = '-- '"
-    }
-)
+local function comment(c, p)
+    return vim.api.nvim_create_autocmd({ 'FileType' }, {
+        group = 'get_comment_leader',
+        pattern = p,
+        command = "let b:comment_leader = '" .. c .. "'"
+    })
+end
+
+augroup('get_comment_leader')
+comment('// ', {'c', 'cpp', 'java', 'scala', 'verilog', 'systemverilog', 'fotran', 'stata'})
+comment('# ',  {'sh', 'ruby', 'python', 'make', 'tmux', 'tcsh', 'csh', 'zsh', 'conf'})
+comment('% ',  {'tex', 'matlab'})
+comment('\" ', {'vim'})
+comment('-- ', {'lua'})
 
 map('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<CR>:nohlsearch<CR>", opt_s)
 map('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", opt_s)
@@ -234,14 +190,15 @@ function _G.MyFoldText()
 end
 
 vim.opt.foldtext = 'v:lua.MyFoldText()'
+
 -- }}}
 
 -- Easy Align: {{{
 
 -- Start interactive EasyAlign in visual mode (e.g. vipga)
-map('x', 'ga', '<Plug>(EasyAlign)')
+map('x', 'ga', '<Plug>(EasyAlign)', opt_s)
 -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-map('n', 'ga', '<Plug>(EasyAlign)')
+map('n', 'ga', '<Plug>(EasyAlign)', opt_s)
 
 -- Verilog non-blocking auto align
 map('i', '<=', '<=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>', opt_s)
@@ -254,33 +211,32 @@ let g:easy_align_delimiters = {
     \     'pattern':         '//\+\|/\*\|\*/',
     \     'delimiter_align': 'l',
     \     'ignore_groups':   ['!Comment'] 
-    \     },
+    \ },
     \ ':': {
     \     'pattern':       ':',
     \     'left_margin':   1,
     \     'right_margin':  1,
-    \     },
+    \ },
     \ '?': {
     \     'pattern':       '?',
     \     'left_margin':   1,
     \     'right_margin':  1,
-    \     },
+    \ },
     \ '(': {
     \     'pattern':       '(',
     \     'left_margin':   1,
     \     'right_margin':  0,
-    \   },
+    \ },
     \ ')': {
     \     'pattern':       ')',
     \     'left_margin':   0,
     \     'right_margin':  0,
-    \   },
+    \ },
     \ 'd': {
     \     'pattern':      ' \ze\S\+\s*[,;=]',
     \     'left_margin':  0,
     \     'right_margin': 0
-    \   }
-    \ }
+    \ }}
 ]])
 
 -- }}}
@@ -290,6 +246,12 @@ vim.g.rainbow_active = 1
 
 -- }}}
 -- Lualine: {{{
+
+local status_symbol = {
+    modified = ' +',
+    readonly = ' ‼',
+    unnamed = ' ?',
+}
 
 require('lualine').setup {
   options = {
@@ -311,38 +273,24 @@ require('lualine').setup {
     }
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    lualine_c = {
-        {
-            'filename',
-            path = 1, -- Relative path
-            symbols = {
-                modified = ' +',
-                readonly = ' ‼',
-                unnamed = ' ?',
-            }
-        }
-    },
-    lualine_x = {'diagnostics'},
-    lualine_y = {'diff'},
-    lualine_z = {'%3c'}
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch' },
+    lualine_c = {{
+        'filename',
+        symbols = status_symbol
+    }},
+    lualine_x = { 'diagnostics' },
+    lualine_y = { 'diff' },
+    lualine_z = { '%3c' }
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {
-        {
-            'filename',
-            path = 1, -- Relative path
-            symbols = {
-                modified = ' +',
-                readonly = ' ‼',
-                unnamed = ' ?',
-            }
-        }
-    },
-    lualine_x = {'%3c'},
+    lualine_c = {{
+        'filename',
+        symbols = status_symbol
+    }},
+    lualine_x = { '%3c' },
     lualine_y = {},
     lualine_z = {}
   },
@@ -362,8 +310,8 @@ local cmp = require('cmp')
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
 
 local check_backspace = function()
-    local col = vim.fn.col "." - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+    local col = vim.fn.col '.' - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s'
 end
 
 cmp.setup {
@@ -414,9 +362,9 @@ cmp.setup {
         format = function(entry, vim_item)
             vim_item.kind = ''
             vim_item.menu = ({
-                luasnip = '', -- [S]
-                buffer = '', -- [B]
-                path = '', -- [P]
+                luasnip = '', -- [Snip]
+                buffer = '', -- [Buf]
+                path = '', -- [Dir]
             })[entry.source.name]
             return vim_item
         end,
@@ -444,9 +392,7 @@ cmp.setup {
             selection_order = 'near_cursor'
         }
     },
-    window = {
-        documentation = cmp.config.window.bordered(),
-    },
+    window = { documentation = cmp.config.window.bordered() },
 }
 
 cmp.setup.cmdline('/', {
