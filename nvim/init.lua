@@ -81,8 +81,8 @@ vim.opt.shellcmdflag = '-f -c'
 local map = vim.keymap.set
 local opt_n = { noremap = true }
 local opt_s = { noremap = true, silent = true }
-map('n', '<Space>', ':', opt_n)
 
+map('n', '<Space>', ':', opt_n)
 map('v', '<Space>', ':', opt_n)
 map('i', 'jj', '<Esc>', opt_s)
 map('n', 'gw', '<C-w>', opt_s)
@@ -369,13 +369,13 @@ cmp.setup {
         ),
     },
     formatting = {
-        fields = {'menu', 'abbr'},
+        fields = {'abbr', 'menu'},
         format = function(entry, vim_item)
             vim_item.kind = ''
             vim_item.menu = ({
-                luasnip = '', -- [Snip]
-                buffer = '', -- [Buf]
-                path = '', -- [Dir]
+                luasnip = '[S]', -- 
+                buffer = '[B]', -- 
+                path = '[D]', -- 
             })[entry.source.name]
             return vim_item
         end,
@@ -420,6 +420,7 @@ local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local theme = function(p)
     return require('telescope.themes').get_dropdown({
+        winblend = 10,
         prompt_prefix = p,
         prompt_title = '',
         results_title = '',
@@ -429,6 +430,7 @@ end
 
 require('telescope').setup {
     defaults = {
+        winblend = 10,
         path_display = { 'smart' },
 
         mappings = {
