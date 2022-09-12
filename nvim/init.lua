@@ -20,12 +20,12 @@ require('packer').startup({function(use)
     }
 
     -- Colorscheme
-    use 'arcticicestudio/nord-vim'
+--     use 'arcticicestudio/nord-vim'
     use 'sainnhe/everforest'
-    use 'sainnhe/gruvbox-material'
+--     use 'sainnhe/gruvbox-material'
 
     -- Autocomplete
-    use 'onsails/lspkind.nvim'
+--     use 'onsails/lspkind.nvim'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
@@ -141,10 +141,10 @@ local function autocmd(e, g, p, c)
     return vim.api.nvim_create_autocmd(e, { group = g, pattern = p, command = c })
 end
 
--- TODO disable cursorline in TelescopePrompt
 local aug_cul = augroup('cursorline_toggle')
 autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter' }, grp_cul, '*', 'setlocal cursorline')
 autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocursorline')
+autocmd({ 'FileType' },                            grp_cul, 'TelescopePrompt', 'setlocal nocursorline')
 
 local aug_nu = augroup('number_toggle')
 autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_nu, '*', 'set relativenumber')
@@ -316,7 +316,6 @@ require('lualine').setup {
 -- Cmp: {{{
 
 local luasnip = require('luasnip')
-local lspkind = require('lspkind')
 local cmp = require('cmp')
 
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
@@ -418,72 +417,64 @@ cmp.setup.cmdline('/', {
 -- Telescope: {{{
 
 local actions = require('telescope.actions')
-local finders = require('telescope.builtin')
-local theme = require('telescope.themes').get_dropdown({ previewer = false })
+local builtin = require('telescope.builtin')
+local theme = function(p)
+    return require('telescope.themes').get_dropdown({
+        prompt_prefix = p,
+        prompt_title = '',
+        results_title = '',
+        previewer = false,
+    })
+end
 
 require('telescope').setup {
     defaults = {
         path_display = { 'smart' },
-        vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--trim" -- Add this value
-        },
 
         mappings = {
             i = {
                 ['<C-c>'] = actions.close,
+                ['<C-j>'] = actions.move_selection_next,
+                ['<C-k>'] = actions.move_selection_previous,
                 ['<CR>'] = actions.select_default,
                 ['<C-x>'] = actions.select_horizontal,
                 ['<C-v>'] = actions.select_vertical,
                 ['<C-n>'] = actions.cycle_history_next,
                 ['<C-p>'] = actions.cycle_history_prev,
-
-                ['<C-j>'] = actions.move_selection_next,
-                ['<C-k>'] = actions.move_selection_previous,
-
                 ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
                 ['<C-/>'] = actions.which_key, -- Show telescope keymaps
             },
-
             n = {
                 ['<Esc>'] = actions.close,
-                ['<CR>'] = actions.select_default,
-                ['<C-x>'] = actions.select_horizontal,
-                ['<C-v>'] = actions.select_vertical,
-
-                ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
                 ['?'] = actions.which_key, -- Show telescope keymaps
             },
         },
     },
 }
 
+map('n', '<C-p>', ':Telescope ', opt_n)
+
 _G.TelescopeFiles = function()
     local _, ret, _ = require('telescope.utils').get_os_command_output({ 'git', 'rev-parse', '--is-inside-work-tree' }) 
     if ret == 0 then 
-        finders.git_files(theme, { show_untracked = true }) 
+        builtin.git_files(theme('Files>'), { show_untracked = true }) 
     else
-        finders.find_files(theme) -- Recommended: sharkdp/fd
+        builtin.find_files(theme('Files>')) -- Recommended: sharkdp/fd
     end 
 end 
-map('n', '<C-p>', '<cmd>lua TelescopeFiles()<CR>', opt_s)
+map('n', 'gpp', '<cmd>lua TelescopeFiles()<CR>', opt_s)
 
 map('n', 'gpb', function()
-    finders.buffers(theme)
+    builtin.buffers(theme('Buffers>'))
 end, opt_s)
 map('n', 'gpo', function()
-    finders.oldfiles(theme)
+    builtin.oldfiles(theme('Oldfiles>'))
 end, opt_s)
 
-map('n', 'gpf', finders.current_buffer_fuzzy_find, opt_s)
-map('n', 'gpg', finders.live_grep, opt_s) -- Require: BurntShusi/ripgrep
-map('n', 'gpc', finders.grep_string, opt_s) -- Require: BurntShusi/ripgrep
+map('n', 'gpq', builtin.quickfix, opt_s)
+map('n', 'gpf', builtin.current_buffer_fuzzy_find, opt_s)
+map('n', 'gpg', builtin.live_grep, opt_s) -- Require: BurntShusi/ripgrep
+map('n', 'gpc', builtin.grep_string, opt_s) -- Require: BurntShusi/ripgrep
 
 -- modeline
 -- vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
