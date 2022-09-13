@@ -320,9 +320,9 @@ local cmp = require('cmp')
 
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
 
-local check_backspace = function()
-    local col = vim.fn.col '.' - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s'
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 cmp.setup {
@@ -331,6 +331,7 @@ cmp.setup {
             luasnip.lsp_expand(args.body)
         end,
     },
+    completion = { keyword_length = 2 },
     mapping = {
         ['<C-k>'] = cmp.config.disable, -- disable for cmap prev match in history
         ['<C-j>'] = cmp.config.disable,
@@ -348,8 +349,8 @@ cmp.setup {
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            elseif check_backspace() then
-                fallback()
+            elseif has_words_before() then
+                cmp.complete()
             else
                 fallback()
             end
@@ -373,15 +374,16 @@ cmp.setup {
         format = function(entry, vim_item)
             vim_item.kind = ''
             vim_item.menu = ({
-                luasnip = '[S]', -- 
-                buffer = '[B]', -- 
-                path = '[D]', -- 
+                luasnip = '(Snippet)',
+                buffer = '(Buffer)',
+                path = '(Path)',
+                cmdline = '(Cmdline)',
             })[entry.source.name]
             return vim_item
         end,
     },
     sources = {
-        { name = 'luasnip', keyword_length = 2 },
+        { name = 'luasnip' },
         {
             name = 'buffer',
             option = {
@@ -395,7 +397,7 @@ cmp.setup {
                 end
             }
         },
-        { name = 'path', keyword_length = 2 },
+        { name = 'path' },
     },
     view = {
         entries = {
@@ -409,9 +411,21 @@ cmp.setup {
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer' },
     }
 })
+
+cmp.setup.cmdline(':', {
+    completion = { keyword_length = 3 },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'path' },
+        { name = 'cmdline' },
+        { name = 'buffer' },
+    }
+})
+
+vim.cmd([[hi! link CmpItemMenu Comment]])
 
 -- }}}
 -- Telescope: {{{
@@ -477,6 +491,7 @@ map('n', 'gpq', builtin.quickfix, opt_s)
 map('n', 'gpf', builtin.current_buffer_fuzzy_find, opt_s)
 map('n', 'gpg', builtin.live_grep, opt_s) -- Require: BurntShusi/ripgrep
 map('n', 'gpc', builtin.grep_string, opt_s) -- Require: BurntShusi/ripgrep
+-- }}}
 
 -- modeline
 -- vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
