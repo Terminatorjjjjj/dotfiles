@@ -77,56 +77,43 @@ vim.opt.shellcmdflag = '-f -c'
 
 -- }}}
 -- Keymap: {{{
+-- Potential prefix: gc, gs, gb, gl, gy
 
 local map = vim.keymap.set
 local opt_n = { noremap = true }
 local opt_s = { noremap = true, silent = true }
 
+map('i', 'jj', '<Esc>', opt_s)
 map('n', '<Space>', ':', opt_n)
 map('v', '<Space>', ':', opt_n)
-map('i', 'jj', '<Esc>', opt_s)
+-- Window cmd
 map('n', 'gw', '<C-w>', opt_s)
--- map('n', 'gp', ':find<Space>*', opt_n)
-
--- Move line up/down
-map('n', '<C-j>', ':m .+1<CR>', opt_s)
-map('n', '<C-k>', ':m .-2<CR>', opt_s)
-map('i', '<C-j>', '<Esc>:m .+1<CR>gi', opt_s)
-map('i', '<C-k>', '<Esc>:m .-2<CR>gi', opt_s)
-map('v', '<C-j>', ":m '>+1<CR>gv", opt_s)
-map('v', '<C-k>', ":m '<-2<CR>gv", opt_s)
-
--- Go to prev match history in command line
--- Need to disable c-j/c-k in cmp
-map('c', '<C-j>', '<Down>', opt_n)
-map('c', '<C-k>', '<Up>', opt_n)
-
--- Keeping search result centered
-map('n', 'N', 'Nzzzv', opt_s)
-map('n', 'n', 'nzzzv', opt_s)
+-- Go to last buffer
+map('n', 'gb', ':b#<CR>', opt_s)
 
 -- Horizontal movement w/ easier pressing
 map('n', 'H', '^', opt_s)
 map('n', 'L', '$', opt_s)
 
--- Replace the word under cursor
-map('n', 'gcr', ':%s/\\<<C-r><C-w>\\>//g<left><left>', opt_n)
+-- Greatest remap accroding to ThePrimagen
+map('v', 's', '"_dP', opt_n)
+
+-- Keeping search result centered
+map('n', 'N', 'Nzzzv', opt_s)
+map('n', 'n', 'nzzzv', opt_s)
+
+-- Move line up/down only in visual mode
+map('v', 'J', ":m '>+1<CR>gv", opt_s)
+map('v', 'K', ":m '<-2<CR>gv", opt_s)
 
 -- Toggle fold
 map('n', "'", 'za', opt_s)
 map('v', "'", 'za', opt_s)
--- Remap since ' is used for fold toggle
-map('n', "<leader>'", "'", opt_s)
 
--- Display buffer list and go to buffer
-map('n', 'gb', ':ls<CR>:b<Space>', opt_n)
--- Display buffer list and open buffer in right split
-map('n', 'gs', ':ls<CR>:vert sb<Space>', opt_n)
-
--- Go to last buffer
-map('n', '<C-h>', ':b#<CR>', opt_s)
--- Move to next split
-map('n', '<C-l>', '<C-w>w', opt_s)
+-- Go to prev match history in command line
+-- Need to disable c-j/c-k in cmp
+map('c', '<C-j>', '<Down>', opt_n)
+map('c', '<C-k>', '<Up>', opt_n)
 
 -- Quit terminal with Esc
 map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', opt_s)
@@ -146,9 +133,9 @@ autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter' }, grp_cul, '*', 'setlocal curso
 autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocursorline')
 autocmd({ 'FileType' },                            grp_cul, 'TelescopePrompt', 'setlocal nocursorline')
 
-local aug_nu = augroup('number_toggle')
-autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_nu, '*', 'set relativenumber')
-autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_nu, '*', 'set norelativenumber')
+local aug_rnu = augroup('rnumber_toggle')
+autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_rnu, '*', 'set relativernumber')
+autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_rnu, '*', 'set norelativernumber')
 
 local aug_zz = augroup('vertical_center_insert')
 autocmd({ 'InsertEnter' }, aug_zz, '*', 'norm zz')
@@ -475,7 +462,7 @@ _G.TelescopeFiles = function()
     if ret == 0 then 
         builtin.git_files(theme('Files>'), { show_untracked = true }) 
     else
-        builtin.find_files(theme('Files>')) -- Recommended: sharkdp/fd
+        builtin.find_files(theme('Files>')) -- Recommended: 'sharkdp/fd'
     end 
 end 
 map('n', 'gpp', '<cmd>lua TelescopeFiles()<CR>', opt_s)
@@ -489,8 +476,8 @@ end, opt_s)
 
 map('n', 'gpq', builtin.quickfix, opt_s)
 map('n', 'gpf', builtin.current_buffer_fuzzy_find, opt_s)
-map('n', 'gpg', builtin.live_grep, opt_s) -- Require: BurntShusi/ripgrep
-map('n', 'gpc', builtin.grep_string, opt_s) -- Require: BurntShusi/ripgrep
+map('n', 'gpg', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
+map('n', 'gpc', builtin.grep_string, opt_s) -- Require: 'BurntShusi/ripgrep'
 -- }}}
 
 -- modeline

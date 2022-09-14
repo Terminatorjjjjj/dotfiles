@@ -64,6 +64,44 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.z
 " make shell not source startup scripts when running shell command in vim
 set shellcmdflag=-f\ -c
 
+" remove pipes | that act as separators on splits (there is a space after \)
+set fillchars+=vert:\ 
+
+" }}}
+" Keymap : {{{
+
+inoremap jj <Esc>
+nnoremap <Space> :
+vnoremap <Space> :
+
+nnoremap Y y$
+" Window cmd
+nnoremap gw <C-w>
+
+" horizontal movement w/ easier pressing
+nnoremap H ^
+nnoremap L $
+
+" Greatest remap accroding to ThePrimagen
+vnoremap s "_dP
+
+" Move line up/down only in visual mode
+vnoremap J :m '>+1<CR>gv
+vnoremap K :m '<-2<CR>gv
+
+" Keeping search result centered
+nnoremap N Nzzzv
+nnoremap n nzzzv
+
+" go to prev match history in command line
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+
+" close terminal mode (only supported in vim8)
+if v:version > 800
+    tnoremap <Esc> <C-\><C-n>:q!<CR>
+endif
+
 " }}}
 " Autocmd: {{{
 
@@ -105,52 +143,6 @@ augroup set_suffixesadd
     autocmd!
     autocmd Filetype systemverilog setlocal suffixesadd+=.v,.sv,.h,.svh
 augroup END
-
-" }}}
-" Keymap : {{{
-
-inoremap jj <Esc>
-nnoremap <Space> :
-vnoremap <Space> :
-
-nnoremap Y y$
-nnoremap gw <C-w>
-
-" move line up/down (add ==, ==gi, gv=gv if want auto align indent)
-nnoremap <C-j> :m .+1<CR>
-nnoremap <C-k> :m .-2<CR>
-inoremap <C-j> <Esc>:m .+1<CR>gi
-inoremap <C-k> <Esc>:m .-2<CR>gi
-vnoremap <C-j> :m '>+1<CR>gv
-vnoremap <C-k> :m '<-2<CR>gv
-
-" add semicolon to the end of current line w/o moving cursor
-" nnoremap <leader>; m'a;<Esc>`'
-
-" close terminal mode (only supported in vim8)
-if v:version > 800
-    tnoremap <Esc> <C-\><C-n>:q!<CR>
-endif
-
-" keeping search result centered
-nnoremap N Nzzzv
-nnoremap n nzzzv
-
-" horizontal movement w/ easier pressing
-nnoremap H ^
-nnoremap L $
-
-" go to prev match history in command line
-cnoremap <C-j> <down>
-cnoremap <C-k> <up>
-
-" replace the word under cursor
-nnoremap gcr :%s/\<<C-r><C-w>\>//g<left><left>
-
-" nnoremap gp :find<Space>*
-
-" remap since ' is used for fold toggle
-nnoremap <leader>' '
 
 " }}}
  
@@ -335,24 +327,16 @@ nnoremap ' za
 vnoremap ' za
 
 " }}}
-" Splits: {{{
-
-" move to next split
-map <C-l> <C-w>w
-" remove pipes | that act as separators on splits (there is a space after \)
-set fillchars+=vert:\ 
-
-" }}}
 " Buffers: {{{
 
 " to change buffer w/o saving current buffer
 set hidden
 " display buffer list and go to buffer
-nnoremap gb :ls<CR>:b<Space>
+" nnoremap gb :ls<CR>:b<Space>
 " display buffet list and open buffer in right split
-nnoremap gs :ls<CR>:vert sb<Space>
+" nnoremap gs :ls<CR>:vert sb<Space>
 " go to last buffer
-nnoremap <C-h> :b#<CR>
+nnoremap gb :b#<CR>
 
 " }}}
          
