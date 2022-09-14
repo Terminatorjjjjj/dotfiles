@@ -134,8 +134,8 @@ autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocur
 autocmd({ 'FileType' },                            grp_cul, 'TelescopePrompt', 'setlocal nocursorline')
 
 local aug_rnu = augroup('rnumber_toggle')
-autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_rnu, '*', 'set relativernumber')
-autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_rnu, '*', 'set norelativernumber')
+autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_rnu, '*', 'set relativenumber')
+autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_rnu, '*', 'set norelativenumber')
 
 local aug_zz = augroup('vertical_center_insert')
 autocmd({ 'InsertEnter' }, aug_zz, '*', 'norm zz')
