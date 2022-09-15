@@ -1,6 +1,5 @@
 vim/bundle/**
 vim/plugged/**
 nvim/site/**
-nvim/plugin/**
 gh-md-toc
 
