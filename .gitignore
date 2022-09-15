@@ -1,5 +1,6 @@
 vim/bundle/**
 vim/plugged/**
 nvim/site/**
+nvim/undodir/**
 gh-md-toc
 

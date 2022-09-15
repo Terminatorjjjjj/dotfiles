@@ -5,40 +5,47 @@ local packer_path = vim.fn.stdpath('config') .. '/site'
 vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 
 require('packer').startup({function(use)
-    use 'wbthomason/packer.nvim'
+    use('wbthomason/packer.nvim')
 
     -- Utils
-    use 'tpope/vim-unimpaired'
-    use 'junegunn/vim-easy-align'
-    use 'vim-scripts/VisIncr'
-    use 'luochen1990/rainbow'
+    use('tpope/vim-unimpaired')
+    use('junegunn/vim-easy-align')
+    use('vim-scripts/VisIncr')
+    use('luochen1990/rainbow')
 
     -- Statusline
-    use {
+    use({
         'nvim-lualine/lualine.nvim',
+--         event = 'BufEnter',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    })
 
     -- Colorscheme
---     use 'arcticicestudio/nord-vim'
-    use 'sainnhe/everforest'
---     use 'sainnhe/gruvbox-material'
+    use('gruvbox-community/gruvbox')
+    use 'arcticicestudio/nord-vim'
+    use('sainnhe/everforest')
+    use 'sainnhe/gruvbox-material'
 
     -- Autocomplete
---     use 'onsails/lspkind.nvim'
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'saadparwaiz1/cmp_luasnip'
-
-    -- Snippets
-    use 'L3MON4D3/LuaSnip'
---     use 'rafamadriz/friendly-snippets'
+    use({
+        {
+            'hrsh7th/nvim-cmp',
+--             event = 'InsertEnter',
+            requires = {
+                'L3MON4D3/LuaSnip',
+--                 event = 'InsertCharPre'
+            }
+        },
+        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+    })
 
     -- Fuzzy finder
     use {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
+--         event = 'CursorHold',
         requires = { 'nvim-lua/plenary.nvim' }
     }
 end,
@@ -63,6 +70,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir'
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.pumheight = 10
@@ -90,6 +98,9 @@ map('v', '<Space>', ':', opt_n)
 map('n', 'gw', '<C-w>', opt_s)
 -- Go to last buffer
 map('n', 'gb', ':b#<CR>', opt_s)
+map('n', '<C-h>', ':b#<CR>', opt_s)
+map('n', 'gs', '<C-w>w', opt_s)
+map('n', '<C-l>', '<C-w>w', opt_s)
 
 -- Horizontal movement w/ easier pressing
 map('n', 'H', '^', opt_s)
