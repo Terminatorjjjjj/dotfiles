@@ -21,7 +21,6 @@ Plug 'honza/vim-snippets'
 
 Plug 'gruvbox-community/gruvbox'
 Plug 'arcticicestudio/nord-vim'
-Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/gruvbox-material'
 
@@ -82,12 +81,13 @@ nnoremap gw <C-w>
 nnoremap H ^
 nnoremap L $
 
-" Greatest remap accroding to ThePrimagen
-vnoremap s "_dP
-
-" Move line up/down only in visual mode
-vnoremap J :m '>+1<CR>gv
-vnoremap K :m '<-2<CR>gv
+" Move line up/down
+nnoremap <c-j> :m .+1<cr>
+nnoremap <c-k> :m .-2<cr>
+inoremap <c-j> <esc>:m .+1<cr>gi
+inoremap <c-k> <esc>:m .-2<cr>gi
+vnoremap <c-j> :m '>+1<cr>gv
+vnoremap <c-k> :m '<-2<cr>gv
 
 " Keeping search result centered
 nnoremap N Nzzzv
