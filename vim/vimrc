@@ -337,6 +337,9 @@ set hidden
 " nnoremap gs :ls<CR>:vert sb<Space>
 " go to last buffer
 nnoremap gb :b#<CR>
+nnoremap <C-h> :b#<CR>
+nnoremap gs <C-w>w
+nnoremap <C-l> <C-w>w
 
 " }}}
          
