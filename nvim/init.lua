@@ -77,56 +77,43 @@ vim.opt.shellcmdflag = '-f -c'
 
 -- }}}
 -- Keymap: {{{
+-- Potential prefix: gc, gs, gb, gl, gy
 
 local map = vim.keymap.set
 local opt_n = { noremap = true }
 local opt_s = { noremap = true, silent = true }
 
+map('i', 'jj', '<Esc>', opt_s)
 map('n', '<Space>', ':', opt_n)
 map('v', '<Space>', ':', opt_n)
-map('i', 'jj', '<Esc>', opt_s)
+-- Window cmd
 map('n', 'gw', '<C-w>', opt_s)
--- map('n', 'gp', ':find<Space>*', opt_n)
-
--- Move line up/down
-map('n', '<C-j>', ':m .+1<CR>', opt_s)
-map('n', '<C-k>', ':m .-2<CR>', opt_s)
-map('i', '<C-j>', '<Esc>:m .+1<CR>gi', opt_s)
-map('i', '<C-k>', '<Esc>:m .-2<CR>gi', opt_s)
-map('v', '<C-j>', ":m '>+1<CR>gv", opt_s)
-map('v', '<C-k>', ":m '<-2<CR>gv", opt_s)
-
--- Go to prev match history in command line
--- Need to disable c-j/c-k in cmp
-map('c', '<C-j>', '<Down>', opt_n)
-map('c', '<C-k>', '<Up>', opt_n)
-
--- Keeping search result centered
-map('n', 'N', 'Nzzzv', opt_s)
-map('n', 'n', 'nzzzv', opt_s)
+-- Go to last buffer
+map('n', 'gb', ':b#<CR>', opt_s)
 
 -- Horizontal movement w/ easier pressing
 map('n', 'H', '^', opt_s)
 map('n', 'L', '$', opt_s)
 
--- Replace the word under cursor
-map('n', 'gcr', ':%s/\\<<C-r><C-w>\\>//g<left><left>', opt_n)
+-- Greatest remap accroding to ThePrimagen
+map('v', 's', '"_dP', opt_n)
+
+-- Keeping search result centered
+map('n', 'N', 'Nzzzv', opt_s)
+map('n', 'n', 'nzzzv', opt_s)
+
+-- Move line up/down only in visual mode
+map('v', 'J', ":m '>+1<CR>gv", opt_s)
+map('v', 'K', ":m '<-2<CR>gv", opt_s)
 
 -- Toggle fold
 map('n', "'", 'za', opt_s)
 map('v', "'", 'za', opt_s)
--- Remap since ' is used for fold toggle
-map('n', "<leader>'", "'", opt_s)
 
--- Display buffer list and go to buffer
-map('n', 'gb', ':ls<CR>:b<Space>', opt_n)
--- Display buffer list and open buffer in right split
-map('n', 'gs', ':ls<CR>:vert sb<Space>', opt_n)
-
--- Go to last buffer
-map('n', '<C-h>', ':b#<CR>', opt_s)
--- Move to next split
-map('n', '<C-l>', '<C-w>w', opt_s)
+-- Go to prev match history in command line
+-- Need to disable c-j/c-k in cmp
+map('c', '<C-j>', '<Down>', opt_n)
+map('c', '<C-k>', '<Up>', opt_n)
 
 -- Quit terminal with Esc
 map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', opt_s)
@@ -146,9 +133,9 @@ autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter' }, grp_cul, '*', 'setlocal curso
 autocmd({ 'WinLeave' },                            grp_cul, '*', 'setlocal nocursorline')
 autocmd({ 'FileType' },                            grp_cul, 'TelescopePrompt', 'setlocal nocursorline')
 
-local aug_nu = augroup('number_toggle')
-autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_nu, '*', 'set relativenumber')
-autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_nu, '*', 'set norelativenumber')
+local aug_rnu = augroup('rnumber_toggle')
+autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave' }, grp_rnu, '*', 'set relativenumber')
+autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter' },   grp_rnu, '*', 'set norelativenumber')
 
 local aug_zz = augroup('vertical_center_insert')
 autocmd({ 'InsertEnter' }, aug_zz, '*', 'norm zz')
@@ -320,9 +307,9 @@ local cmp = require('cmp')
 
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
 
-local check_backspace = function()
-    local col = vim.fn.col '.' - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s'
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 cmp.setup {
@@ -331,6 +318,7 @@ cmp.setup {
             luasnip.lsp_expand(args.body)
         end,
     },
+    completion = { keyword_length = 2 },
     mapping = {
         ['<C-k>'] = cmp.config.disable, -- disable for cmap prev match in history
         ['<C-j>'] = cmp.config.disable,
@@ -348,8 +336,8 @@ cmp.setup {
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            elseif check_backspace() then
-                fallback()
+            elseif has_words_before() then
+                cmp.complete()
             else
                 fallback()
             end
@@ -373,15 +361,16 @@ cmp.setup {
         format = function(entry, vim_item)
             vim_item.kind = ''
             vim_item.menu = ({
-                luasnip = '[S]', -- 
-                buffer = '[B]', -- 
-                path = '[D]', -- 
+                luasnip = '(Snippet)',
+                buffer = '(Buffer)',
+                path = '(Path)',
+                cmdline = '(Cmdline)',
             })[entry.source.name]
             return vim_item
         end,
     },
     sources = {
-        { name = 'luasnip', keyword_length = 2 },
+        { name = 'luasnip' },
         {
             name = 'buffer',
             option = {
@@ -395,7 +384,7 @@ cmp.setup {
                 end
             }
         },
-        { name = 'path', keyword_length = 2 },
+        { name = 'path' },
     },
     view = {
         entries = {
@@ -409,9 +398,21 @@ cmp.setup {
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer' },
     }
 })
+
+cmp.setup.cmdline(':', {
+    completion = { keyword_length = 3 },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'path' },
+        { name = 'cmdline' },
+        { name = 'buffer' },
+    }
+})
+
+vim.cmd([[hi! link CmpItemMenu Comment]])
 
 -- }}}
 -- Telescope: {{{
@@ -461,7 +462,7 @@ _G.TelescopeFiles = function()
     if ret == 0 then 
         builtin.git_files(theme('Files>'), { show_untracked = true }) 
     else
-        builtin.find_files(theme('Files>')) -- Recommended: sharkdp/fd
+        builtin.find_files(theme('Files>')) -- Recommended: 'sharkdp/fd'
     end 
 end 
 map('n', 'gpp', '<cmd>lua TelescopeFiles()<CR>', opt_s)
@@ -475,8 +476,9 @@ end, opt_s)
 
 map('n', 'gpq', builtin.quickfix, opt_s)
 map('n', 'gpf', builtin.current_buffer_fuzzy_find, opt_s)
-map('n', 'gpg', builtin.live_grep, opt_s) -- Require: BurntShusi/ripgrep
-map('n', 'gpc', builtin.grep_string, opt_s) -- Require: BurntShusi/ripgrep
+map('n', 'gpg', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
+map('n', 'gpc', builtin.grep_string, opt_s) -- Require: 'BurntShusi/ripgrep'
+-- }}}
 
 -- modeline
 -- vim:foldmethod=marker:foldmarker={{{,}}}:foldlevel=0:
