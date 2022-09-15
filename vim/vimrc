@@ -54,6 +54,7 @@ set laststatus=2
 set lazyredraw
 " persistent undo
 set undofile
+set undodir=~/.vim/undodir
 set autochdir
 set splitbelow splitright
 
