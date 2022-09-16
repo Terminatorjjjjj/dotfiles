@@ -19,10 +19,10 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
-Plug 'gruvbox-community/gruvbox'
-Plug 'arcticicestudio/nord-vim'
+" Plug 'gruvbox-community/gruvbox'
+" Plug 'arcticicestudio/nord-vim'
 Plug 'sainnhe/everforest'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 

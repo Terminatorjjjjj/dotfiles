@@ -14,7 +14,6 @@ vim.opt.wildignore = {'*.docx' ,'*.jpg' ,'*.png' ,'*.gif' ,'*.pdf' ,'*.pyc' ,'*.
 vim.opt.fillchars = { vert = ' ' }
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 vim.opt.foldmethod = 'marker'
-vim.opt.termguicolors = true
 
 -- Make shell not source startup scripts when running shell command in vim
 vim.opt.shellcmdflag = '-f -c'
@@ -29,3 +28,5 @@ function _G.FoldText()
 end
 
 vim.opt.foldtext = 'v:lua.FoldText()'
+
+vim.opt.termguicolors = true
