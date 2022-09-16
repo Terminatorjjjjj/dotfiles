@@ -1,3 +1,11 @@
+-- local status, packer = pcall(require, "packer")
+-- if (not status) then
+--   print("Packer is not installed")
+--   return
+-- end
+-- 
+-- vim.cmd [[packadd packer.nvim]]
+
 local packer_path = vim.fn.stdpath('config') .. '/site'
 vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 
@@ -18,19 +26,25 @@ require('packer').startup({function(use)
     })
 
     -- Colorscheme
-    use('gruvbox-community/gruvbox')
-    use 'arcticicestudio/nord-vim'
+--     use('gruvbox-community/gruvbox')
+--     use 'arcticicestudio/nord-vim'
     use('sainnhe/everforest')
-    use 'sainnhe/gruvbox-material'
+--     use 'sainnhe/gruvbox-material'
 
     -- Autocomplete
     use({
         {
             'hrsh7th/nvim-cmp',
---             event = 'InsertEnter',
+            event = 'InsertEnter',
             requires = {
-                'L3MON4D3/LuaSnip',
---                 event = 'InsertCharPre'
+                {
+                    'L3MON4D3/LuaSnip',
+--                     event = 'InsertCharPre'
+                },
+                {
+                    'rafamadriz/friendly-snippets',
+--                     event = 'InsertCharPre'
+                }
             }
         },
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },

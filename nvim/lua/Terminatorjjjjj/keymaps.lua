@@ -25,6 +25,10 @@ map('n', 'L', '$', opt_s)
 map('n', 'N', 'Nzzzv', opt_s)
 map('n', 'n', 'nzzzv', opt_s)
 
+-- Easy increase/decrease
+map('n', '+', '<C-a>', opt_s)
+map('n', '-', '<C-x>', opt_s)
+
 -- Move line up/down
 map('n', '<C-j>', ":m .+1<CR>", opt_s)
 map('n', '<C-k>', ":m .-2<CR>", opt_s)

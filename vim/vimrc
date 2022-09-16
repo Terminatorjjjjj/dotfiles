@@ -81,6 +81,10 @@ nnoremap gw <C-w>
 nnoremap H ^
 nnoremap L $
 
+" Easy increase/decrease
+nnoremap + <C-a>
+nnoremap - <C-x>
+
 " Move line up/down
 nnoremap <c-j> :m .+1<cr>
 nnoremap <c-k> :m .-2<cr>
