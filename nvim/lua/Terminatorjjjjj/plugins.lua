@@ -1,15 +1,12 @@
--- local status, packer = pcall(require, "packer")
--- if (not status) then
---   print("Packer is not installed")
---   return
--- end
--- 
--- vim.cmd [[packadd packer.nvim]]
+local status, packer = pcall(require, "packer")
+if (not status) then
+  vim.notify("Packer is not installed!")
+  return
+end
 
-local packer_path = vim.fn.stdpath('config') .. '/site'
-vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+vim.cmd [[packadd packer.nvim]]
 
-require('packer').startup({function(use)
+packer.startup({function(use)
     use('wbthomason/packer.nvim')
 
     -- Utils
@@ -21,43 +18,32 @@ require('packer').startup({function(use)
     -- Statusline
     use({
         'nvim-lualine/lualine.nvim',
---         event = 'BufEnter',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     })
 
     -- Colorscheme
---     use('gruvbox-community/gruvbox')
 --     use 'arcticicestudio/nord-vim'
     use('sainnhe/everforest')
+--     use('gruvbox-community/gruvbox')
 --     use 'sainnhe/gruvbox-material'
 
     -- Autocomplete
     use({
-        {
-            'hrsh7th/nvim-cmp',
-            event = 'InsertEnter',
-            requires = {
-                {
-                    'L3MON4D3/LuaSnip',
---                     event = 'InsertCharPre'
-                },
-                {
-                    'rafamadriz/friendly-snippets',
---                     event = 'InsertCharPre'
-                }
-            }
-        },
-        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-        { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+        'hrsh7th/nvim-cmp',
+        requires = {
+            'L3MON4D3/LuaSnip',
+            requires = { 'rafamadriz/friendly-snippets' },
+        }
     })
+    use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })
+    use({ 'hrsh7th/cmp-path', after = 'nvim-cmp' })
+    use({ 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' })
+    use({ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' })
 
     -- Fuzzy finder
     use {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
---         event = 'CursorHold',
-        requires = { 'nvim-lua/plenary.nvim' }
+        requires = { 'nvim-lua/plenary.nvim' },
     }
 end,
 config = {
@@ -66,5 +52,4 @@ config = {
             return require('packer.util').float({ border = 'rounded' })
         end
     },
-    package_root = vim.fn.stdpath('config') .. '/site/pack'
 }})

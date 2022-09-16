@@ -14,4 +14,4 @@ endtry
 vim.cmd('hi CursorLine ctermbg=16 guibg=#000000')
 vim.cmd('hi! link CursorLineNr CursorLine')
 vim.cmd('hi! link Folded Comment')
-vim.cmd([[hi! link CmpItemMenu Comment]])
+vim.cmd('hi! link CmpItemMenu Comment')
