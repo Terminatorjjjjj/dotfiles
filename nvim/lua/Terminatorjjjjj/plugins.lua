@@ -16,7 +16,7 @@ packer.startup({function(use)
     use('luochen1990/rainbow')
 
     -- Statusline
-    use('nvim-lualine/lualine.nvim')
+--     use('nvim-lualine/lualine.nvim')
 
     -- Colorscheme
 --     use('gruvbox-community/gruvbox')
