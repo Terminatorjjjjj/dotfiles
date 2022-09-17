@@ -16,16 +16,13 @@ packer.startup({function(use)
     use('luochen1990/rainbow')
 
     -- Statusline
-    use({
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    })
+    use('nvim-lualine/lualine.nvim')
 
     -- Colorscheme
---     use 'arcticicestudio/nord-vim'
-    use('sainnhe/everforest')
 --     use('gruvbox-community/gruvbox')
---     use 'sainnhe/gruvbox-material'
+    use('sainnhe/everforest')
+--     use('sainnhe/gruvbox-material')
+--     use('arcticicestudio/nord-vim')
 
     -- Autocomplete
     use({
