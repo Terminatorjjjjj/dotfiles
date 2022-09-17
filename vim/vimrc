@@ -177,7 +177,6 @@ hi CursorLineNr ctermbg=16 guibg=#000000
 
 " modified from this blog:
 "   https://jip.dev/posts/a-simpler-vim-statusline/
-"   https://github.com/blaenk/dots/blob/dfb34f1ad78f5aa25bc486d3c14c9a0ef24094bd/vim/.vimrc#L168
 
 function! Status(winnum) abort
     let active = a:winnum == winnr()

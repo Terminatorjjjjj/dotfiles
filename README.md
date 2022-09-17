@@ -19,13 +19,13 @@
 + [Use vim as ide](https://github.com/yangyangwithgnu/use_vim_as_ide)
 + [Greate series of guide for beginners](https://thevaluable.dev/vim-beginner/)
 + [List of colorschemes](https://vimcolorschemes.com)
-+ [Customize statusline](https://medium.com/hackernoon/the-last-statusline-for-vim-a613048959b2)
 + [Example of using snippets](https://castel.dev/post/lecture-notes-1/)
 + [Vimcast - Vim fugitive series](http://vimcasts.org/blog/2011/05/the-fugitive-series/)
 + [ThePrimeagen - Vim quickfix list](https://youtu.be/IoyW8XYGqjM)
 + [ThePrimeagen - Vim registers](https://youtu.be/Q5eDxR7bU2k)
 + [Some design concepts on vim keymapping](https://medium.com/@lakshmankumar12/vim-and-key-mapping-f02db3f88b58)
 + [Seamless navigation in vim and tmux](https://www.bugsnag.com/blog/tmux-and-vim)
++ [Customize active and inactive statuslines](https://jip.dev/posts/a-simpler-vim-statusline/)
 
 # Neovim
 + [Chris@Machine - Neovim from scratch series](https://youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ)

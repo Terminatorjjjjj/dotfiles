@@ -29,6 +29,7 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
+            -- TODO sometimes pressing tab at the start of empty line fails
             elseif luasnip.expandable() then
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then

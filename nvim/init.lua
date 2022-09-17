@@ -2,6 +2,7 @@ require('Terminatorjjjjj.settings')
 require('Terminatorjjjjj.keymaps')
 require('Terminatorjjjjj.autocmd')
 require('Terminatorjjjjj.comment')
+-- require('Terminatorjjjjj.statusline')
 
 require('Terminatorjjjjj.plugins')
 require('plugins.colorscheme')
