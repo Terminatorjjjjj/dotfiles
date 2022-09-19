@@ -10,7 +10,7 @@ vim.keymap.set('i', '<=', '<=<Esc>mzvip:EasyAlign/<=/<CR>`z$a<Space>', opt_s)
 
 -- Customized setting mainly for verilog
 -- d: for aligning port/signal list with last space before ,;=)
-vim.cmd([[
+vim.cmd [[
 let g:easy_align_delimiters = {
     \ '/': {
     \     'pattern':         '//\+\|/\*\|\*/',
@@ -42,4 +42,4 @@ let g:easy_align_delimiters = {
     \     'left_margin':  0,
     \     'right_margin': 0
     \ }}
-]])
+]]

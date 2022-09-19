@@ -1,17 +1,19 @@
 vim.g.rainbow_active = 1
 vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 1
+-- vim.g.everforest_disable_italic_comment = 1
 vim.g.gruvbox_material_background = 'hard'
 vim.g.gruvbox_material_better_performance = 1
+-- vim.g.gruvbox_material_disable_italic_comment = 1
 
-vim.cmd([[
+vim.cmd [[
 try
   colorscheme everforest
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark
 endtry
-]])
+]]
 
 vim.cmd('hi CursorLine ctermbg=16 guibg=#000000')
 vim.cmd('hi! link CursorLineNr CursorLine')
