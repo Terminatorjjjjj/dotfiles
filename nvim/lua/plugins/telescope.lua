@@ -6,7 +6,6 @@ local builtin = require('telescope.builtin')
 
 local theme = function(p)
     return require('telescope.themes').get_dropdown({
-        winblend = 10,
         prompt_prefix = p,
         prompt_title = '',
         results_title = '',
@@ -16,7 +15,6 @@ end
 
 telescope.setup {
     defaults = {
-        winblend = 10,
         path_display = { 'smart' },
 
         mappings = {

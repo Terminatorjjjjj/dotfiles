@@ -52,7 +52,7 @@ Statusline.active = function()
         '%#StatusLineNC#',
         filename(ft),
         readonly(ft, ro),
-        modified(wo),
+        modified(mo),
         '%=',
         branch(),
     }

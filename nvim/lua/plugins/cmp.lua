@@ -1,5 +1,8 @@
-local status, cmp = pcall(require, 'cmp')
-if (not status) then return end
+local status_cmp, cmp = pcall(require, 'cmp')
+if (not status_cmp) then return end
+
+local status_luasnip, luasnip = pcall(require, 'luasnip')
+if (not status_luasnip) then return end
 
 require('luasnip.loaders.from_snipmate').lazy_load() -- look in ~/.config/nvim/snippets
 require('luasnip.loaders.from_vscode').lazy_load() -- load from 'rafamadriz/friendly-snippets'
@@ -29,7 +32,6 @@ cmp.setup {
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            -- TODO sometimes pressing tab at the start of empty line fails
             elseif luasnip.expandable() then
                 luasnip.expand()
             elseif luasnip.expand_or_jumpable() then
