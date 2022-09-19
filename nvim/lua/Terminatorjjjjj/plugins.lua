@@ -1,17 +1,13 @@
---[[
+-- local packer_path = vim.fn.stdpath('config') .. '/site'
+-- vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+
 local status, packer = pcall(require, "packer")
 if (not status) then
   vim.notify("Packer is not installed!")
   return
 end
 
-vim.cmd [[packadd packer.nvim]]
---]]
-
-local packer_path = vim.fn.stdpath('config') .. '/site'
-vim.o.packpath = vim.o.packpath .. ',' .. packer_path
-
-packer.startup({function(use)
+return packer.startup({function(use)
     use('wbthomason/packer.nvim')
 
     -- Utils
@@ -24,10 +20,10 @@ packer.startup({function(use)
     use('nvim-lualine/lualine.nvim')
 
     -- Colorscheme
-    use('gruvbox-community/gruvbox')
+--     use('gruvbox-community/gruvbox')
     use('sainnhe/everforest')
-    use('sainnhe/gruvbox-material')
-    use('arcticicestudio/nord-vim')
+--     use('sainnhe/gruvbox-material')
+--     use('arcticicestudio/nord-vim')
 
     -- Autocomplete
     use({
@@ -54,5 +50,5 @@ config = {
             return require('packer.util').float({ border = 'rounded' })
         end
     },
-    package_root = vim.fn.stdpath('config') .. '/site/pack'
+--     package_root = vim.fn.stdpath('config') .. '/site/pack'
 }})
