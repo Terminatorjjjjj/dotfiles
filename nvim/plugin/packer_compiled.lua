@@ -172,8 +172,8 @@ time([[Defining packer_plugins]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
-vim.cmd [[ packadd cmp-cmdline ]]
 vim.cmd [[ packadd cmp-buffer ]]
+vim.cmd [[ packadd cmp-cmdline ]]
 vim.cmd [[ packadd cmp_luasnip ]]
 vim.cmd [[ packadd cmp-path ]]
 time([[Sequenced loading]], false)

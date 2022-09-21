@@ -30,3 +30,31 @@ end
 vim.opt.foldtext = 'v:lua.FoldText()'
 
 vim.opt.termguicolors = true
+
+-- Disable some builtin vim plugins
+local default_plugins = {
+  "2html_plugin",
+  "getscript",
+  "getscriptPlugin",
+  "gzip",
+  "logipat",
+  "tar",
+  "tarPlugin",
+  "rrhelper",
+  "spellfile_plugin",
+  "vimball",
+  "vimballPlugin",
+  "zip",
+  "zipPlugin",
+  "tutor",
+  "rplugin",
+  "synmenu",
+  "optwin",
+  "compiler",
+  "bugreport",
+}
+
+for _, plugin in pairs(default_plugins) do
+  vim.g["loaded_" .. plugin] = 1
+end
+
