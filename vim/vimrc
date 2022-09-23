@@ -13,16 +13,17 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/vim-gitbranch'
+Plug 'Terminatorjjjjj/vim.sv'
 
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
-" Plug 'gruvbox-community/gruvbox'
-" Plug 'arcticicestudio/nord-vim'
+Plug 'gruvbox-community/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'sainnhe/everforest'
-" Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
