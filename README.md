@@ -1,6 +1,16 @@
 # My Config
 
-[TOC]
+<!--ts-->
+* [My Config](#my-config)
+* [Terminal](#terminal)
+* [Vim](#vim)
+* [Neovim](#neovim)
+* [Tmux](#tmux)
+* [Mardown](#mardown)
+
+<!-- Added by: jjjjj, at: Sat Sep 24 01:47:17 CST 2022 -->
+
+<!--te-->
 
 # Terminal
 + [Termial themes for MacOS](https://github.com/lysyi3m/macos-terminal-themes)
@@ -30,7 +40,7 @@
 + [Full cheatsheat for tmux](https://tmuxcheatsheet.com)
 + [List of helpful tmux links](https://github.com/rothgar/awesome-tmux)
 
-## Mardown
+# Mardown
 + [Markdown setup on neovim](https://zhuanlan.zhihu.com/p/84773275)
 
 ```bash
