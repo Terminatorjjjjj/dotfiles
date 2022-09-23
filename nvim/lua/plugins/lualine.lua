@@ -1,12 +1,12 @@
 local status, lualine = pcall(require, 'lualine')
 if (not status) then return end
-
+  
 vim.opt.showmode = false
 
 local status_symbol = {
-    modified = ' +',
-    readonly = ' ‼',
-    unnamed = ' ?',
+    modified = '+ ',
+    readonly = '‼ ',
+    unnamed = '? ',
 }
 
 lualine.setup {

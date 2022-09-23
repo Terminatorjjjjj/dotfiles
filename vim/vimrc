@@ -26,8 +26,6 @@ Plug 'sainnhe/everforest'
 
 call plug#end()
 
-set runtimepath+=~/.vim/sv_vim
-
 " }}}
      
 " Setting: {{{
@@ -287,11 +285,11 @@ hi! link StatusLineNC Comment
 
 augroup get_comment_leader
     autocmd!
-    autocmd FileType c,cpp,java,scala,verilog,systemverilog,fotran,stata let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python,make,tmux,tcsh,csh,zsh,conf          let b:comment_leader = '# '
-    autocmd FileType tex,matlab                                          let b:comment_leader = '% '
-    autocmd FileType vim                                                 let b:comment_leader = '" '
-    autocmd FileType lua                                                 let b:comment_leader = '-- '
+    autocmd FileType c,cpp,java,scala,verilog,systemverilog,fortran,stata let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python,make,tmux,tcsh,csh,zsh,conf           let b:comment_leader = '# '
+    autocmd FileType tex,matlab                                           let b:comment_leader = '% '
+    autocmd FileType vim                                                  let b:comment_leader = '" '
+    autocmd FileType lua                                                  let b:comment_leader = '-- '
 augroup END
 
 " comment and uncomment

@@ -1,5 +1,5 @@
--- local packer_path = vim.fn.stdpath('config') .. '/site'
--- vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+local packer_path = vim.fn.stdpath('config') .. '/site'
+vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 
 local status, packer = pcall(require, "packer")
 if (not status) then
@@ -15,6 +15,7 @@ return packer.startup({function(use)
     use('junegunn/vim-easy-align')
     use('vim-scripts/VisIncr')
     use('luochen1990/rainbow')
+    use('Terminatorjjjjj/vim.sv')
 
     -- Statusline
     use('nvim-lualine/lualine.nvim')
@@ -24,6 +25,7 @@ return packer.startup({function(use)
     use('sainnhe/everforest')
 --     use('sainnhe/gruvbox-material')
 --     use('arcticicestudio/nord-vim')
+--     use('navarasu/onedark.nvim')
 
     -- Autocomplete
     use({
@@ -51,5 +53,5 @@ config = {
             return require('packer.util').float({ border = 'rounded' })
         end
     },
---     package_root = vim.fn.stdpath('config') .. '/site/pack'
+    package_root = vim.fn.stdpath('config') .. '/site/pack'
 }})

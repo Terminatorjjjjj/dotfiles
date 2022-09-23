@@ -1,12 +1,6 @@
 # My Config
 
-<!--ts-->
-* [Terminal](#terminal)
-* [Vim](#vim)
-* [Neovim](#neovim)
-* [Tmux](#tmux)
-* [Mardown](#mardown)
-<!--te-->
+[TOC]
 
 # Terminal
 + [Termial themes for MacOS](https://github.com/lysyi3m/macos-terminal-themes)

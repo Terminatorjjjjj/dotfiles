@@ -1,3 +1,4 @@
+vim.opt.autochdir = true
 vim.opt.expandtab = true
 vim.opt.softtabstop = -1 -- If negative, shiftwidth is used
 vim.opt.shiftwidth = 4
