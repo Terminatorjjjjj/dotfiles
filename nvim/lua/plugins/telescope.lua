@@ -13,6 +13,10 @@ local theme = function(p)
     })
 end
 
+local function telescope_buffer_dir()
+    return vim.fn.expand('%:p:h')
+end
+
 telescope.setup {
     defaults = {
         path_display = { 'smart' },
@@ -27,16 +31,24 @@ telescope.setup {
                 ['<C-v>'] = actions.select_vertical,
                 ['<C-n>'] = actions.cycle_history_next,
                 ['<C-p>'] = actions.cycle_history_prev,
-                ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
                 ['<C-/>'] = actions.which_key, -- Show telescope keymaps
             },
             n = {
-                ['<Esc>'] = actions.close,
+                ['q'] = actions.close,
                 ['?'] = actions.which_key, -- Show telescope keymaps
             },
         },
     },
+    extensions = {
+        file_browser = {
+            theme = 'dropdown',
+            -- disables netrw and use telescope-file-browser in its place
+            hijack_netrw = true,
+        },
+    }
 }
+
+telescope.load_extension('file_browser')
 
 -- Keymaps
 local map = vim.keymap.set
@@ -62,7 +74,19 @@ map('n', 'gpo', function()
     builtin.oldfiles(theme('Oldfiles>'))
 end, opt_s)
 
+map('n', 'gpf', function()
+    telescope.extensions.file_browser.file_browser({
+        path = '%:p:h',
+        cwd = telescope_buffer_dir(),
+        respect_gitignore = false,
+        hidden = true,
+        grouped = true,
+        previewer = false,
+        initial_mode = 'normal',
+        layout_config = { height = 25 },
+    })
+end, opt_s)
+
 map('n', 'gpq', builtin.quickfix, opt_s)
-map('n', 'gpf', builtin.current_buffer_fuzzy_find, opt_s)
-map('n', 'gpg', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
-map('n', 'gpc', builtin.grep_string, opt_s) -- Require: 'BurntShusi/ripgrep'
+map('n', 'gpr', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
+map('n', 'gps', builtin.current_buffer_fuzzy_find, opt_s)

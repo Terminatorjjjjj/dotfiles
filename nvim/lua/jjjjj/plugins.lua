@@ -11,6 +11,7 @@ return packer.startup({function(use)
     use('wbthomason/packer.nvim')
 
     -- Utils
+    use('kyazdani42/nvim-web-devicons')
     use('tpope/vim-unimpaired')
     use('junegunn/vim-easy-align')
     use('vim-scripts/VisIncr')
@@ -21,11 +22,11 @@ return packer.startup({function(use)
     use('nvim-lualine/lualine.nvim')
 
     -- Colorscheme
---     use('gruvbox-community/gruvbox')
+    use('gruvbox-community/gruvbox')
     use('sainnhe/everforest')
---     use('sainnhe/gruvbox-material')
---     use('arcticicestudio/nord-vim')
---     use('navarasu/onedark.nvim')
+    use('sainnhe/gruvbox-material')
+    use('arcticicestudio/nord-vim')
+    use('navarasu/onedark.nvim')
 
     -- Autocomplete
     use({
@@ -46,6 +47,7 @@ return packer.startup({function(use)
         branch = '0.1.x',
         requires = { 'nvim-lua/plenary.nvim' },
     }
+    use('nvim-telescope/telescope-file-browser.nvim')
 end,
 config = {
     display = {
