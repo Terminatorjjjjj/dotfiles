@@ -19,6 +19,7 @@ end
 
 telescope.setup {
     defaults = {
+--         color_devicons = false,
         path_display = { 'smart' },
 
         mappings = {

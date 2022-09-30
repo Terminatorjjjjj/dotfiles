@@ -1,13 +1,23 @@
 local fn = vim.fn
 local api = vim.api
 
-local function column() 
+--[[
+local function dynamic_column() 
     local vc = fn.virtcol('.')
     local ruler_width = math.max(string.len(fn.line('$')), 3) -- 3 = numberwidth-1
     local column_witdh = string.len(vc)
     local padding = ruler_width - column_witdh
  
     return string.rep(' ', padding) .. vc .. ' '
+end
+--]]
+
+local function static_column()
+    return ' %3c '
+end
+
+local function percentage()
+    return ' %P '
 end
  
 local function filename(ft)
@@ -28,6 +38,7 @@ local function modified(mo)
     return mo and ' +' or ''
 end
 
+--[[
 local function branch()
     local br = fn.trim(fn.system("git -C " .. fn.expand("%:h") .. " branch --show-current 2>/dev/null"))
     
@@ -37,6 +48,7 @@ local function branch()
         return ''
     end
 end
+--]]
 
 Statusline = {}
 
@@ -47,27 +59,30 @@ Statusline.active = function()
     local mo = api.nvim_buf_get_option(bufnum, 'modified')
 
     return table.concat {
-        '%#PmenuSel#',
-        column(),
-        '%#StatusLineNC#',
+        '%#MyStatusLineStandout#',
+--         dynamic_column(),
+--         static_column(),
+        percentage(),
+        '%#MyStatusLineNormal#',
         filename(ft),
         readonly(ft, ro),
         modified(mo),
         '%=',
-        branch(),
+        static_column(),
+--         branch(),
     }
 end
 
 Statusline.inactive = function()
-    return ' %<%F'
+    return '%#MyStatusLineNormal# %<%F'
 end
 
-local aug_sta = api.nvim_create_augroup('statusline', { clear = true })
+local aug_stl = api.nvim_create_augroup('statusline', { clear = true })
 api.nvim_create_autocmd({ 'WinEnter', 'BufWinEnter', 'BufEnter' }, {
-    group = aug_sta,
+    group = aug_stl,
     command = 'setlocal statusline=%!v:lua.Statusline.active()',
 })
 api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, {
-    group = aug_sta,
+    group = aug_stl,
     command = 'setlocal statusline=%!v:lua.Statusline.inactive()',
 })
