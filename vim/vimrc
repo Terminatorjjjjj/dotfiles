@@ -194,7 +194,7 @@ function! Status(winnum) abort
 "         let br = trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null")) 
         let br = gitbranch#name()
         if strlen(br) > 0
-            return ' ' . br . ' '
+            return ' ' . toupper(br) . ' '
         else
             return ''
         endif
@@ -238,24 +238,35 @@ function! Status(winnum) abort
         return Color(active, 5, ' Quickfix ') . fill
     endif
 
+    let percentage = (active) ? ' %P ' : ''
     let branch = (active) ? GitBranch() : ''
     let separator = (strlen(branch)>0) ? ' «' : ''
     let filename = ' %<%f'
     let readonly = getbufvar(bufnum, '&readonly') ? ' ‼' : ''
     let modified = getbufvar(bufnum, '&modified') ? ' +' : ''
-"     let column = ' %3c '
-    let column = (active) ? '%{Column()}' : ''
+    let static_column = ' %3c '
+    let dynamic_column = (active) ? '%{Column()}' : ''
+
+"     let stat = ''
+"     let stat .= Color(active, 4, dynamic_column)
+"     let stat .= Color(active, 2, filename)
+"     let stat .= Color(active, 6, ' »')
+"     let stat .= Color(active, 3, readonly)
+"     let stat .= Color(active, 3, modified)
+"     let stat .= fill
+"     let stat .= '%='
+"     let stat .= Color(active, 6, separator)
+"     let stat .= Color(active, 1, branch)
 
     let stat = ''
-    let stat .= Color(active, 4, column)
-    let stat .= Color(active, 2, filename)
-    let stat .= Color(active, 6, ' »')
+    let stat .= Color(active, 7, percentage)
+    let stat .= Color(active, 8, filename)
     let stat .= Color(active, 3, readonly)
     let stat .= Color(active, 3, modified)
     let stat .= fill
     let stat .= '%='
-    let stat .= Color(active, 6, separator)
-    let stat .= Color(active, 1, branch)
+    let stat .= Color(active, 8, branch)
+    let stat .= Color(active, 8, static_column)
 
     return stat
 endfunction
@@ -278,6 +289,8 @@ hi link User3 Title
 hi link User4 PmenuSel
 hi link User5 PmenuSel
 hi link User6 Comment
+hi User7 cterm=none ctermfg=237 ctermbg=246 gui=none guifg=#3a3a3a guibg=#949494
+hi link User8 LineNr
 hi! link StatusLine User3
 hi! link StatusLineNC Comment
 

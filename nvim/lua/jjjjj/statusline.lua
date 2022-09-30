@@ -65,6 +65,7 @@ Statusline.active = function()
         percentage(),
         '%#MyStatusLineNormal#',
         filename(ft),
+        '%#MyStatusLineIcon#',
         readonly(ft, ro),
         modified(mo),
         '%=',
