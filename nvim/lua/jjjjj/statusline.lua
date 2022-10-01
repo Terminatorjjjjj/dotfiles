@@ -69,6 +69,7 @@ Statusline.active = function()
         readonly(ft, ro),
         modified(mo),
         '%=',
+        '%#MyStatusLineNormal#',
         static_column(),
 --         branch(),
     }

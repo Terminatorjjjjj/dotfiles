@@ -3,7 +3,6 @@ require('jjjjj.keymaps')
 require('jjjjj.autocmd')
 require('jjjjj.comment')
 require('jjjjj.statusline')
-
 require('jjjjj.plugins')
 require('plugins.colorscheme')
 require('plugins.easy_align')

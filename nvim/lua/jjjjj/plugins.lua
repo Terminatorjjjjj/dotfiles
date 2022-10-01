@@ -19,14 +19,14 @@ return packer.startup({function(use)
     use('Terminatorjjjjj/vim.sv')
 
     -- Statusline
-    use('nvim-lualine/lualine.nvim')
+--     use('nvim-lualine/lualine.nvim')
 
     -- Colorscheme
     use('gruvbox-community/gruvbox')
     use('sainnhe/everforest')
-    use('sainnhe/gruvbox-material')
-    use('arcticicestudio/nord-vim')
-    use('navarasu/onedark.nvim')
+--     use('sainnhe/gruvbox-material')
+--     use('arcticicestudio/nord-vim')
+--     use('navarasu/onedark.nvim')
 
     -- Autocomplete
     use({
