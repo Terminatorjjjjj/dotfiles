@@ -14,7 +14,7 @@ _G._packer.inside_compile = true
 
 local time
 local profile_info
-local should_profile = true
+local should_profile = false
 if should_profile then
   local hrtime = vim.loop.hrtime
   profile_info = {}
@@ -121,11 +121,6 @@ _G.packer_plugins = {
     path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/everforest",
     url = "https://github.com/sainnhe/everforest"
   },
-  ["friendly-snippets"] = {
-    loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/friendly-snippets",
-    url = "https://github.com/rafamadriz/friendly-snippets"
-  },
   gruvbox = {
     loaded = true,
     path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/gruvbox",
@@ -171,11 +166,6 @@ _G.packer_plugins = {
     path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/vim-easy-align",
     url = "https://github.com/junegunn/vim-easy-align"
   },
-  ["vim-unimpaired"] = {
-    loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/vim-unimpaired",
-    url = "https://github.com/tpope/vim-unimpaired"
-  },
   ["vim.sv"] = {
     loaded = true,
     path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/vim.sv",
@@ -187,10 +177,10 @@ time([[Defining packer_plugins]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
-vim.cmd [[ packadd cmp-path ]]
-vim.cmd [[ packadd cmp_luasnip ]]
 vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd cmp-cmdline ]]
+vim.cmd [[ packadd cmp-path ]]
+vim.cmd [[ packadd cmp_luasnip ]]
 time([[Sequenced loading]], false)
 
 _G._packer.inside_compile = false

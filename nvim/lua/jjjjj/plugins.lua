@@ -12,7 +12,7 @@ return packer.startup({function(use)
 
     -- Utils
     use('kyazdani42/nvim-web-devicons')
-    use('tpope/vim-unimpaired')
+--     use('tpope/vim-unimpaired')
     use('junegunn/vim-easy-align')
     use('vim-scripts/VisIncr')
     use('luochen1990/rainbow')
@@ -33,7 +33,7 @@ return packer.startup({function(use)
         'hrsh7th/nvim-cmp',
         requires = {
             'L3MON4D3/LuaSnip',
-            requires = { 'rafamadriz/friendly-snippets' },
+--             requires = { 'rafamadriz/friendly-snippets' },
         }
     })
     use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })

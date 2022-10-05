@@ -47,3 +47,18 @@ map('c', '<C-k>', '<Up>', opt_n)
 
 -- Quit terminal with Esc
 map('t', '<Esc>', '<C-\\><C-n>:q!<CR>', opt_s)
+
+-- Selected keymaps from unimpaired
+-- Insert blank line w/o moving cursor
+map('n', '[<Space>', ":<C-u>put!=repeat([''],v:count)<bar>']+1<CR>", opt_n)
+map('n', ']<Space>', ":<C-u>put =repeat([''],v:count)<bar>'[-1<CR>", opt_n)
+-- Buffer navigation
+map('n', '[b', ':bprevious<CR>', opt_n)
+map('n', ']b', ':bnext<CR>', opt_n)
+map('n', '[B', ':bfirst<CR>', opt_n)
+map('n', ']B', ':blast<CR>', opt_n)
+-- Quickfix list navigation
+map('n', '[q', ':cprevious<CR>', opt_n)
+map('n', ']q', ':cnext<CR>', opt_n)
+map('n', '[Q', ':cfirst<CR>', opt_n)
+map('n', ']Q', ':clast<CR>', opt_n)

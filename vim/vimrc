@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'ervandew/supertab'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/VisIncr'
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/vim-gitbranch'
@@ -21,9 +21,9 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 Plug 'gruvbox-community/gruvbox'
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
 Plug 'sainnhe/everforest'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
@@ -86,12 +86,12 @@ nnoremap + <C-a>
 nnoremap - <C-x>
 
 " Move line up/down
-nnoremap <c-j> :m .+1<cr>
-nnoremap <c-k> :m .-2<cr>
-inoremap <c-j> <esc>:m .+1<cr>gi
-inoremap <c-k> <esc>:m .-2<cr>gi
-vnoremap <c-j> :m '>+1<cr>gv
-vnoremap <c-k> :m '<-2<cr>gv
+nnoremap <C-j> :m .+1<CR>
+nnoremap <C-k> :m .-2<CR>
+inoremap <C-j> <Esc>:m .+1<CR>gi
+inoremap <C-k> <Esc>:m .-2<CR>gi
+vnoremap <C-j> :m '>+1<CR>gv
+vnoremap <C-k> :m '<-2<CR>gv
 
 " Keeping search result centered
 nnoremap N Nzzzv
@@ -105,6 +105,21 @@ cnoremap <C-k> <Up>
 if v:version > 800
     tnoremap <Esc> <C-\><C-n>:q!<CR>
 endif
+
+" Selected keymaps from unimpaired
+" Insert blank line w/o moving cursor
+nnoremap [<Space> :<C-u>put!=repeat([''],v:count)<bar>']+1<CR>
+nnoremap ]<Space> :<C-u>put =repeat([''],v:count)<bar>'[-1<CR>
+" Buffer navigation
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
+" Quickfix list navigation
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
 
 " }}}
 " Autocmd: {{{
