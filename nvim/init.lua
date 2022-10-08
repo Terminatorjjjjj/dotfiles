@@ -6,8 +6,8 @@ require('jjjjj.statusline')
 require('jjjjj.plugins')
 require('plugins.colorscheme')
 require('plugins.easy_align')
--- require('plugins.lualine')
-require('plugins.cmp')
+-- require('plugins.lualine') -- not used
+-- require('plugins.cmp') -- lazyload
 require('plugins.telescope')
 
 -- modeline

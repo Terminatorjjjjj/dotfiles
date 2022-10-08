@@ -12,7 +12,6 @@ return packer.startup({function(use)
 
     -- Utils
     use('kyazdani42/nvim-web-devicons')
---     use('tpope/vim-unimpaired')
     use('junegunn/vim-easy-align')
     use('vim-scripts/VisIncr')
     use('luochen1990/rainbow')
@@ -24,7 +23,6 @@ return packer.startup({function(use)
     -- Colorscheme
     use('gruvbox-community/gruvbox')
     use('sainnhe/everforest')
---     use('sainnhe/gruvbox-material')
 --     use('arcticicestudio/nord-vim')
 --     use('navarasu/onedark.nvim')
 
@@ -33,8 +31,12 @@ return packer.startup({function(use)
         'hrsh7th/nvim-cmp',
         requires = {
             'L3MON4D3/LuaSnip',
---             requires = { 'rafamadriz/friendly-snippets' },
-        }
+            requires = { 'rafamadriz/friendly-snippets' },
+        },
+        config = function()
+            require('plugins.cmp')
+        end,
+        event = {'InsertEnter', 'CmdlineEnter'},
     })
     use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })
     use({ 'hrsh7th/cmp-path', after = 'nvim-cmp' })
@@ -47,6 +49,7 @@ return packer.startup({function(use)
         branch = '0.1.x',
         requires = { 'nvim-lua/plenary.nvim' },
     }
+    -- Not lazyload w/ cmd since want to replace netrw when starting nvim w/ dir
     use('nvim-telescope/telescope-file-browser.nvim')
 end,
 config = {
