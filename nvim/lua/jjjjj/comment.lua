@@ -30,9 +30,9 @@ vim.api.nvim_create_augroup('get_comment_leader', { clear = true })
 comment('// ', comment_double_slash)
 comment('# ',  comment_number_sign)
 comment('% ',  comment_percent_sign)
-comment('\" ', comment_double_quote)
+comment('" ',  comment_double_quote)
 comment('-- ', comment_double_dash)
 
 local opt_s = { noremap = true, silent = true }
-vim.keymap.set('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/')<CR>/<CR>:nohlsearch<CR>", opt_s)
-vim.keymap.set('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/')<CR>//e<CR>:nohlsearch<CR>", opt_s)
+vim.keymap.set('', 'gcc', ":<C-b>silent <C-e>s/^/<C-r>=escape(b:comment_leader,'\\/\"%')<CR>/<CR>:nohlsearch<CR>", opt_s)
+vim.keymap.set('', 'gcu', ":<C-b>silent <C-e>s/^\\v<C-r>=escape(b:comment_leader,'\\/\"%')<CR>//e<CR>:nohlsearch<CR>", opt_s)

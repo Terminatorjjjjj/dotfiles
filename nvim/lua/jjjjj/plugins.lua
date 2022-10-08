@@ -17,14 +17,11 @@ return packer.startup({function(use)
     use('luochen1990/rainbow')
     use('Terminatorjjjjj/vim.sv')
 
-    -- Statusline
---     use('nvim-lualine/lualine.nvim')
-
     -- Colorscheme
     use('gruvbox-community/gruvbox')
     use('sainnhe/everforest')
---     use('arcticicestudio/nord-vim')
---     use('navarasu/onedark.nvim')
+    use('arcticicestudio/nord-vim')
+    use('navarasu/onedark.nvim')
 
     -- Autocomplete
     use({
@@ -34,7 +31,7 @@ return packer.startup({function(use)
             requires = { 'rafamadriz/friendly-snippets' },
         },
         config = function()
-            require('plugins.cmp')
+            return require('plugins.cmp')
         end,
         event = {'InsertEnter', 'CmdlineEnter'},
     })
