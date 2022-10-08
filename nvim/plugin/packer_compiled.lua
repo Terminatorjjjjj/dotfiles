@@ -140,7 +140,7 @@ _G.packer_plugins = {
     url = "https://github.com/gruvbox-community/gruvbox"
   },
   ["nvim-cmp"] = {
-    after = { "cmp-path", "cmp-buffer", "cmp_luasnip", "cmp-cmdline" },
+    after = { "cmp-path", "cmp_luasnip", "cmp-buffer", "cmp-cmdline" },
     config = { "\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16plugins.cmp\frequire\0" },
     loaded = false,
     needs_bufread = false,
