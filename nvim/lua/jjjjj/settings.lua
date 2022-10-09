@@ -30,8 +30,6 @@ end
 
 vim.opt.foldtext = 'v:lua.FoldText()'
 
-vim.opt.termguicolors = true
-
 -- Disable some builtin vim plugins
 local builtin_plugins = {
   '2html_plugin',
