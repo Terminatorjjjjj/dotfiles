@@ -145,7 +145,7 @@ _G.packer_plugins = {
     url = "https://github.com/arcticicestudio/nord-vim"
   },
   ["nvim-cmp"] = {
-    after = { "cmp-buffer", "cmp-cmdline", "cmp-path", "cmp_luasnip" },
+    after = { "cmp-path", "cmp_luasnip", "cmp-buffer", "cmp-cmdline" },
     config = { "\27LJ\2\n'\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\16plugins.cmp\frequire\0" },
     loaded = false,
     needs_bufread = false,
@@ -205,8 +205,8 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au CmdlineEnter * ++once lua require("packer.load")({'nvim-cmp'}, { event = "CmdlineEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'nvim-cmp'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au CmdlineEnter * ++once lua require("packer.load")({'nvim-cmp'}, { event = "CmdlineEnter *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 
