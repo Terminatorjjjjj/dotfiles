@@ -31,6 +31,7 @@
 + [Seamless navigation in vim and tmux](https://www.bugsnag.com/blog/tmux-and-vim)
 + [Customize active and inactive statuslines](https://jip.dev/posts/a-simpler-vim-statusline/)
 + [Show Lint message in quickfix list](https://ys-hayashi.me/2016/05/vim-nlint/)
++ [Create proper folding](https://jdhao.github.io/2019/08/16/nvim_config_folding/)
 
 # Neovim
 + [Chris@Machine - Neovim from scratch series](https://youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ)
