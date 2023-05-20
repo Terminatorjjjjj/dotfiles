@@ -49,3 +49,7 @@
 $ ./gh-md-toc --insert <markdown> # ekalinin/github-markdown-toc
 ```
 
+# Dotfiles
++ [craftzdog/dotfiles-public](https://github.com/craftzdog/dotfiles-public)
++ [numToStr/dotfiles](https://github.com/numToStr/dotfiles)
+
