@@ -32,6 +32,7 @@
 + [Customize active and inactive statuslines](https://jip.dev/posts/a-simpler-vim-statusline/)
 + [Show Lint message in quickfix list](https://ys-hayashi.me/2016/05/vim-nlint/)
 + [Create proper folding](https://jdhao.github.io/2019/08/16/nvim_config_folding/)
++ [Search and replace with wildcard string](https://stackoverflow.com/questions/10336609/is-it-possible-to-use-find-and-replace-on-a-wildcard-string-in-vim)
 
 # Neovim
 + [Chris@Machine - Neovim from scratch series](https://youtube.com/playlist?list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ)
