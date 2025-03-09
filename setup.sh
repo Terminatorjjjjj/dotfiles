@@ -1,4 +1,5 @@
 #!/bin/sh
+# $1 = <dir to dotfiles>
 
 ln -s $1 ~/.dotfiles
 
@@ -9,4 +10,6 @@ ln -s ~/.dotfiles/vim/ ~/.vim
 ln -s ~/.dotfiles/vim/vimrc ~/.vimrc
 ln -s ~/.dotfiles/zsh/zshrc ~/.zshrc
 
+mkdir -p ~/.config
+ln -s ~/.dotfiles/nvim/ ~/.config/nvim
 

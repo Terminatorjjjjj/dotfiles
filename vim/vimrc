@@ -180,7 +180,7 @@ let g:gruvbox_material_better_performance = 1
 " let g:gruvbox_material_menu_selection_background = 'yellow'
 
 set background=dark
-colorscheme everforest
+colorscheme gruvbox
 
 hi CursorLine ctermbg=16 guibg=#000000
 hi CursorColumn ctermbg=16 guibg=#000000

@@ -18,6 +18,7 @@
 + [DistroTube - Learn to use awk](https://youtu.be/9YOZmI-zWok)
 + [Customize zsh prompt](https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/)
 + [Show git info in zsh prompt](https://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html)
++ [iTerm2 + Oh My Zsh](https://pjchender.dev/app/mac-terminal-iterm2/)
 
 # Vim
 + [Use vim as ide](https://github.com/yangyangwithgnu/use_vim_as_ide)
