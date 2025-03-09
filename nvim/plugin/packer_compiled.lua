@@ -14,7 +14,7 @@ _G._packer.inside_compile = true
 
 local time
 local profile_info
-local should_profile = true
+local should_profile = false
 if should_profile then
   local hrtime = vim.loop.hrtime
   profile_info = {}
@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/jjjjj/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/jjjjj/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/jjjjj/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/jjjjj/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/jjjjj/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/Users/apple/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?.lua;/Users/apple/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?/init.lua;/Users/apple/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?.lua;/Users/apple/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/apple/.cache/nvim/packer_hererocks/2.1.1736781742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,126 +76,126 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   LuaSnip = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/LuaSnip",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
   VisIncr = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/VisIncr",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/VisIncr",
     url = "https://github.com/vim-scripts/VisIncr"
   },
   ["cmp-buffer"] = {
-    after_files = { "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
+    after_files = { "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-buffer/after/plugin/cmp_buffer.lua" },
     load_after = {
       ["nvim-cmp"] = true
     },
     loaded = false,
     needs_bufread = false,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-buffer",
+    path = "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-cmdline"] = {
-    after_files = { "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-cmdline/after/plugin/cmp_cmdline.lua" },
+    after_files = { "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-cmdline/after/plugin/cmp_cmdline.lua" },
     load_after = {
       ["nvim-cmp"] = true
     },
     loaded = false,
     needs_bufread = false,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-cmdline",
+    path = "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-path"] = {
-    after_files = { "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-path/after/plugin/cmp_path.lua" },
+    after_files = { "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-path/after/plugin/cmp_path.lua" },
     load_after = {
       ["nvim-cmp"] = true
     },
     loaded = false,
     needs_bufread = false,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp-path",
+    path = "/Users/apple/.config/nvim/site/pack/packer/opt/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
-    after_files = { "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua" },
+    after_files = { "/Users/apple/.config/nvim/site/pack/packer/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua" },
     load_after = {
       ["nvim-cmp"] = true
     },
     loaded = false,
     needs_bufread = false,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/opt/cmp_luasnip",
+    path = "/Users/apple/.config/nvim/site/pack/packer/opt/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   everforest = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/everforest",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/everforest",
     url = "https://github.com/sainnhe/everforest"
   },
   ["friendly-snippets"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/friendly-snippets",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/friendly-snippets",
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   gruvbox = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/gruvbox",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/gruvbox-community/gruvbox"
   },
   ["nord-vim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/nord-vim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/nord-vim",
     url = "https://github.com/arcticicestudio/nord-vim"
   },
   ["nvim-cmp"] = {
-    after = { "cmp-path", "cmp_luasnip", "cmp-buffer", "cmp-cmdline" },
+    after = { "cmp-buffer", "cmp-cmdline", "cmp-path", "cmp_luasnip" },
     config = { "\27LJ\2\n'\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\16plugins.cmp\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/opt/nvim-cmp",
+    path = "/Users/apple/.config/nvim/site/pack/packer/opt/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/nvim-web-devicons",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["onedark.nvim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/onedark.nvim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/onedark.nvim",
     url = "https://github.com/navarasu/onedark.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/packer.nvim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/plenary.nvim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   rainbow = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/rainbow",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/rainbow",
     url = "https://github.com/luochen1990/rainbow"
   },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/telescope-file-browser.nvim",
     url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/telescope.nvim",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["vim-easy-align"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/vim-easy-align",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/vim-easy-align",
     url = "https://github.com/junegunn/vim-easy-align"
   },
   ["vim.sv"] = {
     loaded = true,
-    path = "/Users/jjjjj/.config/nvim/site/pack/packer/start/vim.sv",
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/vim.sv",
     url = "https://github.com/Terminatorjjjjj/vim.sv"
   }
 }
