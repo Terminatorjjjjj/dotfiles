@@ -19,7 +19,6 @@ require("lazy").setup({
     -- Colorscheme
     { "gruvbox-community/gruvbox" },
     { "sainnhe/everforest" },
-    { "neanias/everforest-nvim" },
     { "arcticicestudio/nord-vim" },
     { "navarasu/onedark.nvim" },
     { "EdenEast/nightfox.nvim" },
