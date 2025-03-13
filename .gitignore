@@ -2,6 +2,8 @@ vim/bundle/**
 vim/plugged/**
 vim/undodir/**
 nvim/site/**
+nvim/lazy/**
 nvim/undodir/**
+nvim/lazy-lock.json
 gh-md-toc
 

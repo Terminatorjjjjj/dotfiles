@@ -8,6 +8,8 @@ map('i', 'jj', '<Esc>', opt_s)
 map('n', '<Space>', ':', opt_n)
 map('v', '<Space>', ':', opt_n)
 
+map('n', '<Leader><Leader>', ':noh<CR>', opt_n)
+
 -- Window cmd
 map('n', 'gw', '<C-w>', opt_s)
 -- Go to last buffer

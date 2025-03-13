@@ -1,59 +1,65 @@
-local packer_path = vim.fn.stdpath('config') .. '/site'
-vim.o.packpath = vim.o.packpath .. ',' .. packer_path
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-local status, packer = pcall(require, "packer")
-if (not status) then
-  vim.notify("Packer is not installed!")
-  return
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--branch=stable",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
-return packer.startup({function(use)
-    use('wbthomason/packer.nvim')
+-- Setup lazy.nvim
+-- Packages are downloaded to ~/.local/share/nvim/lazy/
+require("lazy").setup({
+    -- Colorscheme
+    { "gruvbox-community/gruvbox" },
+    { "sainnhe/everforest" },
+    { "neanias/everforest-nvim" },
+    { "arcticicestudio/nord-vim" },
+    { "navarasu/onedark.nvim" },
+    { "EdenEast/nightfox.nvim" },
+    { "Mofiqul/dracula.nvim" },
+    { "catppuccin/nvim", name = "catppuccin" },
+    { "folke/tokyonight.nvim" },
+    { "rebelot/kanagawa.nvim" },
+    { "craftzdog/solarized-osaka.nvim" },
+    { "AlexvZyl/nordic.nvim" },
 
     -- Utils
-    use('kyazdani42/nvim-web-devicons')
-    use('junegunn/vim-easy-align')
-    use('vim-scripts/VisIncr')
-    use('luochen1990/rainbow')
-    use('Terminatorjjjjj/vim.sv')
-
-    -- Colorscheme
-    use('gruvbox-community/gruvbox')
-    use('sainnhe/everforest')
-    use('arcticicestudio/nord-vim')
-    use('navarasu/onedark.nvim')
+    { "kyazdani42/nvim-web-devicons", event = "VeryLazy"},
+    { "junegunn/vim-easy-align" },
+    { "vim-scripts/VisIncr" },
+    { "luochen1990/rainbow" },
+    { "Terminatorjjjjj/vim.sv", ft = {"verilog", "systemverilog"} },
 
     -- Autocomplete
-    use({
-        'hrsh7th/nvim-cmp',
-        requires = {
-            'L3MON4D3/LuaSnip',
-            requires = { 'rafamadriz/friendly-snippets' },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "L3MON4D3/LuaSnip",
+            dependencies = { "rafamadriz/friendly-snippets" },
         },
         config = function()
-            return require('plugins.cmp')
+            return require("plugins.cmp")
         end,
-        event = {'InsertEnter', 'CmdlineEnter'},
-    })
-    use({ 'hrsh7th/cmp-buffer', after = 'nvim-cmp' })
-    use({ 'hrsh7th/cmp-path', after = 'nvim-cmp' })
-    use({ 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' })
-    use({ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' })
+        event = {"InsertEnter", "CmdlineEnter"},
+    },
+    { "hrsh7th/cmp-buffer", dependencies = "nvim-cmp" },
+    { "hrsh7th/cmp-path", dependencies = "nvim-cmp" },
+    { "hrsh7th/cmp-cmdline", dependencies = "nvim-cmp" },
+    { "saadparwaiz1/cmp_luasnip", dependencies = "nvim-cmp" },
 
     -- Fuzzy finder
-    use {
-        'nvim-telescope/telescope.nvim',
-        branch = '0.1.x',
-        requires = { 'nvim-lua/plenary.nvim' },
-    }
-    -- Not lazyload w/ cmd since want to replace netrw when starting nvim w/ dir
-    use('nvim-telescope/telescope-file-browser.nvim')
-end,
-config = {
-    display = {
-        open_fn = function()
-            return require('packer.util').float({ border = 'rounded' })
-        end
+    {
+        "nvim-telescope/telescope.nvim",
+        version = "0.1.8",
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
-    package_root = vim.fn.stdpath('config') .. '/site/pack'
-}})
+    -- Not lazyload w/ cmd since want to replace netrw when starting nvim w/ dir
+    { "nvim-telescope/telescope-file-browser.nvim" },
+})
