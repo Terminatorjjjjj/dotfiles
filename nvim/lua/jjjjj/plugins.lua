@@ -1,9 +1,11 @@
+-- git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.config/nvim/site/pack/packer/start/packer.nvim
+
 local packer_path = vim.fn.stdpath('config') .. '/site'
 vim.o.packpath = vim.o.packpath .. ',' .. packer_path
 
-local status, packer = pcall(require, "packer")
+local status, packer = pcall(require, 'packer')
 if (not status) then
-  vim.notify("Packer is not installed!")
+  vim.notify('Packer is not installed!')
   return
 end
 
@@ -22,6 +24,12 @@ return packer.startup({function(use)
     use('sainnhe/everforest')
     use('arcticicestudio/nord-vim')
     use('navarasu/onedark.nvim')
+    use('EdenEast/nightfox.nvim')
+    use('Mofiqul/dracula.nvim')
+    use('folke/tokyonight.nvim')
+    use('rebelot/kanagawa.nvim')
+    use('craftzdog/solarized-osaka.nvim')
+    use('AlexvZyl/nordic.nvim')
 
     -- Autocomplete
     use({
@@ -41,11 +49,11 @@ return packer.startup({function(use)
     use({ 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' })
 
     -- Fuzzy finder
-    use {
+    use({
         'nvim-telescope/telescope.nvim',
-        branch = '0.1.x',
+        tag = '0.1.8',
         requires = { 'nvim-lua/plenary.nvim' },
-    }
+    })
     -- Not lazyload w/ cmd since want to replace netrw when starting nvim w/ dir
     use('nvim-telescope/telescope-file-browser.nvim')
 end,

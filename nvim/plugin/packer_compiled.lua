@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "/Users/apple/.config/nvim/site/pack/packer/opt/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["dracula.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/dracula.nvim",
+    url = "https://github.com/Mofiqul/dracula.nvim"
+  },
   everforest = {
     loaded = true,
     path = "/Users/apple/.config/nvim/site/pack/packer/start/everforest",
@@ -139,13 +144,28 @@ _G.packer_plugins = {
     path = "/Users/apple/.config/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/gruvbox-community/gruvbox"
   },
+  ["kanagawa.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
+  },
+  ["nightfox.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/nightfox.nvim",
+    url = "https://github.com/EdenEast/nightfox.nvim"
+  },
   ["nord-vim"] = {
     loaded = true,
     path = "/Users/apple/.config/nvim/site/pack/packer/start/nord-vim",
     url = "https://github.com/arcticicestudio/nord-vim"
   },
+  ["nordic.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/nordic.nvim",
+    url = "https://github.com/AlexvZyl/nordic.nvim"
+  },
   ["nvim-cmp"] = {
-    after = { "cmp-buffer", "cmp-cmdline", "cmp-path", "cmp_luasnip" },
+    after = { "cmp-buffer", "cmp-path", "cmp-cmdline", "cmp_luasnip" },
     config = { "\27LJ\2\n'\0\0\3\0\2\0\0036\0\0\0'\2\1\0D\0\2\0\16plugins.cmp\frequire\0" },
     loaded = false,
     needs_bufread = false,
@@ -178,6 +198,11 @@ _G.packer_plugins = {
     path = "/Users/apple/.config/nvim/site/pack/packer/start/rainbow",
     url = "https://github.com/luochen1990/rainbow"
   },
+  ["solarized-osaka.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/solarized-osaka.nvim",
+    url = "https://github.com/craftzdog/solarized-osaka.nvim"
+  },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
     path = "/Users/apple/.config/nvim/site/pack/packer/start/telescope-file-browser.nvim",
@@ -187,6 +212,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/apple/.config/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/Users/apple/.config/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
   },
   ["vim-easy-align"] = {
     loaded = true,

@@ -3,7 +3,7 @@ vim.opt.termguicolors = true
 vim.g.rainbow_active = 1
 vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 1
--- vim.g.everforest_disable_italic_comment = 1
+vim.g.everforest_disable_italic_comment = 1
 
 vim.g.my_statusline_standout_gray_scale = true
 vim.g.my_statusline_normal_gray_scale = false

@@ -41,9 +41,15 @@ telescope.setup {
     },
     extensions = {
         file_browser = {
-            theme = 'dropdown',
+            theme = 'ivy',
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
+            path = '%:p:h',
+            cwd = telescope_buffer_dir(),
+            respect_gitignore = false,
+            hidden = true,
+            grouped = true,
+            initial_mode = 'normal',
         },
     }
 }
@@ -76,14 +82,13 @@ end, opt_s)
 
 map('n', 'gpf', function()
     telescope.extensions.file_browser.file_browser({
+        theme = 'ivy',
         path = '%:p:h',
         cwd = telescope_buffer_dir(),
         respect_gitignore = false,
         hidden = true,
         grouped = true,
-        previewer = false,
         initial_mode = 'normal',
-        layout_config = { height = 25 },
     })
 end, opt_s)
 
