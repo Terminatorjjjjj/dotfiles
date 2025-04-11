@@ -4,16 +4,42 @@ if (not status) then return end
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 
-local theme = function(p)
-    return require('telescope.themes').get_dropdown({
+local borderchars = {
+    results = { '', '', '', '', '', '', '', '' },
+    preview = { '', '', '', '', '', '', '', '' },
+}
+
+local layout_config = {
+    horizontal = {
+        prompt_position = 'top',
+        -- Make full screen
+        width = { padding = 0 },
+        height = { padding = 0 },
+        preview_width = 0.5,
+    },
+}
+
+local opt_ivy = {
+    theme = 'ivy',
+    layout_strategy = 'horizontal',
+    layout_config = layout_config,
+    borderchars = borderchars,
+    results_title = false,
+    preview_title = false,
+}
+
+local opt_dropdown = function(p)
+    return {
+        theme = 'dropdown',
+        layout_strategy = 'center',
         prompt_prefix = p,
-        prompt_title = '',
-        results_title = '',
+        prompt_title = false,
+        results_title = false,
         previewer = false,
-    })
+    }
 end
 
-local function telescope_buffer_dir()
+local telescope_buffer_dir = function()
     return vim.fn.expand('%:p:h')
 end
 
@@ -39,9 +65,27 @@ telescope.setup {
             },
         },
     },
+    pickers = {
+        git_files = opt_dropdown('Files> '),
+        find_files = opt_dropdown('Files> '),
+        buffers = opt_dropdown('Buffers> '),
+        oldfiles = opt_dropdown('Oldfiles> '),
+        quickfix = opt_ivy,
+        live_grep = opt_ivy,
+        current_buffer_fuzzy_find = opt_ivy,
+        git_commits = opt_ivy,
+        git_bcommits = opt_ivy,
+        git_branches = opt_ivy,
+        git_status = opt_ivy,
+    },
     extensions = {
         file_browser = {
             theme = 'ivy',
+            layout_strategy = 'horizontal',
+            layout_config = layout_config,
+            borderchars = borderchars,
+            results_title = false,
+            preview_title = false,
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
             path = '%:p:h',
@@ -61,37 +105,20 @@ local map = vim.keymap.set
 local opt_n = { noremap = true }
 local opt_s = { noremap = true, silent = true }
 
-map('n', '<C-p>', ':Telescope ', opt_n)
-
 _G.TelescopeFiles = function()
     local _, ret, _ = require('telescope.utils').get_os_command_output({ 'git', 'rev-parse', '--is-inside-work-tree' }) 
     if ret == 0 then 
-        builtin.git_files(theme('Files>'), { show_untracked = true }) 
+        builtin.git_files({ show_untracked = true }) 
     else
-        builtin.find_files(theme('Files>')) -- Recommended: 'sharkdp/fd'
+        builtin.find_files() -- Recommended: 'sharkdp/fd'
     end 
-end 
+end
+
+map('n', '<C-p>', ':Telescope ', opt_n)
 map('n', 'gpp', '<cmd>lua TelescopeFiles()<CR>', opt_s)
-
-map('n', 'gpb', function()
-    builtin.buffers(theme('Buffers>'))
-end, opt_s)
-map('n', 'gpo', function()
-    builtin.oldfiles(theme('Oldfiles>'))
-end, opt_s)
-
-map('n', 'gpf', function()
-    telescope.extensions.file_browser.file_browser({
-        theme = 'ivy',
-        path = '%:p:h',
-        cwd = telescope_buffer_dir(),
-        respect_gitignore = false,
-        hidden = true,
-        grouped = true,
-        initial_mode = 'normal',
-    })
-end, opt_s)
-
+map('n', 'gpb', builtin.buffers, opt_s)
+map('n', 'gpo', builtin.oldfiles, opt_s)
+map('n', 'gpf', telescope.extensions.file_browser.file_browser, opt_s)
 map('n', 'gpq', builtin.quickfix, opt_s)
-map('n', 'gpr', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
+map('n', 'gpg', builtin.live_grep, opt_s) -- Require: 'BurntShusi/ripgrep'
 map('n', 'gps', builtin.current_buffer_fuzzy_find, opt_s)
