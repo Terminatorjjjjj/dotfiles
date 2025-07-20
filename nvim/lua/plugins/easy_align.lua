@@ -38,7 +38,7 @@ let g:easy_align_delimiters = {
     \     'right_margin':  0,
     \ },
     \ 'd': {
-    \     'pattern':      ' \ze\S\+\s*[,;=]',
+    \     'pattern':      ' \ze\S\+\s*\(\[\S\+\)*\s*[,;=]',
     \     'left_margin':  0,
     \     'right_margin': 0
     \ }}
