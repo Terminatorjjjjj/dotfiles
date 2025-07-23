@@ -20,7 +20,7 @@ local function verilog_auto_instance()
     return ":s/\\(input\\|output\\|inout\\)//e<CR>"
         .. ":'<,'>s/\\(logic\\|reg\\|wire\\)//e<CR>"
         .. ":'<,'>s/\\(\\[.\\+:\\w\\+\\]\\)//e<CR>"
-        .. ":'<,'>s/\\s*\\(\\h\\+\\)/\\.\\1\\(\\1\\)/e<CR>"
+        .. ":'<,'>s/\\s*\\(\\h\\w*\\)/\\.\\1\\(\\1\\)/e<CR>"
         .. ":'<,'>s/\\s*\\[[^:]*\\(\\]\\)\\+//e<CR>"
         .. ":'<,'>noh<CR>"
 end
